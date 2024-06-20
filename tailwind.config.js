@@ -14,6 +14,31 @@ export default {
   },
   darkMode: "class",
   plugins: [
-    nextui(),
+    nextui({
+      themes: {
+        light: {
+          // ...
+          colors: {
+            background: "#ffffff", // or DEFAULT
+            foreground: "#dfdfdf", // or 50 to 900 DEFAULT
+            primary: {
+              //... 50 to 900
+              foreground: "#dfdfdf",
+              DEFAULT: "#0c5595",
+            },
+            secondary: {
+              foreground: "#dfdfdf",
+              DEFAULT: "#2a6aa4"
+            },
+            // ... rest of the colors
+          },
+        },
+        dark: {
+          // ...
+          colors: {},
+        },
+        // ... custom themes
+      },
+    }),
   ],
 };
