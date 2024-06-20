@@ -22,11 +22,11 @@ const Header = () => {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
     return (
-        <Navbar maxWidth="full">
+        <Navbar maxWidth="2xl" height={100}>
         <NavbarBrand>
             <Logo width={100}/>
         </NavbarBrand>
-        <NavbarContent className="hidden sm:flex gap-4 full" justify="end">
+        <NavbarContent className="hidden sm:flex gap-4 full py-[20px]" justify="end">
             <NavbarItem isActive={path.pathname === '/' ? true : false}>
             <NavLink to='/' aria-current="page">
                 Home
