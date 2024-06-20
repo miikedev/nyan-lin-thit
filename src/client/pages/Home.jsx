@@ -1,10 +1,12 @@
 import React from 'react'
 
+import Hero from '../components/home/Hero'
+
 const Home = () => {
   return (
-    <div className='h-screen '>
-        <h1 className="text-primary text-bold text-[40px]">Hello Home Page</h1>
-    </div>
+    <>
+        <Hero />
+    </>
   )
 }
 
