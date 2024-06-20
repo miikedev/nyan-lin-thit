@@ -1,5 +1,5 @@
 {
-  "name": "nlt-2024-new",
+  "name": "nyan_lynn_thit__2024",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,8 +13,6 @@
     "@mantine/core": "^7.10.2",
     "@mantine/hooks": "^7.10.2",
     "@nextui-org/react": "^2.4.2",
-    "axios": "^1.7.2",
-    "framer-motion": "^11.2.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1"
@@ -22,7 +20,7 @@
   "devDependencies": {
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
-    "@vitejs/plugin-react-swc": "^3.5.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.1",
