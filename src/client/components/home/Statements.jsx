@@ -1,7 +1,11 @@
-import React from 'react'
-import { Box, Image, Title, Grid, Text, } from '@mantine/core'
+import { Box, Image, Title, Grid, Text, Space } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
 const Statements = () => {
+    const code =( <Box>
+    <h1 className='leading-4 font-semibold text-[16px]'>Lorem ispam Lorem ispam Lorem ispam Lorem ispam</h1>
+    <Space h={2} />
+    <Text size='xs' c='dimmed'>Lorem ispam</Text>
+</Box>)
   return (  
     <>
         <Box className='px-[140px] w-full'>
@@ -78,6 +82,8 @@ const Statements = () => {
                     </Card>
                 </Grid.Col>
             </Grid>
+            <Space h={100} />
+            
         </Box>
     </>
   )
