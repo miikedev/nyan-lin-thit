@@ -3,8 +3,8 @@ import { Title, Grid, Box, Text } from '@mantine/core'
 import { Avatar } from '@nextui-org/react'
 const MissionVisionValues = () => {
   return (
-    <Box className='my-[20px]'>
-        <Box w={'full'} className='flex justify-between px-[120px] flex-col items-center'>
+    <Box className='px-[140px]'>
+        <Box w={'full'} className='flex justify-between flex-col items-center'>
             <Title className='text-center font-semibold text-3xl'>Lorem ispam lorem ispam</Title>
             <Box className='flex w-full justify-between'>
                 <Box className='flex justify-center items-center flex-col gap-4 p-6'>
