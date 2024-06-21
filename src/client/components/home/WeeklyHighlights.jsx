@@ -7,7 +7,7 @@ const WeeklyHighlights = () => {
     <Box className='py-[20px] px-[140px] flex'>
 
                 <Box>
-                    <Image width={720} radius='none' src="https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt='weeklyhights homep image' />
+                    <Image width={640} radius='none' src="https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt='weeklyhights homep image' />
                 </Box>
 
             {/* <Box className='flex flex-col bg-red-300'> */}
