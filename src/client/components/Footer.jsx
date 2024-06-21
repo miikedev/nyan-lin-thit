@@ -3,6 +3,8 @@ import { useLocation, Link as RouterLink } from 'react-router-dom'
 import { Title, Text, Box } from '@mantine/core'
 import { Link, Button, Input } from '@nextui-org/react'
 import Logo from '../icons/Logo'
+import SocialIcons from '../icons/socials/socialIcons'
+
 
 const Footer = () => {
   const [loading, setLoading] = useState(false)
@@ -34,10 +36,18 @@ const Footer = () => {
             <div className='px-[20px]' id='social'>
                 {/* <p className='font-semibold text-center text-[14px] mb-3'>Follow Up</p> */}
                 <div className='flex justify-center gap-[16px] font-light'>
-                <Link href="https://www.facebook.com/quokkastudiomm" underline="always" className='text-sm text-[#343434]'>Facebook</Link>
-                <Link href="https://www.facebook.com/quokkastudiomm" underline="always" className='text-sm text-[#343434]'>X</Link>
-                <Link href="#" underline="always" className='text-sm text-[#343434]'>Telegram</Link>
-                <Link href="#" underline="always" className='text-sm text-[#343434]'>Youtube</Link>
+                <Link href="https://www.facebook.com/quokkastudiomm" underline="always" className='text-sm text-[#343434]'>
+                  <SocialIcons.FacebookIcon />
+                </Link>
+                <Link href="https://www.facebook.com/quokkastudiomm" underline="always" className='text-sm text-[#343434]'>
+                  <SocialIcons.XIcon />
+                </Link>
+                <Link href="#" underline="always" className='text-sm text-[#343434]'>
+                  <SocialIcons.InstagramIcon />
+                </Link>
+                <Link href="#" underline="always" className='text-sm text-[#343434]'>
+                  <SocialIcons.TelegramIcon />
+                </Link>
                 </div>
             </div>
             <div className='copyright flex justify-between text-[10px] sm:text-[12px] w-full  font-light'>
