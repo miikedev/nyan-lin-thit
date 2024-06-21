@@ -5,6 +5,7 @@ import MissionVisionValues from '../components/home/MissionVisionValues'
 import WeeklyHighlights from '../components/home/WeeklyHighlights'
 import ResearchAndAdvocacy from '../components/home/ResearchAndAdvocacy'
 import Statements from '../components/home/Statements'
+import Blog from '../components/home/Blog'
 const Home = () => {
   return (
     <>
@@ -18,6 +19,8 @@ const Home = () => {
         <ResearchAndAdvocacy />
         <Space h="xl" />
         <Statements />
+        <Space h="xl" />
+        <Blog />
       </Box>
     </>
   )
