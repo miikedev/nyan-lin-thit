@@ -12,14 +12,19 @@ const Home = () => {
       <Hero />
       <Space h="xl" />
       <Box className="">
+        <Space h="md" />
+        <Space h="xl" />
         <MissionVisionValues />
+        <Space h="md" />
         <Space h="xl" />
         <WeeklyHighlights />
+        <Space h="md" />
         <Space h="xl" />
         <ResearchAndAdvocacy />
+        <Space h="md" />
         <Space h="xl" />
         <Statements />
-        <Space h="xl" />
+        <Space h="md" />
         <Blog />
       </Box>
     </>

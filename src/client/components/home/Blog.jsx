@@ -13,7 +13,7 @@ const Blog = () => {
                                         w={400}
                                         h={400}
                                         shadow="md"
-                                        src="https://nextui.org/images/album-cover.png"
+                                        src="https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                                     />
                                     <Box className='px-[40px]'>
                                         <Space h={30} />
@@ -29,6 +29,7 @@ const Blog = () => {
                             </Box>
                     </Grid.Col>
                     <Grid.Col span={4}>
+                        <Box className='flex flex-col justify-center h-full'>
                         {
                             Array.from({ length: 4 }).map((e,i) => (
                                     <Box className='flex gap-4 mb-3 items-center'>
@@ -38,7 +39,7 @@ const Blog = () => {
                                             w={75}
                                             h={75}
                                             shadow="md"
-                                            src="https://nextui.org/images/album-cover.png"
+                                            src="https://images.pexels.com/photos/186461/pexels-photo-186461.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                                         />
                                         <Box>
                                             <h1 className='leading-4 font-semibold text-[16px]'>Lorem ispam Lorem ispam Lorem ispam Lorem ispam</h1>
@@ -48,6 +49,7 @@ const Blog = () => {
                                     </Box>
                             ))
                         }
+                        </Box>
                     </Grid.Col>
                 </Grid>
         </Box>
