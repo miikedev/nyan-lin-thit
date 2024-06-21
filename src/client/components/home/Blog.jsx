@@ -2,9 +2,8 @@ import { Box, Image, Title, Grid, Text, Space } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
 const Blog = () => {
   return (
-    <div className='bg-primary-400 bg-opacity-20'>
-        <Box className='w-full p-16'>
-                <Grid>
+    <Box className='bg-primary-400 bg-opacity-20 px-[140px] py-[70px]'>
+        <Grid>
                     <Grid.Col span={8}>
                             <Box className='flex items-center'>
                                     <Image 
@@ -51,9 +50,8 @@ const Blog = () => {
                         }
                         </Box>
                     </Grid.Col>
-                </Grid>
-        </Box>
-    </div>
+        </Grid>
+    </Box>
   )
 }
 
