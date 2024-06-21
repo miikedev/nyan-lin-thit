@@ -17,6 +17,7 @@ const Statements = () => {
                     </Box>
                     <Button className='bg-primary text-white float-right mt-3'>View all Statement</Button>
                 </Grid.Col>
+                <Space h={100} />
                 <Grid.Col span={3}>
                     <Card>
                     <Image
