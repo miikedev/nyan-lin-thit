@@ -1,0 +1,46 @@
+*{
+  margin:0 ;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+.main-container {
+  @apply flex justify-center;
+}
+
+.full-width {
+  @apply w-full;
+}
+
+.chart-container {
+  @apply w-1/3 p-4 cursor-pointer;
+}
+
+.full-width-chart {
+  @apply w-full;
+}
+
+.slide-nav {
+  @apply absolute inset-y-0 left-0 right-0 flex justify-between items-center px-4;
+}
+
+.slide-nav-arrow {
+  @apply text-2xl font-bold text-gray-500 hover:text-gray-700 ;
+}
+
+.toggle-btn {
+  @apply absolute bottom-4 right-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
+}
+
+/* Slide Chart animation */
+.chart-transition {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  opacity: 0;
+  /* transform: translateX(0); */
+}
+
+.chart-transition.active {
+  opacity: 1;
+  /* transform: translateX(0); */
+}
