@@ -1,4 +1,4 @@
-export const types = [
+ export const types = [
     { to: "acm", name: "Armed Clashs Monitor" },
     { to: "cnnm", name: "CRPH,NUG,NUCC Monitor" },
     { to: "sac", name: "SAC Monitor" },
@@ -20,11 +20,21 @@ export  const publicationTags = [
     { to: "srs", name: "Special Reports" },
     { to: "ref", name: "References" },
   ];
+
 export const resources = [
     {name: 'weeklyhighlights', to: 'resources/weekly-highlights/acm'},
     {name: 'publications', to: 'resources/publications/rps'},
     {name: 'statements', to: 'resources/statements'},
     {name: 'advocacy', to: 'resources/advocacy'}
   ];
+
+export const others = [
+    {name:'Ecomonic Outlook', category: 'Economic%20Outlook'},
+    {name: 'Excepted Actions of Political Parties’ Election', category: 'Excepted%20Actions%20of%20Political%20Parties’%20Election'}, 
+    {name:'Peace Tracking', category: 'Peace%20Tracking', category: 'Peace%20Tracking'},
+    {name:'Rakhine Dashboard', category: 'Rakhine%20Dashboard'} 
+];
+
 export  const statementTags = [{ to: "statements", name: "Statements" }];
+
 export  const advocayTags = [{ to: "advocacy", name: "Advocacy" }];
