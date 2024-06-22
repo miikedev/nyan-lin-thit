@@ -1,13 +1,15 @@
-import React from "react";
+import {useContext} from "react";
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
 // import {ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale} from "./Icons.jsx";
 import Logo from "../icons/Logo";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ChevronDown } from "../icons/ChevronDown";
 import { resources } from "../../utils/tags";
-
+import { useResourceContext } from "../context/ResourceContext";
 const Header = () => {
     const path = useLocation();
+    const { resource, setResource } = useResourceContext();
+    console.log('resource', resource);
     const icons = {
         chevron: <ChevronDown fill="currentColor" size={16} />,
         // scale: <Scale className="text-warning" fill="currentColor" size={30} />,
@@ -44,38 +46,38 @@ const Header = () => {
                     content: "p-0 border-small border-divider bg-primary p-1",
                 }}
                 >
-            <NavbarItem>
-                <DropdownTrigger>
-                <Button
-                    disableRipple
-                    className="p-0 font-semibold text-[16px] bg-transparent data-[hover=true]:bg-transparent"
-                    radius="sm"
-                    variant="light"
-                    endContent={icons.chevron}
+                <NavbarItem>
+                    <DropdownTrigger>
+                    <Button
+                        disableRipple
+                        className="p-0 font-semibold text-[16px] bg-transparent data-[hover=true]:bg-transparent"
+                        radius="sm"
+                        variant="light"
+                        endContent={icons.chevron}
+                    >
+                        Resources
+                    </Button>
+                    </DropdownTrigger>
+                </NavbarItem>
+                <DropdownMenu
+                    aria-label="ACME features"
+                    className="w-[190px] p-0 m-0"
+                    itemClasses={{
+                    base: "gap-4 rounded-none m-0",
+                    list: "bg-primary"
+                    }}
                 >
-                    Resources
-                </Button>
-                </DropdownTrigger>
-            </NavbarItem>
-            <DropdownMenu
-                aria-label="ACME features"
-                className="w-[190px] p-0 m-0"
-                itemClasses={{
-                base: "gap-4 rounded-none m-0",
-                list: "bg-primary"
-                }}
-            >
-                {
-                    resources.map((resource) => {
-                        const capitalize = capitalizeFirstLetter(resource.name);
-                        return (
-                            <DropdownItem key={resource.name} className="bg-primary text-white">
-                                <Link to={resource.to}>{capitalizeFirstLetter(resource.name)}</Link>
-                            </DropdownItem>
-                        )
-                    })
-                }
-            </DropdownMenu>
+                    {
+                        resources.map((resource) => {
+                            const capitalize = capitalizeFirstLetter(resource.name);
+                            return (
+                                <DropdownItem key={resource.name} onClick={()=>setResource(resource.name)} className="bg-primary text-white">
+                                    <Link to={resource.to}>{capitalizeFirstLetter(resource.name)}</Link>
+                                </DropdownItem>
+                            )
+                        })
+                    }
+                </DropdownMenu>
             </Dropdown>
             <NavbarItem isActive={path.pathname === '/about' ? true : false}>
             <Link color="foreground" to='/about'>
@@ -83,7 +85,6 @@ const Header = () => {
             </Link>
             </NavbarItem>
         </NavbarContent>
-        
         </Navbar>
     );
 }

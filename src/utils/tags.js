@@ -29,12 +29,12 @@ export const resources = [
   ];
 
 export const others = [
-    {name:'Ecomonic Outlook', category: 'Economic%20Outlook'},
-    {name: 'Excepted Actions of Political Parties’ Election', category: 'Excepted%20Actions%20of%20Political%20Parties’%20Election'}, 
-    {name:'Peace Tracking', category: 'Peace%20Tracking', category: 'Peace%20Tracking'},
-    {name:'Rakhine Dashboard', category: 'Rakhine%20Dashboard'} 
+    {name:'Ecomonic Outlook', category: 'Economic%20Outlook' , to: 'others'},
+    {name: 'Excepted Actions of Political Parties’ Election', category: 'Excepted%20Actions%20of%20Political%20Parties’%20Election', to: 'others'}, 
+    {name:'Peace Tracking', category: 'Peace%20Tracking', category: 'Peace%20Tracking', to: 'others'},
+    {name:'Rakhine Dashboard', category: 'Rakhine%20Dashboard', to: 'others'}, 
 ];
 
 export  const statementTags = [{ to: "statements", name: "Statements" }];
 
-export  const advocayTags = [{ to: "advocacy", name: "Advocacy" }];
+export  const advocacyTags = [{ to: "advocacy", name: "Advocacy" }];
