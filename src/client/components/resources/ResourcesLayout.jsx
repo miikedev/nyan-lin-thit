@@ -4,7 +4,7 @@ import { SearchIcon } from '../../icons/SearchIcon'
 import { Tabs, Tab, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Button } from '@nextui-org/react'
 import { ChevronDown } from '../../icons/ChevronDown'
 import { capitalizeFirstLetter } from '../../../utils/utils'
-
+import { others } from '../../../utils/tags'
 const ResourcesLayout = ({tags}) => {
     const path = useLocation();
     const darkMode = true;
@@ -17,12 +17,6 @@ const ResourcesLayout = ({tags}) => {
         // server: <Server className="text-success" fill="currentColor" size={30} />,
         // user: <TagUser className="text-danger" fill="currentColor" size={30} />,
     };
-    const others = [
-            {name:'Ecomonic Outlook'},
-            {name: 'Excepted Actions of Political Parties’ Election'}, 
-            {name:'Peace Tracking'},
-            {name:'Rakhine Dashboard'} 
-    ];
   return (
             <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">
             <div className="pb-2 border-gray-300 flex sm:flex-row flex-col justify-between items-center">
@@ -61,6 +55,7 @@ const ResourcesLayout = ({tags}) => {
                 </Tabs> */}
                 
                 <Tabs
+                    // selectedKey={path.pathname}
                     aria-label="Options"
                     variant="underlined"
                     classNames={{
@@ -73,7 +68,9 @@ const ResourcesLayout = ({tags}) => {
                 >
                     {tags.map(tag => (
                         <Tab
+                            id={tag.to}
                             key={tag.to}
+                            href={tag.to == 'others' ? '' : tag.to}
                             title={
                                 <div className="flex items-center space-x-2">
                                     {tag.to === 'others' ? 
@@ -91,7 +88,7 @@ const ResourcesLayout = ({tags}) => {
                                                 variant="light"
                                                 endContent={icons.chevron}
                                             >
-                                                Resources
+                                                Others  
                                             </Button>
                                             </DropdownTrigger>
                                         <DropdownMenu
@@ -104,6 +101,7 @@ const ResourcesLayout = ({tags}) => {
                                         >
                                             {
                                                 others.map((resource) => {
+                                                    console.log('others url',resource);
                                                     const capitalize = capitalizeFirstLetter(resource.name);
                                                     return (
                                                         <DropdownItem key={resource.name} className="bg-primary text-white">
