@@ -29,7 +29,7 @@ export const resources = [
   ];
 
 export const others = [
-    {name:'Ecomonic Outlook', category: 'Economic%20Outlook'},
+    {name:'Ecomonic Outlook', category: 'Economic%20Outlook' , to: 'others'},
     {name: 'Excepted Actions of Political Parties’ Election', category: 'Excepted%20Actions%20of%20Political%20Parties’%20Election'}, 
     {name:'Peace Tracking', category: 'Peace%20Tracking', category: 'Peace%20Tracking'},
     {name:'Rakhine Dashboard', category: 'Rakhine%20Dashboard'} 
