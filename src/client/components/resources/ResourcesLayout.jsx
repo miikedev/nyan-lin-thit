@@ -65,7 +65,7 @@ const ResourcesLayout = ({tags}) => {
                                                         console.log('others url',resource);
                                                         return (
                                                             <DropdownItem key={resource.name} className="bg-primary text-white">
-                                                                <Link to={resource.to}>{capitalizeFirstLetter(resource.name)}</Link>
+                                                                <NavLink to={`weekly-highlights/${resource.to}?category=${resource.category}`}>{capitalizeFirstLetter(resource.name)}</NavLink>
                                                             </DropdownItem>
                                                         )
                                                     })
