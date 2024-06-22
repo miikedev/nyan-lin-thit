@@ -17,19 +17,73 @@ import ResourcesLayout from './client/components/resources/ResourcesLayout'
 import ResourcesList from './client/components/resources/ResourcesList'
 import Error from './client/pages/Error'
 import NotFound from './client/pages/NotFound'
-import { weeklyHighlightsTags } from './utils/tags'
+import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
 const queryClient = new QueryClient()
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
-    console.log(weeklyHighlightsTags)
     <Route index element={<Home />} />
     <Route path='dashboard' element={<Dashboard />} />
-    <Route path='resources' element={<ResourcesLayout tags={weeklyHighlightsTags} />}>
+    <Route 
+      path='resources' 
+      element={<ResourcesLayout 
+      weeklyHighlightsTags={weeklyHighlightsTags} 
+      publicationTags={publicationTags} 
+      statementTags={statementTags}
+      advocacyTags={advocacyTags}
+    />}>
       <Route 
         path="weekly-highlights"
       >
         {
           weeklyHighlightsTags.map((tag) => {
+            console.log(tag.to)
+            return (
+              <Route
+                path={tag.to}
+                key={tag.to}
+                element={<ResourcesList type={tag.to} />}
+              />
+            )
+          })
+        }
+      </Route>
+      <Route 
+        path="publications"
+      >
+        {
+          publicationTags.map((tag) => {
+            console.log(tag.to)
+            return (
+              <Route
+                path={tag.to}
+                key={tag.to}
+                element={<ResourcesList type={tag.to} />}
+              />
+            )
+          })
+        }
+      </Route>
+      <Route 
+        path="statements"
+      >
+        {
+          statementTags.map((tag) => {
+            console.log(tag.to)
+            return (
+              <Route
+                path={tag.to}
+                key={tag.to}
+                element={<ResourcesList type={tag.to} />}
+              />
+            )
+          })
+        }
+      </Route>
+      <Route 
+        path="advocacy"
+      >
+        {
+          advocacyTags.map((tag) => {
             console.log(tag.to)
             return (
               <Route

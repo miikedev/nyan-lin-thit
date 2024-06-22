@@ -37,4 +37,4 @@ export const others = [
 
 export  const statementTags = [{ to: "statements", name: "Statements" }];
 
-export  const advocayTags = [{ to: "advocacy", name: "Advocacy" }];
+export  const advocacyTags = [{ to: "advocacy", name: "Advocacy" }];

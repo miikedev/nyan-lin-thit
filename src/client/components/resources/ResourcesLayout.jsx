@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, NavLink, Outlet, Link } from 'react-router-dom'
 import { SearchIcon } from '../../icons/SearchIcon'
 import { Tabs, Tab, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Button } from '@nextui-org/react'
 import { ChevronDown } from '../../icons/ChevronDown'
 import { capitalizeFirstLetter } from '../../../utils/utils'
 import { others } from '../../../utils/tags'
-const ResourcesLayout = ({tags}) => {
+import { useResourceContext } from '../../context/ResourceContext'
+const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, advocacyTags}) => {
+    const [tags, setTags] = useState([]);
+    const { resource } = useResourceContext();
     const {pathname} = useLocation();
     const darkMode = true;
     const icons = {
         chevron: <ChevronDown fill="currentColor" size={16} />,
     };
+    useEffect(() => {
+        if (resource == 'weeklyhighlights') setTags(weeklyHighlightsTags);
+        if (resource == 'publications') setTags(publicationTags);
+        if (resource == 'statements') setTags(statementTags);
+        if (resource == 'advocacy') setTags(advocacyTags);
+    }, [resource])
+    console.log(resource)
   return (
             <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">
             <div className="pb-2 border-gray-300 flex sm:flex-row flex-col justify-between items-center">
@@ -43,7 +53,7 @@ const ResourcesLayout = ({tags}) => {
                                         >
                                             <DropdownTrigger>
                                             <Button
-                                                disableRipple
+                                                // disableRipple
                                                 className="p-0 font-semibold text-[16px] bg-transparent data-[hover=true]:bg-transparent"
                                                 radius="sm"
                                                 variant="light"
@@ -53,7 +63,7 @@ const ResourcesLayout = ({tags}) => {
                                             </Button>
                                             </DropdownTrigger>
                                             <DropdownMenu
-                                                aria-label="ACME features"
+                                                aria-label="resources weekly hightlights others"
                                                 className="w-[190px] p-0 m-0"
                                                 itemClasses={{
                                                 base: "gap-4 rounded-none m-0",
@@ -72,9 +82,9 @@ const ResourcesLayout = ({tags}) => {
                                                 }
                                             </DropdownMenu>
                                         </Dropdown>
-                                    : (
+                                    : 
                                         <NavLink to={`weekly-highlights/${tag.to}`}>{tag.name}</NavLink>
-                                    )}
+                                    }
                                 </div>
                             }
                         />
