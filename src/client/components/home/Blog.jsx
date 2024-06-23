@@ -31,7 +31,7 @@ const Blog = () => {
                         <Box className='flex flex-col justify-center h-full'>
                         {
                             Array.from({ length: 4 }).map((e,i) => (
-                                    <Box className='flex gap-4 mb-3 items-center'>
+                                    <Box key={i} className='flex gap-4 mb-3 items-center'>
                                         <Image 
                                             alt="Album cover"
                                             className="object-cover"
