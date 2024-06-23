@@ -19,19 +19,19 @@
         position: absolute;
         z-index: 2;
         left: 50%;
-        width: 400%;
-        height: 494%;
-        background-color: #dde6f0;
+        width: 365%;
+        height: 500%;
+        background-color: #fff;
         border-radius: 50%;
         translate: -50% 0;
     }
     
     .main::before{
-        top: -480%;
+        top: -490%;
     }
     
     .main::after{
-        bottom: -480%;
+        bottom: -490%;
     }
     
     .outer{
@@ -44,14 +44,13 @@
     
     .inner{
         position: relative;
-        flex:  0 0 26%;
-        width: 26%;
+        flex:  0 0 20%;
     }
     
     .slide{
-        width: 90%;
+        width: 100%;
         height:100%;
-        border: 10px solid #dde6f0;
+        border:1px solid #dde6f0;
         scroll-snap-align: center;
     }
     

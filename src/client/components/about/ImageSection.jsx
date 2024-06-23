@@ -3,7 +3,7 @@ import { Box } from '@mantine/core'
 import './style.css'
 const ImageSection = () => {
   return (
-    <Box className='h-[400px] bg-primary bg-opacity-15'>
+    <Box className='h-[400px]'>
         <div className="body">
           <section className="main">
             <div className="outer">
