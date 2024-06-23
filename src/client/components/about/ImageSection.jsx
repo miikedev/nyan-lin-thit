@@ -8,7 +8,7 @@ const ImageSection = () => {
           <section className="main">
             <div className="outer">
               {
-                Array.from({ length: 5 }).map((e) => {
+                Array.from({ length: 8 }).map((e) => {
                   return (<div className="inner">
                       <div className="slide">
                         <img src="https://nextui-docs-v2.vercel.app/images/fruit-1.jpeg" alt=""/>

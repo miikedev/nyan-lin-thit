@@ -6,28 +6,30 @@ import WeeklyHighlights from '../components/home/WeeklyHighlights'
 import ResearchAndAdvocacy from '../components/home/ResearchAndAdvocacy'
 import Statements from '../components/home/Statements'
 import Blog from '../components/home/Blog'
+import { useNavigate } from 'react-router-dom'
 const Home = () => {
+  const navigate = useNavigate()
   return (
-    <>
-      <Hero />
-      <Space h="xl" />
-      <Box className="">
+    <Box>
+        <Hero />
+        <Space h="xl" />
+
         <Space h="md" />
         <Space h="xl" />
         <MissionVisionValues />
-        <Space h="md" />
+         <Space h="md" />
         <Space h="xl" />
-        <WeeklyHighlights />
+        <WeeklyHighlights navigate={navigate} />
         <Space h="md" />
         <Space h="xl" />
         <ResearchAndAdvocacy />
         <Space h="md" />
         <Space h="xl" />
-        <Statements />
+        <Statements navigate={navigate}/>
         <Space h="md" />
         <Blog />
-      </Box>
-    </>
+
+    </Box>
   )
 }
 

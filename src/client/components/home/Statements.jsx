@@ -1,6 +1,6 @@
 import { Box, Image, Title, Grid, Text, Space } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
-const Statements = () => {
+const Statements = ({navigate}) => {
     const code =( <Box>
     <h1 className='leading-4 font-semibold text-[16px]'>Lorem ispam Lorem ispam Lorem ispam Lorem ispam</h1>
     <Space h={2} />
@@ -15,13 +15,12 @@ const Statements = () => {
                         <Text size='sm'c='dimmed'>Best Statement of our history</Text>
                         <Title>Our Statement</Title>
                     </Box>
-                    <Button className='bg-primary text-white float-right mt-3'>View all Statement</Button>
+                    <Button onClick={()=>navigate('resources/statements/statements')} className='bg-primary text-white float-right mt-3'>View all Statement</Button>
                 </Grid.Col>
                 <Space h={100} />
                 <Grid.Col span={3}>
                     <Card>
                     <Image
-                        removeWrapper
                         alt="Card background"
                         className="z-0 w-full h-full object-cover p-2"
                         radius="lg"
@@ -37,7 +36,6 @@ const Statements = () => {
                 <Grid.Col span={3}>
                 <Card>
                     <Image
-                        removeWrapper
                         alt="Card background"
                         className="z-0 w-full h-full object-cover p-2"
                         radius="lg"
@@ -53,7 +51,6 @@ const Statements = () => {
                 <Grid.Col span={3}>
                 <Card>
                     <Image
-                        removeWrapper
                         alt="Card background"
                         className="z-0 w-full h-full object-cover p-2"
                         radius="lg"
@@ -69,7 +66,6 @@ const Statements = () => {
                 <Grid.Col span={3}>
                 <Card>
                     <Image
-                        removeWrapper
                         alt="Card background"
                         className="z-0 w-full h-full object-cover p-2"
                         radius="lg"

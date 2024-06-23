@@ -24,12 +24,11 @@ const Footer = () => {
     <footer className={pathname === '/admin/login' ? 'hidden' : 'text-[#212121] bg-none py-[16px] sm:flex sm:flex-col sm:text-[16px] px-[20px]'}>
         <div className='flex flex-col gap-y-[24px] w-full items-center'>
             <Logo width={150}/>
-            <Box className='lg:w-3/6 bg-none flex'>
+            <Box className='lg:w-1/3 bg-none flex'>
                 <Input classNames={{
-                    base: "bg-primary text-[5px] border-1 border-primary",
-                    label: "text-[#dfdfdf] font-bold"
-                }} type="email" radius='none' size='lg' bordered placeholder='Enter your email now' />
-                <Button radius='none' className='py-3 text-[13px] bg-primary text-secondary' size='lg'>Subscribe Now</Button>
+                    base: "border-1 border-primary",
+                }} type="email" radius='none' size='md' bordered placeholder='Enter your email now' className='text-[13px]' />
+                <Button radius='none' className='py-3 text-[13px] bg-primary text-white' size='lg'>Subscribe Now</Button>
             </Box>
             <Title className='text-center'>Contact Us</Title>
             <Text size='xl' className='text-center'>loremispam@gmail.com</Text>

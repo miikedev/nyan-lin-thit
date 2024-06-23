@@ -1,8 +1,9 @@
 import React from 'react'
-import { Title, Grid, Box, Text } from '@mantine/core'
-import { Avatar } from '@nextui-org/react'
+import { Title, Grid, Box, Text, Avatar } from '@mantine/core'
+// import { Avatar } from '@nextui-org/react'
 const MissionVisionValues = () => {
   return (
+    <>
     <Box className='px-[140px]'>
         <Box w={'full'} className='flex justify-between flex-col items-center'>
             <Title className='text-center font-semibold text-3xl' mb={5}>Lorem ispam lorem ispam</Title>
@@ -31,6 +32,7 @@ const MissionVisionValues = () => {
             </Box>
         </Box>
     </Box>
+    </>
   )
 }
 
