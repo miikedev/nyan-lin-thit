@@ -132,7 +132,7 @@ const ResourcesList = ({ type }) => {
     const [page, setPage] = useState(1);
     const navigate = useNavigate();
     const { data, isLoading, error, isSuccess } = useResourcesData(type, page, category);
-
+    console.log(data);
     useEffect(() => {
         return () => setPage(1);
     }, [type]);

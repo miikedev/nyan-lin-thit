@@ -24,8 +24,8 @@ export  const publicationTags = [
 export const resources = [
     {name: 'weeklyhighlights', to: 'resources/weekly-highlights/acm'},
     {name: 'publications', to: 'resources/publications/rps'},
-    {name: 'statements', to: 'resources/statements'},
-    {name: 'advocacy', to: 'resources/advocacy'}
+    {name: 'statements', to: 'resources/statements/statements'},
+    {name: 'advocacy', to: 'resources/advocacy/advocacy'}
   ];
 
 export const others = [
