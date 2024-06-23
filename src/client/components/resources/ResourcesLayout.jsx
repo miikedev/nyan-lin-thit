@@ -15,12 +15,12 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
         chevron: <ChevronDown fill="currentColor" size={16} />,
     };
     useEffect(() => {
-        if (resource == 'weeklyhighlights') setTags(weeklyHighlightsTags);
+        if (resource == 'weekly-highlights') setTags(weeklyHighlightsTags);
         if (resource == 'publications') setTags(publicationTags);
         if (resource == 'statements') setTags(statementTags);
         if (resource == 'advocacy') setTags(advocacyTags);
     }, [resource])
-    console.log(resource)
+    console.log('resoruce',resource)
   return (
             <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">
             <div className="pb-2 border-gray-300 flex sm:flex-row flex-col justify-between items-center">
@@ -71,11 +71,11 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                                                 }}
                                             >
                                                 {
-                                                    others.map((resource) => {
-                                                        console.log('others url',resource);
+                                                    others.map((other) => {
+                                                        console.log('others url',other);
                                                         return (
-                                                            <DropdownItem key={resource.name} className="bg-primary text-white">
-                                                                <NavLink to={`weekly-highlights/${resource.to}?category=${resource.category}`}>{capitalizeFirstLetter(resource.name)}</NavLink>
+                                                            <DropdownItem key={other.name} className="bg-primary text-white">
+                                                                <NavLink to={`${resource}/${other.to}?category=${other.category}`}>{capitalizeFirstLetter(other.name)}</NavLink>
                                                             </DropdownItem>
                                                         )
                                                     })
@@ -83,7 +83,7 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                                             </DropdownMenu>
                                         </Dropdown>
                                     : 
-                                        <NavLink to={`weekly-highlights/${tag.to}`}>{tag.name}</NavLink>
+                                        <NavLink to={`${resource}/${tag.to}`}>{tag.name}</NavLink>
                                     }
                                 </div>
                             }
