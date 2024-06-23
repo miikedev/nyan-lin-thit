@@ -6,11 +6,12 @@ import { Image, Button } from '@nextui-org/react'
 const About = () => {
   return (
     <>
-      <Space h={60} />
+      <Space h={120} />
       <Hero />
-      <Space h={60} />
+      <Space h={100} />
+
       <ImageSection />
-      <Space h={60} />
+      <Space h={200} />
       <Box className='flex justify-center'>
         <Box className='text-center' w={600}>
           <Title>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</Title>
