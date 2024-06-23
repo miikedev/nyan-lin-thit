@@ -21,11 +21,8 @@ const Resource = ({resource, isLoading}) => {
             <Image src={resource.image[0]} alt={resource.title} className='rounded-lg border-1 max-w-72 max-h-64 border-primary-600'/>
           }
         </div>
-    
         <div className="text-center">
-
-              <Title order={5} mt={10}>{resource.title}</Title>
-
+        <Title order={5} mt={10} className='text-primary-900'>{resource.title}</Title>
         {
           !('embed' in resource) && <div className='my-2 p-2 flex flex-col items-center'>
             <Box className='mb-2'>
