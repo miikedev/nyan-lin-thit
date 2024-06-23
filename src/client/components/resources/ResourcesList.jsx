@@ -117,7 +117,7 @@ import {
 //components
 import Resource from './Resource';
 import ResourceSkeleton from './ResourceSkeleton';
-import { Container, Skeleton, Title, Button, Box, Image } from '@mantine/core';
+import { Container, Skeleton, Paper, Title, Button, Box, Image } from '@mantine/core';
 import { Card } from '@nextui-org/react';
 import { useResourcesData } from '../../apis/resourcesData';
 
@@ -136,7 +136,13 @@ const ResourcesList = ({ type }) => {
     useEffect(() => {
         return () => setPage(1);
     }, [type]);
-
+    if (data?.resources?.length == 0) return <>
+        <Paper>
+            <Box className='mt-8 rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center'>
+                <Title order={1} className='text-primary text-opacity-40 font-bold'>- No Content Found -</Title>
+            </Box>
+        </Paper>
+    </>
     if (isLoading) {
         return (
             <div className='flex justify-start flex-wrap w-full gap-3 py-10'>
