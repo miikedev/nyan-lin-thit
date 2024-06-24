@@ -10,23 +10,17 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
   const navigate = useNavigate()
   return (
-    <Box>
-        <Hero />
-        <Space h="xl" />
+    <Box className='flex flex-col gap-[100px]'>
+        <Hero navigate={navigate} />
 
-        <Space h="md" />
-        <Space h="xl" />
         <MissionVisionValues />
-         <Space h="md" />
-        <Space h="xl" />
+
         <WeeklyHighlights navigate={navigate} />
-        <Space h="md" />
-        <Space h="xl" />
+
         <ResearchAndAdvocacy />
-        <Space h="md" />
-        <Space h="xl" />
+
         <Statements navigate={navigate}/>
-        <Space h="md" />
+
         <Blog />
 
     </Box>
