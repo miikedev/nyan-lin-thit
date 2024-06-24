@@ -21,3 +21,5 @@ export const fetchResources = async (type, page, category) => {
   }
 };
 
+
+

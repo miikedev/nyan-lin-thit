@@ -4,31 +4,92 @@ import { Title, Text, Box } from '@mantine/core'
 import { Link, Button, Input } from '@nextui-org/react'
 import Logo from '../icons/Logo'
 import SocialIcons from '../icons/socials/socialIcons'
-
-
+import { useForm } from '@tanstack/react-form'
+import { useSubscribe } from '../apis/subscribe'
 const Footer = () => {
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)
   const {pathname} = useLocation();
+  const {mutate,isSuccess,isError,isIdle,isLoading,data,error} = useSubscribe();
+  console.log('data: ' + data)
+  console.log('error: ' + error);
+  console.log('isSuccess: '+ isSuccess);
+  console.log('error: '+ error);
+  console.log('isLoading: '+ isLoading);
+  console.log('isIdle: '+ isIdle)
+  const form = useForm({
+    defaultValues: {
+      email: '',
+    },
+    onSubmit: async({ value }) => {
+      setLoading(true)
+      if(value.email.length > 0 && /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value.email)) {
+        mutate(value,{
+          onSuccess: () => {
+            setLoading(false)
+            setComplete(true)
+            form.reset({email: ''})
+          }
+        });
+      }
+    },
+  })
   return (
-    // <footer className='bg-slate-800'>
-    //   <Container size="100rem" className='bg-white'>
-    //     <div id='logo'>
-    //       <Logo />
-    //     </div>
-    //     <div id='newsletter'></div>
-    //     <div id='social'></div>
-    //     <div id="copyright"></div>
-    //   </Container>
-    // </footer>
-    <footer className={pathname === '/admin/login' ? 'hidden' : 'text-[#212121] bg-none py-[16px] sm:flex sm:flex-col sm:text-[16px] px-[20px]'}>
+    <footer className={pathname === '/admin/login' ? 'hidden' : 'text-[#212121] py-[16px] sm:flex sm:flex-col sm:text-[16px] px-[20px]'}>
         <div className='flex flex-col gap-y-[24px] w-full items-center'>
-            <Logo width={150}/>
-            <Box className='lg:w-1/3 bg-none flex'>
-                <Input classNames={{
-                    base: "border-1 border-primary",
-                }} type="email" radius='none' size='md' bordered placeholder='Enter your email now' className='text-[13px]' />
-                <Button radius='none' className='py-3 text-[13px] bg-primary text-white' size='lg'>Subscribe Now</Button>
+            <Logo width={120}/>
+            <Box className='lg:w-1/3 relative bottom-4'>
+            {/* <form.Provider> */}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  form.handleSubmit();
+                }}
+                className={complete ? 'hidden' : 'flex w-full'}
+              >
+              <form.Field
+                name="email"
+                validators={{ onChange: ({value}) => { 
+                  console.log(value);
+                  if(value.length == 0) { 
+                    return 'Please enter a valid email address to subscribe'; 
+                  } else if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(value)) { 
+                    return 'Please enter a valid email address'; 
+                  } else { 
+                    return undefined; 
+                  } 
+                } }}
+              >
+                {(field) => (
+                  <Box className='flex flex-col justify-start'>
+                    <Input 
+                      classNames={{
+                        base: "border-1 border-primary-700",
+                      }} 
+                      name={field.name}
+                      value={field.state.value}
+                      onSubmit={field.onSubmit}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      type="email" 
+                      radius='none' 
+                      size='lg'
+                      bordered 
+                      placeholder='Enter your email now' 
+                      className='text-[13px] min-w-96' 
+                    />
+                    {field.state.meta.errors ? (
+                      <small role="alert" className='text-red-600 font-semibold'>{field.state.meta.errors.join(', ')}</small>
+                    ) : null}
+                  </Box>
+                )}
+              </form.Field>
+              <Button isLoading={loading} type='submit' radius='none' className='py-3 text-[13px] bg-primary text-white' size='lg'>Subscribe Now</Button>
+              </form>
+              {/* </form.Provider> */}
+              {/* <Box className={ ? 'flex lg:justify-center w-full justify-center' : 'hidden'}> */}
+                <Text className={complete ? 'text-center w-full': 'hidden'} c={'blue'}>Thanks for subscribing!<br/>Please check your email for weekly communication.</Text>
+              {/* </Box> */}
             </Box>
             <Title className='text-center'>Contact Us</Title>
             <Text size='xl' className='text-center'>loremispam@gmail.com</Text>
