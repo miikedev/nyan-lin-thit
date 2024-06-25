@@ -143,7 +143,7 @@ const ResourcesList = ({ type }) => {
             </Box>
         </Paper>
     </>
-    if (true) {
+    if (isLoading) {
         return (
             <div className='flex justify-start flex-wrap w-full gap-3 py-10'>
                 {
