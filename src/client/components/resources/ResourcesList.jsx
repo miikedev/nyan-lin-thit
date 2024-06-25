@@ -143,13 +143,13 @@ const ResourcesList = ({ type }) => {
             </Box>
         </Paper>
     </>
-    if (isLoading) {
+    if (true) {
         return (
             <div className='flex justify-start flex-wrap w-full gap-3 py-10'>
                 {
-                    new Array(8).fill(0).map((a) => {
+                    new Array(4).fill(0).map((a) => {
                         return (
-                            <Card className="space-y-2 p-4 min-w-96 w-96" radius="lg">
+                            <Card radius="lg">
                                 <Skeleton isLoaded={isLoading} className="rounded-lg">
                                 <div className="h-48 rounded-lg bg-secondary"></div>
                                 </Skeleton>
