@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {
     useNavigate,
     useSearchParams,
+    useLocation
 } from "react-router-dom";
 import {
     QueryClient,
@@ -17,6 +18,7 @@ import { useSearchContext } from '../../context/SearchContext';
 const queryClient = new QueryClient()
 
 const ResourcesList = ({ type }) => {
+    const { pathname } = useLocation();
     const { searchingText, setSearchingText } = useSearchContext();
     const [searchParams, setSearchParams] = useSearchParams("");
     const [filteredData, setFilteredData] = useState([]);
@@ -33,7 +35,8 @@ const ResourcesList = ({ type }) => {
         }else{
             setFilteredData(data)
         }
-    }, [page,searchingText,isSuccess,data,type]);
+        window.scrollTo(0, 0);
+    }, [page,searchingText,isSuccess,data,type,pathname]);
     useEffect(()=>setSearchingText(''),[type])
     console.log('filter data',filteredData)
     // console.log('filter data length', filteredData.length)

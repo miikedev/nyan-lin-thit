@@ -7,7 +7,7 @@ import { ChevronDown } from "../icons/ChevronDown";
 import { resources } from "../../utils/tags";
 import { useResourceContext } from "../context/ResourceContext";
 const Header = () => {
-    const path = useLocation();
+    const {pathname} = useLocation();
     const { resource, setResource } = useResourceContext();
     console.log('resource', resource);
     const icons = {
@@ -29,12 +29,12 @@ const Header = () => {
             <Logo width={100}/>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4 full py-[20px]" justify="end">
-            <NavbarItem isActive={path.pathname === '/' ? true : false}>
+            <NavbarItem isActive={pathname === '/' ? true : false}>
             <NavLink to='/' aria-current="page">
                 Home
             </NavLink>
             </NavbarItem>
-            <NavbarItem isActive={path.pathname === '/dashboard' ? true : false}>
+            <NavbarItem isActive={pathname === '/dashboard' ? true : false}>
 
             <NavLink color="foreground" to='/dashboard'>
                 Dashboard
@@ -79,7 +79,7 @@ const Header = () => {
                     }
                 </DropdownMenu>
             </Dropdown>
-            <NavbarItem isActive={path.pathname === '/about' ? true : false}>
+            <NavbarItem isActive={pathname === '/about' ? true : false}>
             <Link color="foreground" to='/about'>
                 About
             </Link>

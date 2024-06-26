@@ -14,6 +14,7 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
     const [tags, setTags] = useState([]);
     const [text, setText] = useState('')
     const { resource } = useResourceContext();
+    console.log(resource)
     const { searchingText, setSearchingText } = useSearchContext();
     const darkMode = true;
     const icons = {

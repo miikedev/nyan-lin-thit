@@ -2,9 +2,10 @@ import { Box, Image, Title, Grid, Text, Space, Skeleton } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
 import { useEffect, useState } from 'react'
 import { useResourcesData } from '../../apis/resourcesData'
+import { useResourceContext } from '../../context/ResourceContext'
 const Statements = ({navigate}) => {
     const { data, isLoading, error, isSuccess } = useResourcesData('statements');
-
+    const { setResource } = useResourcesData();
 
     const code =(<Box>
                     <h1 className='leading-4 font-semibold text-[16px]'>Lorem ispam Lorem ispam Lorem ispam Lorem ispam</h1>
@@ -20,7 +21,10 @@ const Statements = ({navigate}) => {
                                 <Text size='sm'c='dimmed'>Best Statement of our history</Text>
                                 <Title>Our Statement</Title>
                             </Box>
-                            <Button onClick={()=>navigate('resources/statements/statements')} className='bg-primary text-white float-right mt-3'>View all Statement</Button>
+                            <Button onClick={()=>{
+                                navigate('resources/statements/statements')
+                                setResource('statements')
+                                }} className='bg-primary text-white float-right mt-3'>View all Statement</Button>
                         </Grid.Col>
                         <Space h={100} />
                         {

@@ -1,7 +1,8 @@
 import { Box, Text, Grid, Title, Space } from '@mantine/core'
 import { Image, Button } from '@nextui-org/react'
-
+import { useResourceContext } from '../../context/ResourceContext'
 const WeeklyHighlights = ({navigate}) => {
+  const { setResource } = useResourceContext()
   return (
     <>
     <Box className='py-[20px] px-[140px] flex'>
@@ -17,7 +18,12 @@ const WeeklyHighlights = ({navigate}) => {
               from four critical monitoring sessions: Armed Clash Monitor, SAC Monitor, NUG CRPH Monitor, and others.
           </Text>
           <Space h={30} />
-          <Button className='px-[20px] py-[8px] rounded-full bg-primary text-white' onClick={()=>navigate('resources/weekly-highlights/acm')}>See more</Button>
+          <Button 
+            className='px-[20px] py-[8px] rounded-full bg-primary text-white' 
+            onClick={()=>{
+              navigate('resources/weekly-highlights/acm')
+              setResource('weekly-highlights')
+            }}>See more</Button>
       </Box>
     </Box>
     </>
