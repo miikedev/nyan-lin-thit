@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, NavLink, Outlet, Link } from 'react-router-dom'
 import { SearchIcon } from '../../icons/SearchIcon'
-import { Tabs, Tab, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Button } from '@nextui-org/react'
+import { Tabs, Tab, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Button, Input } from '@nextui-org/react'
 import { ChevronDown } from '../../icons/ChevronDown'
 import { capitalizeFirstLetter } from '../../../utils/utils'
 import { others } from '../../../utils/tags'
 import { useResourceContext } from '../../context/ResourceContext'
+import { AnimatePresence, useAnimate } from 'framer-motion'
+import { useSearchContext } from '../../context/SearchContext'
 const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, advocacyTags}) => {
+    const [scope, animate] = useAnimate();
+    const { pathname } = useLocation()
     const [tags, setTags] = useState([]);
+    const [text, setText] = useState('')
     const { resource } = useResourceContext();
-    const {pathname} = useLocation();
+    const { searchingText, setSearchingText } = useSearchContext();
     const darkMode = true;
     const icons = {
         chevron: <ChevronDown fill="currentColor" size={16} />,
@@ -20,9 +25,16 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
         if (resource == 'statements') setTags(statementTags);
         if (resource == 'advocacy') setTags(advocacyTags);
     }, [resource])
-    console.log('resoruce',resource)
-  return (
-            <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">
+
+    // const handleSearchClick = async() => {
+    //     //type get from current path
+    //     let type = pathname.replace(/.*\//, '');
+    //     console.log(type, 'type');
+    //     setSearchingText(searchingText);
+    // }
+
+    return (
+        <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">
             <div className="pb-2 border-gray-300 flex sm:flex-row flex-col justify-between items-center">
             <nav className="flex flex-col justify-center sm:flex-row gap-2">
                 <Tabs
@@ -41,7 +53,6 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                         <Tab
                             id={tag.to}
                             key={tag.to}
-                            // href={tag.to == 'others' ? '' : tag.to}
                             title={
                                 <div className="flex items-center space-x-2">
                                     {tag.to === 'others' ? 
@@ -72,7 +83,6 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                                             >
                                                 {
                                                     others.map((other) => {
-                                                        console.log('others url',other);
                                                         return (
                                                             <DropdownItem key={other.name} className="bg-primary text-white">
                                                                 <NavLink to={`${resource}/${other.to}?category=${other.category}`}>{capitalizeFirstLetter(other.name)}</NavLink>
@@ -91,26 +101,41 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                     ))}
                 </Tabs>
             </nav>
-            <NavLink
+            {/* <NavLink
                 to="search"
                 state={{ prevPath: pathname }}
                 className="hidden sm:block"
             >
-                {({ isActive }) => (
-                <p
-                    className={`${
-                    darkMode ? "bg-transparent border-white border" : "bg-gray-200"
-                    } py-2 px-2 mt-2  rounded-full transition-transform ${
-                    isActive ? "border " : " "
-                    }`}
-                >
-                    <SearchIcon />
-                </p>
-                )}
-            </NavLink>
+                {({ isActive }) => ( */}
+                <span 
+                    ref={scope}
+                    className='relative'>
+                    <Button 
+                        className="absolute bottom-0 right-0 z-10 bg-none scale-85" 
+                        isIconOnly 
+                        aria-label='search' 
+                        variant='none'
+                        onClick={()=>setSearchingText(text)} 
+                    >
+                    <SearchIcon  />
+                    </Button>
+                    <Input
+                        value={text}
+                        onChange={(e)=>setText(e.target.value)}
+                        type='text' 
+                        size="md"
+                        onKeyDown={(e)=>{
+                            if (e.key === 'Enter') {
+                                setSearchingText(e.target.value)
+                            }
+                        }}
+                    />
+                </span>
+                {/* )} */}
+            {/* </NavLink> */}
             </div>
             <Outlet />
-            </div>
+        </div>
 
   )
 }

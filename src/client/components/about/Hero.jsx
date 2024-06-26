@@ -18,7 +18,6 @@ const Hero = () => {
                 Provident maiores atque eos repudiandae voluptates
             </Text>
         </Box>
-
     </Box>
   )
 }
