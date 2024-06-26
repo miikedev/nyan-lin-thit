@@ -18,7 +18,17 @@ import ResourcesList from './client/components/resources/ResourcesList'
 import Error from './client/pages/Error'
 import NotFound from './client/pages/NotFound'
 import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
-const queryClient = new QueryClient()
+import { SearchContextProvider } from './client/context/SearchContext'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchIntervalInBackground: false,
+      cacheTime: 10_000,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
@@ -42,6 +52,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 path={tag.to}
                 key={tag.to}
                 element={<ResourcesList type={tag.to} />}
+                errorElement={<Error />}
               />
             )
           })
@@ -58,6 +69,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 path={tag.to}
                 key={tag.to}
                 element={<ResourcesList type={tag.to} />}
+                errorElement={<Error />}
               />
             )
           })
@@ -74,6 +86,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 path={tag.to}
                 key={tag.to}
                 element={<ResourcesList type={tag.to} />}
+                errorElement={<Error />}
               />
             )
           })
@@ -90,6 +103,7 @@ const router = createBrowserRouter(createRoutesFromElements(
                 path={tag.to}
                 key={tag.to}
                 element={<ResourcesList type={tag.to} />}
+                errorElement={<Error />}
               />
             )
           })
@@ -104,9 +118,13 @@ const router = createBrowserRouter(createRoutesFromElements(
 function App() {
   console.log(weeklyHighlightsTags)
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <SearchContextProvider>
+      <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+  
+  errorElement={<Error />}    </QueryClientProvider>
+    </SearchContextProvider>
   )
 }
 

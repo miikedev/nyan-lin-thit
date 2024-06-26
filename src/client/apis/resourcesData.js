@@ -1,10 +1,12 @@
 import { fetchResources } from "./apiService";
-import { useQuery } from '@tanstack/react-query'; // Removed unused import keepPreviousData
+import { useQuery, useQueryClient } from '@tanstack/react-query'; // Removed unused import keepPreviousData
+// Get QueryClient from the context
 
-export const useResourcesData = (type, page, category) => {
+
+export const useResourcesData = (type, page, category, search) => {
   return useQuery({
-    queryKey: ['resources', {type: type, category: category}],
-    queryFn: () => fetchResources(type, page, category),
+    queryKey: [`resources/${type}/${category}/${search}`],
+    queryFn: () => fetchResources(type, page, category, search),
     onSuccess: (data) => {
       console.log('resources fetch success!', data)
     }

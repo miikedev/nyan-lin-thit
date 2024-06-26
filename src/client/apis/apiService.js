@@ -5,14 +5,14 @@ import { convertToDesiredFormat } from '../../utils/utils'
 //   baseURL: API_BASE_URL
 // });
 // Fetch users from the API
-export const fetchResources = async (type, page, category) => {
-  const url = `/api/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${
-   category || ""
-  }`
+export const fetchResources = async (type, page, category, search) => {
+  console.log('type', type);
+  console.log('search', search);
+  const url = search ? 
+  `/api/resources/type/${type.toUpperCase()}?search=${search}`:
+  `/api/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}`
   try {
-    const response = await axios.get(`/api/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${
-      category || ""
-    }`);
+    const response = await axios.get(url);
     return response.data; // This will include the response data, status, and other information
   } catch (error) {
     // Handle or throw the error as neededm

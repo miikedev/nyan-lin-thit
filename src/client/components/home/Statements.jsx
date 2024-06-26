@@ -27,8 +27,8 @@ const Statements = ({navigate}) => {
                             isLoading && (
                                 <>
                                 {
-                                    new Array(4).fill(0).map(() => (
-                                        <Grid.Col span={3}>
+                                    new Array(4).fill(0).map((e,i) => (
+                                        <Grid.Col span={3} key={i}>
                                             <Card className="space-y-2 p-4 min-w-64" radius="lg">
                                             <Skeleton isLoaded={isLoading} className="rounded-lg">
                                                 <div className="h-48 rounded-lg bg-secondary"></div>
@@ -52,8 +52,8 @@ const Statements = ({navigate}) => {
                             )
                         }
                             {
-                            isSuccess && data?.resources.slice(0,4).map(statement =>( 
-                                <Grid.Col span={3}>
+                            isSuccess && data?.resources.slice(0,4).map((statement,i) =>( 
+                                <Grid.Col span={3} key={i}>
                                     <Card className='min-w-64'>
                                     <Image
                                         alt="Card background"
