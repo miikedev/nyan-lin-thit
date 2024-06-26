@@ -120,10 +120,9 @@ function App() {
   return (
     <SearchContextProvider>
       <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-  
-  errorElement={<Error />}    </QueryClientProvider>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </SearchContextProvider>
   )
 }

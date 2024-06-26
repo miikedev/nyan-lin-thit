@@ -17,7 +17,7 @@ import { useSearchContext } from '../../context/SearchContext';
 const queryClient = new QueryClient()
 
 const ResourcesList = ({ type }) => {
-    const { searchingText } = useSearchContext();
+    const { searchingText, setSearchingText } = useSearchContext();
     const [searchParams, setSearchParams] = useSearchParams("");
     const [filteredData, setFilteredData] = useState([]);
     const category = searchParams.get("category");
@@ -33,24 +33,18 @@ const ResourcesList = ({ type }) => {
         }else{
             setFilteredData(data)
         }
-    }, [page,searchingText,isSuccess,data]);
+    }, [page,searchingText,isSuccess,data,type]);
+    useEffect(()=>setSearchingText(''),[type])
     console.log('filter data',filteredData)
-    console.log('filter data length', filteredData.length)
+    // console.log('filter data length', filteredData.length)
     console.log('data',data)
-    if (data == undefined || data.resources.length == 0 || filteredData.length == 0) return <>
-        <Paper>
-            <Box className='mt-8 rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center'>
-                <Title order={1} className='text-primary text-opacity-40 font-bold'>- No Content Found -</Title>
-            </Box>
-        </Paper>
-    </>
     if (isLoading) {
         return (
             <div className='flex justify-start flex-wrap w-full gap-3 py-10'>
                 {
-                    new Array(4).fill(0).map((a) => {
+                    new Array(4).fill(0).map((a,i) => {
                         return (
-                            <Card radius="lg">
+                            <Card radius="lg" key={i}>
                                 <Skeleton isLoaded={isLoading} className="rounded-lg">
                                 <div className="h-48 rounded-lg bg-secondary"></div>
                                 </Skeleton>
@@ -72,7 +66,15 @@ const ResourcesList = ({ type }) => {
             </div>
         );
     }
-    if(filteredData.length > 0) {
+    if (data === undefined || data?.resources.length === 0 || filteredData?.length === 0) return <>
+        <Paper>
+            <Box className='mt-8 rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center'>
+                <Title order={1} className='text-primary text-opacity-40 font-bold'>- No Content Found -</Title>
+            </Box>
+        </Paper>
+    </>
+    
+    if(filteredData?.length > 0) {
         return (
             <Container size="fluid" className="flex justify-start flex-wrap w-full gap-3 py-10">
                 { isSuccess && (
@@ -88,7 +90,7 @@ const ResourcesList = ({ type }) => {
 
 
     if (isError) {
-        navigate('/error');
+        return <Error />
     }
     return (
         <Container size="fluid" className="flex justify-start flex-wrap w-full gap-3 py-10">

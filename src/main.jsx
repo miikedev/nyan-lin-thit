@@ -9,7 +9,7 @@ import '@mantine/core/styles.css';
 import "leaflet/dist/leaflet.css";
 import { ResourceProvider } from './client/context/ResourceContext';
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
       <MantineProvider>
         <NextUIProvider>
             <ResourceProvider>
@@ -17,5 +17,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </ResourceProvider>
         </NextUIProvider>
       </MantineProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
