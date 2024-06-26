@@ -12,7 +12,8 @@ const Statements = ({navigate}) => {
                     <Space h={2} />
                     <Text size='xs' c='dimmed'>Lorem ispam</Text>
                 </Box>)
-        return (  
+                
+    return (  
             <>
                 <Box className='px-[140px] w-full'>
                     <Grid>
@@ -24,12 +25,12 @@ const Statements = ({navigate}) => {
                             <Button onClick={()=>{
                                 navigate('resources/statements/statements')
                                 setResource('statements')
-                                }} className='bg-primary text-white float-right mt-3'>View all Statement</Button>
+                                }} className='bg-primary text-white float-right mt-3 rounded-full'>View all Statement</Button>
                         </Grid.Col>
                         <Space h={100} />
                         {
                             isLoading && (
-                                <>
+                            <>
                                 {
                                     new Array(4).fill(0).map((e,i) => (
                                         <Grid.Col span={3} key={i}>
@@ -52,93 +53,33 @@ const Statements = ({navigate}) => {
                                         </Grid.Col>
                                     ))
                                 }
-                                </>
+                            </>
                             )
                         }
-                            {
+                        {
                             isSuccess && data?.resources.slice(0,4).map((statement,i) =>( 
                                 <Grid.Col span={3} key={i}>
-                                    <Card className='min-w-64'>
-                                    <Image
-                                        alt="Card background"
-                                        className="z-0 w-full h-full object-cover p-2"
-                                        radius="lg"
-                                        src={statement.image[0]}
-                                    />
-                                    <CardFooter className="text-small justify-between">
-                                        <p className="text-default-500">
-                                            {statement.title}
-                                        </p>
-                                    </CardFooter>
+                                    <Card className='min-w-64 bg-opacity-20 bg-primary-600'>
+                                        <Image
+                                            alt="Card background"
+                                            className="z-0 w-full h-full object-cover p-2"
+                                            radius="lg"
+                                            src={statement.image[0]}
+                                        />
+                                        <CardFooter className="text-small justify-between">
+                                            <p className="text-default-500">
+                                                {statement.title}
+                                            </p>
+                                        </CardFooter>
                                     </Card>
                                 </Grid.Col>
-                            ))}
-                        {/* <Grid.Col span={3}>
-                            <Card>
-                            <Image
-                                alt="Card background"
-                                className="z-0 w-full h-full object-cover p-2"
-                                radius="lg"
-                                src="https://nextui.org/images/card-example-4.jpeg"
-                            />
-                            <CardFooter className="text-small justify-between">
-                                <p className="text-default-500">
-                                    “Lorem Ipsum is simply dummy text of the printing ”
-                                </p>
-                            </CardFooter>
-                            </Card>
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                        <Card>
-                            <Image
-                                alt="Card background"
-                                className="z-0 w-full h-full object-cover p-2"
-                                radius="lg"
-                                src="https://nextui.org/images/card-example-4.jpeg"
-                            />
-                            <CardFooter className="text-small justify-between">
-                                <p className="text-default-500">
-                                    “Lorem Ipsum is simply dummy text of the printing ”
-                                </p>
-                            </CardFooter>
-                            </Card>
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                        <Card>
-                            <Image
-                                alt="Card background"
-                                className="z-0 w-full h-full object-cover p-2"
-                                radius="lg"
-                                src="https://nextui.org/images/card-example-4.jpeg"
-                            />
-                            <CardFooter className="text-small justify-between">
-                                <p className="text-default-500">
-                                    “Lorem Ipsum is simply dummy text of the printing ”
-                                </p>
-                            </CardFooter>
-                            </Card>
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                        <Card>
-                            <Image
-                                alt="Card background"
-                                className="z-0 w-full h-full object-cover p-2"
-                                radius="lg"
-                                src="https://nextui.org/images/card-example-4.jpeg"
-                            />
-                            <CardFooter className="text-small justify-between">
-                                <p className="text-default-500">
-                                    “Lorem Ipsum is simply dummy text of the printing ”
-                                </p>
-                            </CardFooter>
-                            </Card>
-                        </Grid.Col> */}
+                            ))
+                        }
                     </Grid>
                     <Space h={100} />
-                    
                 </Box>
             </>
-        )
+    )
 
     
 }
