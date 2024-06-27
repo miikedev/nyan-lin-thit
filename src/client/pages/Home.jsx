@@ -7,6 +7,7 @@ import ResearchAndAdvocacy from '../components/home/ResearchAndAdvocacy'
 import Statements from '../components/home/Statements'
 import Blog from '../components/home/Blog'
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ const Home = () => {
     <Box className='flex flex-col gap-[100px]'>
         <Hero navigate={navigate} />
 
-        <MissionVisionValues />
+        <MissionVisionValues motion={motion}/>
 
         <WeeklyHighlights navigate={navigate} />
 
