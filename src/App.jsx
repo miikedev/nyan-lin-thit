@@ -2,9 +2,6 @@
 import './App.css'
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
@@ -20,7 +17,6 @@ import NotFound from './client/pages/NotFound'
 import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
 import { SearchContextProvider } from './client/context/SearchContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { useEffect } from 'react'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -32,7 +28,7 @@ const queryClient = new QueryClient({
 })
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
-    <Route index element={<Home />} />
+    <Route index element={<Home />} errorElement={<Error />}/>
     <Route path='dashboard' element={<Dashboard />} />
     <Route 
       path='resources' 
