@@ -1,9 +1,14 @@
-import React from 'react'
+import {useEffect} from 'react'
 import Hero from '../components/about/Hero'
 import ImageSection from '../components/about/ImageSection'
 import { Box, Space, Title, Text } from '@mantine/core'
 import { Image, Button } from '@nextui-org/react'
+import { useLocation } from'react-router-dom'
 const About = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    scrollTo(0,0)
+  }, [pathname])
   return (
     <>
       <Space h={120} />

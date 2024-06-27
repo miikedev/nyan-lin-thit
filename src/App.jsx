@@ -20,6 +20,7 @@ import NotFound from './client/pages/NotFound'
 import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
 import { SearchContextProvider } from './client/context/SearchContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { useEffect } from 'react'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -116,7 +117,6 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>
 ))
 function App() {
-  console.log(weeklyHighlightsTags)
   return (
     <SearchContextProvider>
       <QueryClientProvider client={queryClient}>
