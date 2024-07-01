@@ -8,6 +8,7 @@ import { others } from '../../../utils/tags'
 import { useResourceContext } from '../../context/ResourceContext'
 import { AnimatePresence, useAnimate } from 'framer-motion'
 import { useSearchContext } from '../../context/SearchContext'
+import { PaginationProvider } from '../../context/PaginationContext'
 const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, advocacyTags}) => {
     const [scope, animate] = useAnimate();
     const { pathname } = useLocation()
@@ -135,7 +136,9 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                 {/* )} */}
             {/* </NavLink> */}
             </div>
-            <Outlet />
+            <PaginationProvider>
+                <Outlet />
+            </PaginationProvider>
         </div>
 
   )
