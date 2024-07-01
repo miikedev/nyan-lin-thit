@@ -4,9 +4,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'; // Removed unu
 
 
 export const useResourcesData = (type, page, category, search) => {
+  
   return useQuery({
-    queryKey: [`resources/${type}/${category}/${search}`],
+    queryKey: [`resources/${type}/${page}/${category}/${search}`],
     queryFn: () => fetchResources(type, page, category, search),
+    keepPreviousData : true,
     onSuccess: (data) => {
       console.log('resources fetch success!', data)
     }
