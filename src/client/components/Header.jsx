@@ -26,7 +26,9 @@ const Header = () => {
     return (
         <Navbar maxWidth="2xl" height={100}>
         <NavbarBrand>
-            <Logo width={100}/>
+            <Link to="/">
+                <Logo width={100}/>
+            </Link>
         </NavbarBrand>
         <NavbarContent className="hidden sm:flex gap-4 full py-[20px]" justify="end">
             <NavbarItem isActive={pathname === '/' ? true : false}>
