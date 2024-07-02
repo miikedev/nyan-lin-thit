@@ -20,6 +20,7 @@ import { usePaginationContext } from '../../context/PaginationContext';
 
 import { PaginationProvider } from '../../context/PaginationContext';
 const ResourcesList = ({ type }) => {
+    console.log('list type: ', type)
     const { pathname } = useLocation();
     const { searchingText, setSearchingText } = useSearchContext();
     const { page, setPage } = usePaginationContext();

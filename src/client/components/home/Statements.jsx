@@ -5,7 +5,8 @@ import { useResourcesData } from '../../apis/resourcesData'
 import { useResourceContext } from '../../context/ResourceContext'
 const Statements = ({navigate}) => {
     const { data, isLoading, error, isSuccess } = useResourcesData('statements');
-    const { setResource } = useResourcesData();
+
+    const { setResource } = useResourceContext();
 
     const code =(<Box>
                     <h1 className='leading-4 font-semibold text-[16px]'>Lorem ispam Lorem ispam Lorem ispam Lorem ispam</h1>
@@ -35,17 +36,17 @@ const Statements = ({navigate}) => {
                                     new Array(4).fill(0).map((e,i) => (
                                         <Grid.Col span={3} key={i}>
                                             <Card className="space-y-2 p-4 min-w-64" radius="lg">
-                                            <Skeleton isLoaded={isLoading} className="rounded-lg">
+                                            <Skeleton isloaded={!isLoading.toString()} className="rounded-lg">
                                                 <div className="h-48 rounded-lg bg-secondary"></div>
                                             </Skeleton>
                                             <div className="space-y-3">
-                                            <Skeleton isLoaded={isLoading} className="w-3/5 rounded-lg">
+                                            <Skeleton isloaded={!isLoading.toString()} className="w-3/5 rounded-lg">
                                                 <div className="h-6 w-full rounded-lg bg-secondary"></div>
                                             </Skeleton>
-                                            <Skeleton isLoaded={isLoading} className="w-4/5 rounded-lg">
+                                            <Skeleton isloaded={!isLoading.toString()} className="w-4/5 rounded-lg">
                                                 <div className="h-10 w-full rounded-lg bg-secondary-300"></div>
                                             </Skeleton>
-                                            <Skeleton isLoaded={isLoading} className="w-2/5 rounded-lg">
+                                            <Skeleton isloaded={!isLoading.toString()} className="w-2/5 rounded-lg">
                                                 <div className="h-10 w-full rounded-lg bg-secondary-200"></div>
                                             </Skeleton>
                                             </div>
