@@ -72,7 +72,7 @@ const ResourcesList = ({ type }) => {
                 </div>
         );
     }
-    if (data === undefined || data?.resources.length === 0 || filteredData?.length === 0) return <>
+    if (data === undefined || data?.resources?.length === 0 || filteredData?.length === 0) return <>
         <Paper>
             <Box className='mt-8 rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center'>
                 <Title order={1} className='text-primary text-opacity-40 font-bold'>- No Content Found -</Title>
