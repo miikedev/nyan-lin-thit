@@ -11,15 +11,9 @@ export default {
   ],
   theme: {
     extend: { 
-      // screens: {
-      //   'sm': '320px',   // Small mobile devices
-      //   'md': '480px',   // Medium mobile devices
-      //   'lg': '768px',   // Small tablets and large mobile devices
-      //   'xl': '1024px',  // Tablets and small desktops
-      //   '2xl': '1200px', // Standard desktops and larger tablets
-      //   '3xl': '1440px', // Large desktops
-      //   '4xl': '1600px'  // Extra large desktops
-      // }
+      screens: {
+        
+      }
   },
   },
   darkMode: "class",

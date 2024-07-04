@@ -111,7 +111,7 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
                 {({ isActive }) => ( */}
                 <span 
                     ref={scope}
-                    className='relative'>
+                    className='relative top-6 lg:top-0 xl:top-0 md:top-0'>
                     <Button 
                         className="absolute bottom-0 right-0 z-10 bg-none scale-85" 
                         isIconOnly 

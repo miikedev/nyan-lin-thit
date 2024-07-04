@@ -65,7 +65,8 @@ const Footer = () => {
                   <Box className='flex flex-col justify-start'>
                     <Input 
                       classNames={{
-                        base: "border-1 border-primary-700",
+                        base: "border-1 border-primary-700 ",
+                        input: "bg-transparent max-h-8 min-h-10 text-[12px] lg:text-[14px] text-[#21212180]"
                       }} 
                       name={field.name}
                       value={field.state.value}
@@ -76,7 +77,7 @@ const Footer = () => {
                       size='lg'
                       bordered 
                       placeholder='Enter your email now' 
-                      className='text-[13px] min-w-96' 
+                      className='lg:text-[13px] md:text-[13px] text-[10px] min-w-50 lg:min-w-96 md:min-w-80' 
                     />
                     {field.state.meta.errors ? (
                       <small role="alert" className='text-red-600 font-semibold'>{field.state.meta.errors.join(', ')}</small>
@@ -84,7 +85,7 @@ const Footer = () => {
                   </Box>
                 )}
               </form.Field>
-              <Button isLoading={loading} type='submit' radius='none' className='py-3 text-[13px] bg-primary text-white' size='lg'>Subscribe Now</Button>
+              <Button isLoading={loading} type='submit' radius='none' className='text-[13px] min-w-24 md:min-w-36 bg-primary text-white' size='lg'>Subscribe Now</Button>
               </form>
               {/* </form.Provider> */}
               {/* <Box className={ ? 'flex lg:justify-center w-full justify-center' : 'hidden'}> */}

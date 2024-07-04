@@ -32,7 +32,7 @@ const Header = () => {
     }
     return (
     
-    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen}>
+    <Navbar isMenuOpen={isMenuOpen} onMenuOpenChange={setIsMenuOpen} maxWidth="2xl">
       
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}

@@ -198,7 +198,7 @@ const SetBounds = () => {
   return (
     <div>
       <button
-        className="reset-zoom-button"
+        className="reset-zoom-button z-20"
         onClick={resetZoom}
         style={{
           position: "absolute",
@@ -240,7 +240,7 @@ const DataMap3 = ({ width, height }) => {
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={` border-2 w-[${width}] h-[${height}] rounded-[4px]  flex justify-center items-center`}
+        className={` border-2 w-[${width}] h-[${height}] rounded-[4px]  flex justify-center items-center z-20`}
       >
         <SetBounds />
         {markerData.map((marker, index) => (
