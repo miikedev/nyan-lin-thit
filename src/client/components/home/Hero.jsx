@@ -8,9 +8,10 @@ const Hero = ({motion, navigate}) => {
       <Box className="w-full flex hero fix h-[640px] relative">
       <Spacer x={36} />
       <Box className="relative top-[100px] w-[840px]">
-        <motion.h1 initial={{ opacity: 0 }}
-                animate={{ opacity: 1}}
-                transition={{ duration: 0.2 }}  className='font-bold text-[70px]'>Nyan Lin Thit</motion.h1>
+        <motion.h1 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1}}
+          transition={{ duration: 0.2 }}  className='font-bold text-[70px]'>Nyan Lin Thit</motion.h1>
         <Button disableRipple={true} className="hover:bg-primary hover:bg-opacity-none absolute right-[-60px] z-20 px-4 py-8 bg-primary text-white w-48 text-3xl" radius='sm'>Analytica</Button>
         <Box className='relative top-[100px]'>
           <motion.p 

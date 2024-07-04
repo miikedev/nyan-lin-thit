@@ -10,11 +10,10 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: { screens:{
-      'lg':'1133px',
-      '3xl':'1800px',
-      '4xl':'2100px'
-    }
+    extend: { 
+      screens: {
+        
+      }
   },
   },
   darkMode: "class",

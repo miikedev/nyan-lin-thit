@@ -8,10 +8,10 @@ export const instance = axios.create({
 export const fetchResources = async (type, page, category, search) => {
   console.log(type,page,category,search)
   const url = search === undefined ? 
-  `/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}`:
-  `/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}&search=${search}`
+  `/api/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}`:
+  `/api/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}&search=${search}`
   try {
-    const response = await instance.get(url);
+    const response = await axios.get(url);
     return response.data; // This will include the response data, status, and other information
   } catch (error) {
     // Handle or throw the error as neededm

@@ -82,7 +82,7 @@ const ResourcesList = ({ type }) => {
     
     if(filteredData?.length > 0) {
         return (
-            <Container size="fluid" className="flex justify-start flex-wrap w-full gap-3 py-10">
+            <div className="flex justify-center w-full">
                 { isSuccess && (
                     <>
                         {filteredData?.map((resource) => (
@@ -90,7 +90,7 @@ const ResourcesList = ({ type }) => {
                         ))}
                     </>
                 )}
-            </Container>
+            </div>
         )
     }
 
@@ -99,8 +99,8 @@ const ResourcesList = ({ type }) => {
         return <Error />
     }
     return (
-        <Container size="fluid">
-        <Box className="flex flex-wrap w-full gap-3 py-10">
+        <Container size="fluid" className="py-10">
+            <Box className="flex flex-wrap gap-8 justify-center">
             { isSuccess && (
                 <>
                     {data?.resources?.map((resource) => (
@@ -109,7 +109,7 @@ const ResourcesList = ({ type }) => {
                 </>
             )}
         </Box>
-        <Box className='w-full flex justify-center'>
+        <Box className='flex justify-center my-10'>
             <ResourcesPagination pages={data.pages} isPreviousData={isPreviousData} data={data} />
         </Box>
         </Container>
