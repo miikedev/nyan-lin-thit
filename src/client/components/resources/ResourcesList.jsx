@@ -82,7 +82,7 @@ const ResourcesList = ({ type }) => {
     
     if(filteredData?.length > 0) {
         return (
-            <Container size="fluid" className="flex justify-start flex-wrap w-full gap-3 py-10">
+            <Container size="fluid" className="flex justify-start lg:justify-center lg:flex-wrap lg:w-full lg:gap-3 md:gap-5 lg:py-10" justify="center">
                 { isSuccess && (
                     <>
                         {filteredData?.map((resource) => (

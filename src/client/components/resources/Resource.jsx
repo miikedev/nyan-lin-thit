@@ -3,7 +3,7 @@ import { Card, Skeleton, Image, Link, Button } from '@nextui-org/react'
 import { Grid, Space, Title, Box } from '@mantine/core'
 const Resource = ({resource, isLoading}) => {
   return (
-    <Card className="space-y-2 p-4 min-w-96 w-96 bg-opacity-10 bg-black/10" radius='md'>
+    <Card className="space-y-2 p-4 bg-opacity-10 bg-black/10" radius='md'>
         <div className='max-h-80 flex flex-col items-center w-full'>
           {
             'embed' in resource ? 
