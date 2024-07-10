@@ -4,6 +4,7 @@ import Dates3 from "./Dates3";
 import Data2 from "./Data2";
 import CLineChart from "./CLineChart";
 import CScatterChart from "./CScatterChart";
+import CStackedBarChart from "./CStackedBarChart";
 
 const TabContent = ({ active }) => {
   const [activeChart, setActiveChart] = useState(0);
