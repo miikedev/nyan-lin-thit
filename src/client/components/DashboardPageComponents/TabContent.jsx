@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import Dates3 from "./Dates3";
 import Data2 from "./Data2";
+import Detail from './Detail';
 import CLineChart from "./CLineChart";
 import CScatterChart from "./CScatterChart";
 import CStackedBarChart from "./CStackedBarChart";
@@ -89,7 +90,7 @@ const TabContent = ({ active }) => {
     case "highlight":
       return (
         <div className="flex justify-center items-center mt-[30px]">
-          <div className="w-[300px] h-[100px] border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[15px]">
+          {/* <div className="w-[300px] h-[100px] border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[15px]">
             <div className="flex flex-col ">
               <p className="text-[11px] text-[#A6A1C0]">Price</p>
               <p className="text-[12px] text-white">$9,542.39</p>
@@ -110,14 +111,15 @@ const TabContent = ({ active }) => {
               <p className="text-[11px] text-[#A6A1C0]">Price</p>
               <p className="text-[12px] text-white">$9,542.39</p>
             </div>
-          </div>
+          </div> */}
+          <Detail layout={false} name={'11px'} number={'11px'} />
         </div>
       );
 
     case "categories":
       return (
         <div>
-          <div className="w-[90%] mx-auto px-[10px] h-[160px] border-[1px] border-[#1e1835] bg-[#000408]  rounded-md">
+          <div className="w-[90%] mx-auto px-[10px] h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
             <Data2 />
           </div>
         </div>
@@ -127,7 +129,7 @@ const TabContent = ({ active }) => {
       return (
         <div>
           
-          <div className=" w-[70%] mt-[100px] mx-auto  flex justify-center h-auto border-[1px] border-[#1e1835] bg-[#000408] rounded-md  items-center">
+          <div className=" w-[70%] mt-[100px] mx-auto  flex justify-center h-auto border-[1px] border-[#e6e6e6] bg-white rounded-md  items-center">
             <Dates3 fontSize={"11px"}  />
           </div>
         </div>
