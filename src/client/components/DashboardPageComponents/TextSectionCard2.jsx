@@ -47,7 +47,7 @@ const TextSectionCard2 = ({height}) => {
   return (
     <div>
       <div
-        className={`text-[#7EADE3]  border-[1px] border-[#1e1835] w-full h-[${height}]  hover:bg-[#2c4766] bg-[#000408] px-[20px] py-[20px]  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[20px]`}
+        className={`text-black  border-[1px] border-[#e6e6e6] w-full h-[${height}]  hover:bg-[#2c4766] hover:text-white bg-white px-[20px] py-[20px]  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[20px]`}
         onClick={handleCardClick}
       >
         {/* <div className="flex space-x-2 "> </div> */}

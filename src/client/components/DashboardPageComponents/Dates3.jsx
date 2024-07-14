@@ -36,9 +36,9 @@ const Dates3 = ({fontSize}) => {
     <div className=" w-full gap-[5px] flex  justify-center items-center">
       
       <div className="mb-[10px] w-[100px] ">
-        <div className={`mb-[10px] pt-[5px] text-[${fontSize}] text-[#DCDCDC] `}>Start Date</div>
+        <div className={`mb-[10px] pt-[5px] text-[${fontSize}] text-black `}>Start Date</div>
         <div className="w-full flex gap-[5px] justify-between items-center">
-          <img src={CalendarIcon} className="w-[20px] h-[20px] text-white" />
+          <img src={CalendarIcon} className="w-[20px] h-[20px] text-black" />
 
           <DatePicker
              renderCustomHeader={({
@@ -98,9 +98,9 @@ const Dates3 = ({fontSize}) => {
           />
         </div>
       </div>
-              {/* <div className="w-[1px] h-full bg-[#4d5eb2]">---</div> */}
+              
       <div className="mb-[10px] w-[100px]">
-        <h3 className={`mb-[10px] pt-[5px] text-[${fontSize}] text-[#DCDCDC]`} >End Date</h3>
+        <h3 className={`mb-[10px] pt-[5px] text-[${fontSize}] text-black`} >End Date</h3>
         <div className="w-full flex gap-[5px] justify-between items-center">
           <img src={CalendarIcon} className="w-[20px] h-[20px]" />
 
