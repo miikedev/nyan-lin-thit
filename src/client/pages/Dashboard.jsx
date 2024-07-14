@@ -1,12 +1,4 @@
-// import React from 'react'
 
-// const Dashboard = () => {
-//   return (
-//     <div>Dashboard</div>
-//   )
-// }
-
-// export default Dashboard
 
 
 
@@ -24,12 +16,17 @@ import Max from "../components/DashboardPageComponents/assets2/maximize.svg";
 import Min from "../components/DashboardPageComponents/assets2/minimize.svg";
 import L from "../components/DashboardPageComponents/assets2/left-arrow.svg";
 import R from "../components/DashboardPageComponents/assets2/right-arrow.svg";
+import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
+import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
+
+
 
 
 import Dates from "../components/DashboardPageComponents/Dates";
 import Dates2 from "../components/DashboardPageComponents/Dates2";
 
 import TextSectionCard2 from "../components/DashboardPageComponents/TextSectionCard2";
+import Detail from "../components/DashboardPageComponents/Detail";
 
 
 // Tab Section
@@ -38,6 +35,7 @@ import TabContent from "../components/DashboardPageComponents/TabContent";
 import CLineChart from "../components/DashboardPageComponents/CLineChart";
 import CScatterChart from "../components/DashboardPageComponents/CScatterChart";
 import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
+// import { px } from "framer-motion";
 
 const Dashboard = () => {
 	const [activeTab, setActiveTab] = useState("chart");
@@ -63,6 +61,16 @@ const Dashboard = () => {
 	const [fullChartWidth, setFullChartWidth] = useState(1200);
 	const [fullChartHeight, setFullChartHeight] = useState(250);
 
+	const detailNameForLarge = '14px';
+	const detailNumberForLarge = '13px';
+
+	const detailNameForMedium = '12px';
+	const detailNumberForMedium = '12px';
+	
+  const detailNameForSmall = '11px';
+	const detailNumberForSmall = '12px';
+
+
 	const handleChartClick = (chartIndex) => {
 		setActiveChart(chartIndex);
 		setIsFullWidth(!isFullWidth);
@@ -74,13 +82,13 @@ const Dashboard = () => {
 	};
 
 	return (
-		<section className="bg-[#010101]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
+		<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
 			{/*Mobile Phone Size */}
-			<div className=" md:hidden ">
+			<div className=" md:hidden mt-[25px] bg-white">
 				{/* Top Section */}
 
 				<div className=" md:hidden w-full h-[200px] flex flex-col justify-between items-center pt-[3px]">
-					<div className=" bg-[#202020] border-[#737373] rounded-[8px] gap-[5px] w-[80%] h-[30px]  px-4 py-[2px] flex  justify-center items-center">
+					<div className=" bg-[#e6e6e6] border-[#737373] rounded-[8px] gap-[5px] w-[80%] h-[30px]  px-4 py-[2px] flex  justify-center items-center">
 						<Tab
 							active={activeTab === "chart"}
 							onClick={() => handleTabChange("chart")}
@@ -111,18 +119,18 @@ const Dashboard = () => {
 					</div>
 				</div>
 				{/* Bottom Section */}
-				<div className=" md:hidden  mt-[30px] px-[5px] mx-auto w-full  h-[420px]">
+				<div className=" md:hidden bg-white  mt-[30px] px-[5px] mx-auto w-full  h-[420px]">
 					<DataMap3 width={"full"} height={"420px"} />
 				</div>
 			</div>
 
 			{/*Vertical Tablet Sizes */}
 			<div className="  lg:hidden ">
-				<div className="max-md:hidden  w-full flex flex-col justify-center items-center">
+				<div className="max-md:hidden py-[10px]  w-full flex flex-col justify-center items-center">
 					{/* Top Container */}
 
 					<div
-						className={`relative bg-[#161616] w-full h-[240px] rounded-md flex justify-center items-center gap-[10px] p-[5px] mb-[10px]`}
+						className={`relative bg-white w-full h-[260px] rounded-md flex justify-center items-center gap-[10px] py-[20px] mb-[10px]`}
 					>
 						{!isFullWidth && (
 							<>
@@ -302,16 +310,16 @@ const Dashboard = () => {
             </div> */}
 
 						{/* Map */}
-						<div className="mt-[10px] w-full h-[523px]">
+						<div className="mt-[10px] bg-white w-full h-[523px]">
 							<DataMap3 width={"full"} height={"523px"} />
 						</div>
 						{/*Under Right Container  */}
-						<div className="bg-[#161616] w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
-							<div className="w-full h-[360px] bg-[#000000] rounded flex justify-between items-center py-[20px] ">
+						<div className="bg-white w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
+							<div className="w-full h-[360px] bg-[#e6e6e6] rounded flex justify-between items-center py-[20px] ">
 								{/* Inner Left Container */}
 								<div className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
 									<div className="flex items-center justify-between mr-1">
-										<h2 className="text-white">မြန်မာ</h2>
+										<h2 className="text-black font-bold">Myanmar</h2>
 										{/* <div className=" flex justify-end p-0">
                         <button
                           className={`p-1 rounded mr-2 ${
@@ -335,16 +343,16 @@ const Dashboard = () => {
                         </button>
                       </div> */}
 									</div>
-									<div className="mb-[7px] bg-[#000000] w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
+									<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 										<img src={Cicon} className="w-[15px] h-[15px] text-white" />
-										<p className="text-white text-[12px] ml-[16px]">
+										<p className="text-black text-[12px] ml-[16px]">
 											4 June 2020 - 17 June 2020
 										</p>
 									</div>
 
 									<div className="flex items-center mb-[7px]">
-										<img src={M} className="w-[15px] h-[15px] text-white" />
-										<p className="text-white text-[11px] ml-[10px]">
+										<img src={M} className="w-[15px] h-[15px] text-black" />
+										<p className="text-black text-[11px] ml-[10px]">
 											22.635687837958972,95.46938926418544
 										</p>
 									</div>
@@ -375,7 +383,7 @@ const Dashboard = () => {
 								{/* Inner Right Container */}
 								<div className="w-3/5 flex flex-col  gap-[16px]   px-[20px] ">
 									{/* top */}
-									<div className="lg:w-[360px] xl:w-[444px] h-[58px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-around items-center">
+									{/* <div className="lg:w-[360px] xl:w-[444px] h-[58px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-around items-center">
 										<div className="flex flex-col ">
 											<p className="text-[12px] text-[#A6A1C0]">Price</p>
 											<p className="text-[13px] text-white">$9,542.39</p>
@@ -396,7 +404,8 @@ const Dashboard = () => {
 											<p className="text-[12px] text-[#A6A1C0]">Price</p>
 											<p className="text-[13px] text-white">$9,542.39</p>
 										</div>
-									</div>
+									</div> */}
+									<Detail layout={true} name={detailNameForMedium} number = {detailNumberForMedium} />
 
 									{/* Horizontal Dashed Line */}
 									<div className="relative h-[1px] mt-[10px] bg-gray-300">
@@ -405,10 +414,10 @@ const Dashboard = () => {
 
 									{/* bottom  */}
 									<div className="flex  items-center mt-[10px] gap-[10px]">
-										<div className="w-[264px] h-[220px] border-[1px] border-[#1e1835] bg-[#000000] flex items-center  rounded-md">
+										<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
 											<Data />
 										</div>
-										<div className="w-[170px] h-[220px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-center items-center">
+										<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 											<Dates2 />
 										</div>
 									</div>
@@ -425,7 +434,7 @@ const Dashboard = () => {
 					<>
 						{/* Left Container */}
 						<div className="w-[370px] ">
-							<div className="bg-[#161616]  w-[370px] h-[640px] ">
+							<div className="bg-white  w-[370px] h-[640px] ">
 								<DataMap3 width={"370px"} height={"640px"} />
 							</div>
 						</div>
@@ -434,7 +443,7 @@ const Dashboard = () => {
 							{/*Top Right Container */}
 
 							<div
-								className={`relative p-[5px] bg-[#161616] w-full h-[240px] rounded-md flex justify-center items-center  mb-[10px]`}
+								className={`relative p-[5px] bg-white w-full h-[240px] rounded-md flex justify-center items-center  mb-[10px]`}
 							>
 								{!isFullWidth && (
 									<>
@@ -581,48 +590,48 @@ const Dashboard = () => {
 							</div>
 
 							{/*Under Right Container  */}
-							<div className="bg-[#161616] w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
-								<div className="w-full h-[360px] bg-[#000000] rounded flex justify-between items-center py-[20px] ">
+							<div className="bg-white w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
+								<div className="w-full h-[360px] bg-[#e6e6e6] rounded flex justify-between items-center py-[20px] ">
 									{/* Inner Left Container */}
 									<div className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
 										<div className="flex items-center justify-between mr-1">
-											<h2 className="text-white">မြန်မာ</h2>
-											<div className=" flex justify-end p-0">
+											<h2 className="text-black font-bold">Myanmar</h2>
+											<div className=" flex justify-end gap-[12px] p-0">
 												<button
-													className={`p-1 rounded mr-2 ${
-														isDefaultLayout
-															? "bg-blue-500 text-white"
-															: "bg-gray-300"
-													}`}
-													onClick={() => setIsDefaultLayout(true)}
+												
 												>
-													L1
+														<img src={L1} 	className={`   ${
+															isDefaultLayout
+																? "bg-blue-500 "
+																: "bg-white"
+														} w-[25px] h-[25px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(true)}/>
 												</button>
 												<button
-													className={`p-1 rounded ${
-														isDefaultLayout
-															? "bg-gray-300"
-															: "bg-blue-500 text-white"
-													}`}
-													onClick={() => setIsDefaultLayout(false)}
+												
 												>
-													L2
+												<img src={L2} className={` ${
+															isDefaultLayout
+																? "bg-white"
+																: "bg-blue-500"
+														} w-[25px] h-[25px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(false)}/>
 												</button>
 											</div>
 										</div>
-										<div className="mb-[7px] bg-[#000000] w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
+										<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 											<img
 												src={Cicon}
-												className="w-[15px] h-[15px] text-white"
+												className="w-[15px] h-[15px] text-black"
 											/>
-											<p className="text-white text-[12px] ml-[16px]">
+											<p className="text-black text-[12px] ml-[16px]">
 												4 June 2020 - 17 June 2020
 											</p>
 										</div>
 
 										<div className="flex items-center mb-[7px]">
 											<img src={M} className="w-[15px] h-[15px] text-white" />
-											<p className="text-white text-[11px] ml-[10px]">
+											<p className="text-black text-[11px] ml-[10px]">
 												22.635687837958972,95.46938926418544
 											</p>
 										</div>
@@ -641,7 +650,7 @@ const Dashboard = () => {
 									{/* Inner Right Container */}
 									<div className="w-3/5 flex flex-col  gap-[16px]   px-[20px] ">
 										{/* top */}
-										<div className="lg:w-[360px] xl:w-[444px] h-[58px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-around items-center">
+										{/* <div className="lg:w-[360px] xl:w-[444px] h-[58px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-around items-center">
 											<div className="flex flex-col ">
 												<p className="text-[12px] text-[#A6A1C0]">Price</p>
 												<p className="text-[13px] text-white">$9,542.39</p>
@@ -662,7 +671,9 @@ const Dashboard = () => {
 												<p className="text-[12px] text-[#A6A1C0]">Price</p>
 												<p className="text-[13px] text-white">$9,542.39</p>
 											</div>
-										</div>
+										</div> */}
+											<Detail layout={true} name={detailNameForMedium} number={detailNumberForMedium}/>
+										
 
 										{/* Horizontal Dashed Line */}
 										<div className="relative h-[1px] mt-[10px] bg-gray-300">
@@ -671,10 +682,10 @@ const Dashboard = () => {
 
 										{/* bottom  */}
 										<div className="flex  items-center mt-[10px] gap-[10px]">
-											<div className="w-[264px] h-[220px] border-[1px] border-[#1e1835] bg-[#000000] flex items-center  rounded-md">
+											<div className="w-[264px] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
 												<Data />
 											</div>
-											<div className="w-[170px] h-[220px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-center items-center">
+											<div className="w-[170px] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 												<Dates2 />
 											</div>
 										</div>
@@ -690,7 +701,7 @@ const Dashboard = () => {
 							{/* Top Container */}
 
 							<div
-								className={`relative bg-[#161616] w-full h-[232px] rounded-md flex justify-center items-center gap-[5px] p-[5px] mb-[10px]`}
+								className={`relative bg-white w-full h-[232px] rounded-md flex justify-center items-center gap-[5px] p-[5px] mb-[10px]`}
 							>
 								{!isFullWidth && (
 									<>
@@ -711,7 +722,7 @@ const Dashboard = () => {
 											/>
 											
 										</div>
-										<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+										<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 										{/*2 container */}
 										<div
 											className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -728,7 +739,7 @@ const Dashboard = () => {
 											height= {smallChartHeightTwo}
 											/>
 										</div>
-										<div className="w-[1px]  h-full bg-[#4d5eb2]">---</div>
+										<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
 										{/* 3 container */}
 										<div
 											className="w-1/3  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -859,53 +870,53 @@ const Dashboard = () => {
 							{/* Bottom Parent Container */}
 							<div className="w-full flex justify-between">
 								{/*Bottom Left Container */}
-								<div className="bg-[#161616] w-[375px] h-[456px] mr-[10px]">
+								<div className="bg-white w-[375px] h-[456px] mr-[10px]">
 									<DataMap3 width={"375px"} height={"456px"} />
 								</div>
 
 								{/*Bottom Right Container  */}
-								<div className="bg-[#161616] w-[700px] h-[456px] flex justify-center items-center rounded-md  px-[10px]">
-									<div className="w-[665px] h-[422px] bg-[#000000] rounded flex justify-between items-center p-[20px]">
+								<div className="bg-white w-[700px] h-[456px] flex justify-center items-center rounded-md  px-[10px]">
+									<div className="w-[665px] h-[422px] bg-[#e6e6e6] rounded flex justify-between items-center p-[20px]">
 										{/* Inner Left Container */}
 										<div className="w-1/2 flex flex-col gap-[10px]    ">
 											<div className="flex items-center justify-between mr-1">
-												<h2 className="text-white">မြန်မာ</h2>
-												<div className="flex justify-end p-0">
+												<h2 className="text-black font-bold">Myanmar</h2>
+												<div className="flex justify-end gap-[12px] p-0">
 													<button
-														className={`p-1 rounded mr-2 ${
-															isDefaultLayout
-																? "bg-blue-500 text-white"
-																: "bg-gray-300"
-														}`}
-														onClick={() => setIsDefaultLayout(true)}
+													
 													>
-														L1
+													<img src={L1} 	className={`   ${
+															isDefaultLayout
+																? "bg-blue-500 "
+																: "bg-white"
+														} w-[25px] h-[25px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(true)}/>
 													</button>
 													<button
-														className={`p-1 rounded ${
-															isDefaultLayout
-																? "bg-gray-300"
-																: "bg-blue-500 text-white"
-														}`}
-														onClick={() => setIsDefaultLayout(false)}
+													
 													>
-														L2
+															<img src={L2} className={` ${
+															isDefaultLayout
+																? "bg-white"
+																: "bg-blue-500"
+														} w-[25px] h-[25px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(false)}/>
 													</button>
 												</div>
 											</div>
-											<div className="mb-[7px] bg-[#000000] w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
+											<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 												<img
 													src={Cicon}
-													className="w-[15px] h-[15px] text-white"
+													className="w-[15px] h-[15px] text-black"
 												/>
-												<p className="text-white text-[12px] ml-[16px]">
+												<p className="text-black text-[12px] ml-[16px]">
 													4 June 2020 - 17 June 2020
 												</p>
 											</div>
 
 											<div className="flex items-center mb-[7px]">
-												<img src={M} className="w-[15px] h-[15px] text-white" />
-												<p className="text-white text-[11px] ml-[10px]">
+												<img src={M} className="w-[15px] h-[15px] text-black" />
+												<p className="text-black text-[11px] ml-[10px]">
 													22.635687837958972,95.46938926418544
 												</p>
 											</div>
@@ -925,7 +936,7 @@ const Dashboard = () => {
 										{/* Inner Right Container */}
 										<div className="w-1/2 flex flex-col justify-center   px-[10px] ">
 											{/* top */}
-											<div className="w-[300px] h-[100px] border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[15px]">
+											{/* <div className="w-[300px] h-[100px] border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[15px]">
 												<div className="flex flex-col ">
 													<p className="text-[11px] text-[#A6A1C0]">Price</p>
 													<p className="text-[12px] text-white">$9,542.39</p>
@@ -946,14 +957,16 @@ const Dashboard = () => {
 													<p className="text-[11px] text-[#A6A1C0]">Price</p>
 													<p className="text-[12px] text-white">$9,542.39</p>
 												</div>
-											</div>
+											</div> */}
+												<Detail layout={false} name={detailNameForMedium} number={detailNumberForMedium}/>
+
 
 											{/* bottom  */}
 											<div className="w-[300px] flex flex-col items-center mt-[10px] gap-[5px]">
-												<div className="w-full h-[160px] border-[1px] border-[#1e1835] bg-[#000408]  rounded-md">
+												<div className="w-full h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
 													<Data2 />
 												</div>
-												<div className="w-full h-[71px] border-[1px] border-[#1e1835] bg-[#000408] rounded-md flex justify-center items-center">
+												<div className="w-full h-[71px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 													<Dates fontSize={"11px"} fontSizeTwo={"14px"} />
 												</div>
 											</div>
@@ -973,11 +986,11 @@ const Dashboard = () => {
 						<div className="w-full xl:h-[640px] 2xl:h-[1200px] flex justify-center items-center gap-x-[14px]">
 							{/* Left Container */}
 							<div className="w-[30%] h-full">
-								<div className="bg-[#161616] 2xl:hidden w-full h-[640px] mr-[16px]">
+								<div className="bg-white 2xl:hidden w-full h-[640px] mr-[16px]">
 									<DataMap3 width={"full"} height={"640px"} />
 								</div>
 
-								<div className="bg-[#161616] max-2xl:hidden w-full h-[1200px] mr-[16px]">
+								<div className="bg-white max-2xl:hidden w-full h-[1200px] mr-[16px]">
 									<DataMap3 width={"full"} height={"1200px"} />
 								</div>
 							</div>
@@ -986,7 +999,7 @@ const Dashboard = () => {
 								{/*Top Right Container */}
 
 								<div
-									className={`relative p-[5px] bg-[#161616] w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
+									className={`relative p-[5px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
 								>
 									{!isFullWidth && (
 										<>
@@ -1001,7 +1014,7 @@ const Dashboard = () => {
 													height={smallChartHeight}
 												/>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 											{/*2 container */}
 											<div
 												className="w-1/3  h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
@@ -1013,7 +1026,7 @@ const Dashboard = () => {
 													height={smallChartHeight}
 												/>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 											{/* 3 container */}
 											<div
 												className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
@@ -1092,41 +1105,41 @@ const Dashboard = () => {
 								</div>
 
 								{/*Under Right Container  */}
-								<div className="bg-[#161616] w-full xl:h-[384px] 2xl:h-[720px] flex items-center rounded-md px-[20px] py-[10px]">
-									<div className="w-full h-full bg-[#000000] rounded flex justify-between items-center py-[20px] ">
+								<div className="bg-white w-full xl:h-[384px] 2xl:h-[720px] flex items-center rounded-md px-[20px] py-[10px]">
+									<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center py-[20px] ">
 										{/* Inner Left Container */}
 										<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[20px] 2xl:gap-[25px] p-[15px]">
 											<div className="flex items-center justify-between mr-1">
-												<h2 className="text-white 2xl:text-[24px]">မြန်မာ</h2>
-												<div className=" flex justify-end p-0">
+												<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+												<div className=" flex justify-end gap-[12px] p-0">
 													<button
-														className={`p-1 rounded mr-2 ${
-															isDefaultLayout
-																? "bg-blue-500 text-white"
-																: "bg-gray-300"
-														}`}
-														onClick={() => setIsDefaultLayout(true)}
+													
 													>
-														L1
+														<img src={L1} 	className={`   ${
+															isDefaultLayout
+																? "bg-blue-500 "
+																: "bg-white"
+														} w-[30px] h-[30px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(true)}/>
 													</button>
 													<button
-														className={`p-1 rounded ${
-															isDefaultLayout
-																? "bg-gray-300"
-																: "bg-blue-500 text-white"
-														}`}
-														onClick={() => setIsDefaultLayout(false)}
+														
 													>
-														L2
+														<img src={L2} className={` ${
+															isDefaultLayout
+																? "bg-white"
+																: "bg-blue-500"
+														} w-[30px] h-[30px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(false)}/>
 													</button>
 												</div>
 											</div>
-											<div className="mb-[7px] bg-[#000000] w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
+											<div className="mb-[7px] bg-[#ffff] w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
 												<img
 													src={Cicon}
 													className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 												/>
-												<p className="text-white text-[12px] 2xl:text-[16px] ml-[16px]">
+												<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
 													4 June 2020 - 17 June 2020
 												</p>
 											</div>
@@ -1134,9 +1147,9 @@ const Dashboard = () => {
 											<div className="flex items-center mb-[7px]">
 												<img
 													src={M}
-													className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
+													className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 												/>
-												<p className="text-white text-[11px] 2xl:text-[16px] ml-[10px]">
+												<p className="text-black text-[11px] 2xl:text-[16px] ml-[10px]">
 													22.635687837958972,95.46938926418544
 												</p>
 											</div>
@@ -1157,28 +1170,8 @@ const Dashboard = () => {
 										{/* Inner Right Container */}
 										<div className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col  py-[10px]  px-[20px] 3xl:py-[20px] 2xl:gap-y-[20px] 3xl:gap-y-[30px] 3xl:px-[30px]">
 											{/* top */}
-											<div className="w-full 2xl:h-[150px] h-[58px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-around items-center">
-												<div className="flex flex-col ">
-													<p className="text-[12px] text-[#A6A1C0]">Price</p>
-													<p className="text-[13px] text-white">$9,542.39</p>
-												</div>
-												<div className="flex flex-col ">
-													<p className="text-[12px] text-[#A6A1C0]">Price</p>
-													<p className="text-[13px] text-white">$9,542.39</p>
-												</div>
-												<div className="flex flex-col ">
-													<p className="text-[12px] text-[#A6A1C0]">Price</p>
-													<p className="text-[13px] text-white">$9,542.39</p>
-												</div>
-												<div className="flex flex-col ">
-													<p className="text-[12px] text-[#A6A1C0]">Price</p>
-													<p className="text-[13px] text-white">$9,542.39</p>
-												</div>
-												<div className="flex flex-col ">
-													<p className="text-[12px] text-[#A6A1C0]">Price</p>
-													<p className="text-[13px] text-white">$9,542.39</p>
-												</div>
-											</div>
+											
+											<Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge}/>
 
 											{/* Horizontal Dashed Line */}
 											<div className="relative h-[1px] mt-[10px] bg-gray-300">
@@ -1187,10 +1180,10 @@ const Dashboard = () => {
 
 											{/* bottom  */}
 											<div className=" w-full  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
-												<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#1e1835] bg-[#000000] flex items-center  rounded-md">
+												<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
 													<Data />
 												</div>
-												<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-center items-center">
+												<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 													<Dates2 />
 												</div>
 											</div>
@@ -1207,7 +1200,7 @@ const Dashboard = () => {
 							{/* Top Container */}
 
 							<div
-								className={`relative bg-[#161616] w-full h-[250px] xl:h-[256px] 2xl:h-[380px]  rounded-md flex justify-center items-center gap-[10px] p-[5px] mb-[10px]`}
+								className={`relative bg-white w-full h-[250px] xl:h-[256px] 2xl:h-[380px]  rounded-md flex justify-center items-center gap-[10px] p-[5px] mb-[10px]`}
 							>
 								{!isFullWidth && (
 									<>
@@ -1221,7 +1214,7 @@ const Dashboard = () => {
 												height={smallChartHeightTwo}
 											/>
 										</div>
-										<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+										<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 										{/*2 container */}
 										<div
 											className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -1232,7 +1225,7 @@ const Dashboard = () => {
 												height={smallChartHeightTwo}
 											/>
 										</div>
-										<div className="w-[1px]  h-full bg-[#4d5eb2]">---</div>
+										<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
 										{/* 3 container */}
 										<div
 											className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -1346,50 +1339,50 @@ const Dashboard = () => {
 								{/* <div className="bg-[#161616] w-[30%] h-[720px] mr-[16px]">
 									<DataMap3 width={"full"} height={"720px"} />
 								</div> */}
-								<div className="bg-[#161616] w-[30%] 2xl:hidden  h-[640px] mr-[16px]">
+								<div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px]">
 									<DataMap3 width={"full"} height={"640px"} />
 								</div>
 
-								<div className="bg-[#161616] w-[30%] max-2xl:hidden  h-[800px] mr-[16px]">
+								<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px]">
 									<DataMap3 width={"full"} height={"800px"} />
 								</div>
 
 								{/*Bottom Right Container  */}
-								<div className="bg-[#161616] w-[70%] h-[640px] 2xl:h-[800px] flex justify-center items-center rounded-md  p-[20px]">
-									<div className="w-full h-full bg-[#000000] rounded flex justify-between items-center p-[10px]">
+								<div className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex justify-center items-center rounded-md  p-[20px]">
+									<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center p-[10px]">
 										{/* Inner Left Container */}
 										<div className="w-1/2  h-full  justify-center  xl:gap-[30px]  mx-[10px] flex flex-col gap-[16px]    ">
 											<div className="flex items-center justify-between mr-1 ">
-												<h2 className="text-white xl:text-[20px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]">မြန်မာ</h2>
-												<div className="flex justify-end p-0">
+												<h2 className="text-black font-bold xl:text-[20px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]">Myanmar</h2>
+												<div className="flex justify-end gap-[12px] p-0">
 													<button
-														className={`p-1 rounded mr-2 ${
-															isDefaultLayout
-																? "bg-blue-500 text-white"
-																: "bg-gray-300"
-														}`}
-														onClick={() => setIsDefaultLayout(true)}
+														
 													>
-														L1
+														<img src={L1} className={`p-1 rounded w-[30px] h-[30px]  ${
+															isDefaultLayout
+																? "bg-blue-500 "
+																: "bg-white"
+														}`}
+														onClick={() => setIsDefaultLayout(true)}/>
 													</button>
 													<button
-														className={`p-1 rounded ${
-															isDefaultLayout
-																? "bg-gray-300"
-																: "bg-blue-500 text-white"
-														}`}
-														onClick={() => setIsDefaultLayout(false)}
+													
 													>
-														L2
+														<img src={L2} className={`p-1 rounded w-[30px] h-[30px]  ${
+															isDefaultLayout
+																? "bg-white "
+																: "bg-blue-500"
+														}`}
+														onClick={() => setIsDefaultLayout(false)}/>
 													</button>
 												</div>
 											</div>
-											<div className="mb-[7px] bg-[#000000] w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
+											<div className="mb-[7px] bg-white w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
 												<img
 													src={Cicon}
-													className="w-[15px] h-[15px] xl:w-[20px] xl:h-[20px] 2xl:w-[25px] 2xl:h-[25px] text-white"
+													className="w-[15px] h-[15px] xl:w-[20px] xl:h-[20px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 												/>
-												<p className="text-white text-[12px] 2xl:text-[16px] ml-[16px]">
+												<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
 													4 June 2020 - 17 June 2020
 												</p>
 											</div>
@@ -1399,7 +1392,7 @@ const Dashboard = () => {
 													src={M}
 													className="w-[15px] h-[15px] xl:w-[18px] xl:h-[18px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 												/>
-												<p className="text-white text-[11px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] 4xl:text-[20px] ml-[10px]">
+												<p className="text-black text-[11px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] 4xl:text-[20px] ml-[10px]">
 													22.635687837958972,95.46938926418544
 												</p>
 											</div>
@@ -1445,7 +1438,7 @@ const Dashboard = () => {
 										{/* Inner Right Container */}
 										<div className="w-1/2  h-full xl:justify-center xl:items-center flex flex-col justify-center 2xl:gap-y-[40px]  px-[20px] ">
 											{/* top */}
-											<div className="w-[369px] h-[20%] 2xl:w-full border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[25px]">
+											{/* <div className="w-[369px] h-[20%] 2xl:w-full border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[25px]">
 												<div className="flex flex-col ">
 													<p className="text-[12px] text-[#A6A1C0]">Price</p>
 													<p className="text-[13px] text-white">$9,542.39</p>
@@ -1466,25 +1459,26 @@ const Dashboard = () => {
 													<p className="text-[12px] text-[#A6A1C0]">Price</p>
 													<p className="text-[13px] text-white">$9,542.39</p>
 												</div>
-											</div>
+											</div> */}
+											<Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} />
 
 											{/* bottom  */}
-											<div className="4xl:hidden w-[369px] 2xl:w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
-												<div className="w-full h-[227px] border-[1px] border-[#1e1835] bg-[#000408]  rounded-md">
+											<div className="4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
+												<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white   rounded-md">
 													<Data />
 												</div>
 												
-												<div className="w-full  bg-[#000408] h-[100px] border-[1px] border-[#1e1835]  rounded-md flex justify-center items-center">
+												<div className="w-full  h-[100px] border-[1px] border-[#e6e6e6] bg-white   rounded-md flex justify-center items-center">
 													<Dates />
 												</div>
 											</div>
 
 											{/* bottom  */}
 											<div className="max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
-												<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#1e1835] bg-[#000000] flex items-center  rounded-md">
+												<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  flex items-center  rounded-md">
 													<Data />
 												</div>
-												<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#1e1835] bg-[#000000] rounded-md flex justify-center items-center">
+												<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  rounded-md flex justify-center items-center">
 													<Dates2 />
 												</div>
 											</div>
