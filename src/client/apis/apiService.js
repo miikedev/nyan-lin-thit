@@ -1,27 +1,27 @@
 import axios from 'axios';
-console.log(import.meta.env.VITE_API_BASE_URL_DEV)
 // Get the environment variables
-const API_BASE_URL = import.meta.env.PROD 
-    ? import.meta.env.VITE_API_BASE_URL_PROD 
-    : import.meta.env.VITE_API_BASE_URL_DEV;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
+const IS_PRODUCTION = import.meta.env.ENV === 'production';
 
 // Create axios instance with the base URL
 export const instance = axios.create({
   baseURL: API_BASE_URL
 });
 
+console.log(import.meta.env.VITE_API_BASE_URL)
+
 // Fetch resources from the API
 export const fetchResources = async (type, page, category, search) => {
   console.log(type, page, category, search);
 
   // Construct the URL depending on the environment
-  const basePath = import.meta.env.PROD ? '' : '/api';
+  const basePath = IS_PRODUCTION ? '' : '/api';
   const url = search === undefined 
     ? `${basePath}/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}`
     : `${basePath}/resources/type/${type.toUpperCase()}?page=${page}&limit=6&category=${category || ""}&search=${search}`;
 
   try {
-    const response = await instance.get(url);
+    const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);
     return response.data; // This will include the response data, status, and other information
   } catch (error) {
     // Handle or throw the error as needed
