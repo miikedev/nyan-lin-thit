@@ -3,11 +3,11 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Dates.css";
 import CalendarIcon from "../DashboardPageComponents/assets2/calendar.svg";
-
+import { useDashboardDateContext } from "../../context/DashboardDateContext";
 const Dates2 = () => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
-
+  let { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
+  // const [startDate, setStartDate] = useState(null);
+  // const [endDate, setEndDate] = useState(null);
   const currentYear = new Date().getFullYear();
   const years = Array.from(
     { length: currentYear - 2021 + 1 },
@@ -29,6 +29,8 @@ const Dates2 = () => {
     "December",
   ];
 
+  console.log('startDate: ' + startDate);
+  console.log('endDate: ' + endDate);
 
   return (
     <div className="w-[251px] px-[5px] h-full  flex flex-col gap-[10px]  justify-center items-center">
@@ -38,7 +40,7 @@ const Dates2 = () => {
           <img src={CalendarIcon} className="w-[20px] h-[20px] text-black" />
 
           <DatePicker
-             renderCustomHeader={({
+              renderCustomHeader={({
               date,
               changeYear,
               changeMonth,

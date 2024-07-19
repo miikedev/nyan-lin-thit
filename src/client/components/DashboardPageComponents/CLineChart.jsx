@@ -63,7 +63,7 @@ export const data = {
   datasets: [
     {
       label: 'AirStrike',
-      data: [100, 200, 150, 300, 250, 400, 350],
+      data: [100, 200, 10, 300, 250, 400, 350],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
       radius:5,
