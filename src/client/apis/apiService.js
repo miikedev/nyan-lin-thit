@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+console.log(import.meta.env.VITE_API_BASE_URL_DEV)
+// Get the environment variables
 const API_BASE_URL = import.meta.env.PROD 
     ? import.meta.env.VITE_API_BASE_URL_PROD 
     : import.meta.env.VITE_API_BASE_URL_DEV;
@@ -28,6 +29,7 @@ export const fetchResources = async (type, page, category, search) => {
     throw error;
   }
 };
+
 export const fetchDashboards = async() => {
   console.log('fetch dashboard')
   try {
