@@ -1,8 +1,5 @@
+import React, { useEffect, useState } from "react";
 
-
-
-
-import React, { useState } from "react";
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
 import DataMap3 from "../components/DashboardPageComponents/DataMap3";
@@ -35,9 +32,13 @@ import TabContent from "../components/DashboardPageComponents/TabContent";
 import CLineChart from "../components/DashboardPageComponents/CLineChart";
 import CScatterChart from "../components/DashboardPageComponents/CScatterChart";
 import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
+import { useDashboardData } from "../apis/dashboardData";
 // import { px } from "framer-motion";
 
 const Dashboard = () => {
+	const [ news, setNews ] = useState([]);
+	const { data, isLoading, isSuccess, isError } = useDashboardData();
+	
 	const [activeTab, setActiveTab] = useState("chart");
 
 	const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts
@@ -67,15 +68,15 @@ const Dashboard = () => {
 	const detailNameForMedium = '12px';
 	const detailNumberForMedium = '12px';
 	
-  const detailNameForSmall = '11px';
+ 	const detailNameForSmall = '11px';
 	const detailNumberForSmall = '12px';
 
+	useEffect(() => {isSuccess && setNews(data[0].news),[data]})
 
 	const handleChartClick = (chartIndex) => {
 		setActiveChart(chartIndex);
 		setIsFullWidth(!isFullWidth);
 	};
-	
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -86,7 +87,6 @@ const Dashboard = () => {
 			{/*Mobile Phone Size */}
 			<div className=" md:hidden mt-[25px] bg-white">
 				{/* Top Section */}
-
 				<div className=" md:hidden w-full h-[200px] flex flex-col justify-between items-center pt-[3px]">
 					<div className=" bg-[#e6e6e6] border-[#737373] rounded-[8px] gap-[5px] w-[80%] h-[30px]  px-4 py-[2px] flex  justify-center items-center">
 						<Tab
@@ -371,7 +371,7 @@ const Dashboard = () => {
                       </p>
                     </div> */}
 									<div>
-										<TextSectionCard />
+										{isSuccess && data && <TextSectionCard data={news} />}
 									</div>
 								</div>
 
@@ -638,7 +638,7 @@ const Dashboard = () => {
 
 										
 										<div>
-											<TextSectionCard />
+											{isSuccess && data && <TextSectionCard data={news} />}
 										</div>
 									</div>
 
@@ -924,7 +924,7 @@ const Dashboard = () => {
 											
 
 											<div>
-												<TextSectionCard />
+												{isSuccess && data!= undefined && <TextSectionCard data={data.news} />}
 											</div>
 										</div>
 
@@ -1155,7 +1155,7 @@ const Dashboard = () => {
 											</div>
 
 											<div className="2xl:hidden w-full h-[170px]  ">
-												<TextSectionCard height={"170px"} />
+												{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
 											</div>
 											<div className="max-2xl:hidden w-full h-[350px]">
 												<TextSectionCard2 height={'350px'}/>

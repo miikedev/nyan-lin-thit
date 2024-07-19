@@ -29,7 +29,7 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} errorElement={<Error />}/>
-    <Route path='dashboard' element={<Dashboard />} />
+    <Route path='dashboard' element={<Dashboard />} errorElement={<Error />} />
     <Route 
       path='resources' 
       element={<ResourcesLayout 
