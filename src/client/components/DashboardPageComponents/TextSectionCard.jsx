@@ -55,7 +55,7 @@ const TextSectionCard = ({height, data}) => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  console.log(titles, contents)
+
   return (
     <div>
       <div

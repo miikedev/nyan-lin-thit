@@ -10,7 +10,7 @@ import L3 from "../DashboardPageComponents/assets2/massacre.svg";
 import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
 
-const Data = () => {
+const Data = ({details}) => {
   const [selectedData, setSelectedData] = useState([]);
 
   const handleDataClick = (data) => {
@@ -32,16 +32,18 @@ const Data = () => {
   };
 
   const data = [
-    { id: 1, logo: L1, name: "Airstrike", number: 10 },
-    { id: 2, logo: L2, name: "Armed Clashes", number: 20 },
-    { id: 3, logo: L3, name: "Massacre", number: 30 },
-    { id: 4, logo: L4, name: "Casualty", number: 40 },
-    { id: 5, logo: L5, name: "Arrest", number: 50 },
+    { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , value: details.airstrike},
+    { id: 2, logo: L2, name: "Armed Clashes", number: details.armed_clashes , value: details.armed_clashes},
+    { id: 3, logo: L3, name: "Massacre", number: details.massacre , value: details.massacre},
+    { id: 4, logo: L4, name: "Casualty", number: details.casualties , value: details.casualties},
+    { id: 5, logo: L5, name: "Arrest", number: details.arrests , value: details.arrests},
   ];
 
   const isAllSelected = data.every((d) =>
     selectedData.some((sd) => sd.id === d.id)
   );
+
+  console.log('selected data', selectedData)
 
   return (
     <>

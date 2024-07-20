@@ -34,7 +34,7 @@ export const fetchDashboards = async() => {
   console.log('fetch dashboard')
   try {
     const response = await axios('/api/dashboard')
-    return response.data;
+    return response.data.dashboards[0];
   } catch (error) {
     console.log(error)
   }

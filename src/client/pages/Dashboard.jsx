@@ -74,26 +74,33 @@ const Dashboard = () => {
 	const detailNameForMedium = '12px';
 	const detailNumberForMedium = '12px';
 	
- 	const detailNameForSmall = '11px';
+	const detailNameForSmall = '11px';
 	const detailNumberForSmall = '12px';
-
 	useEffect(() => {
-		isSuccess && setNews(data[0].news)
-		isSuccess && setTownships(data[0].town_ships)
+		isSuccess && setNews(data?.news)
+		isSuccess && setTownships(data?.town_ships)
 		isSuccess && setDetails({
-			total: data[0].total,
-			caseday: data[0].caseday ,
-			death: data[0].death,
-			monthlypercent: data[0].monthlypercent,
-			daily: data[0].daily,
-			arrestingrate: data[0].arrestingrate,
-			airstrike: data[0].airstrike,
-			armed_clashes: data[0].armed_clashes,
-			massacre: data[0].massacre,
-			casualties: data[0].casualties,
-			arrests: data[0].arrests
+			total: data?.total,
+			caseday: data?.caseday ,
+			death: data?.death,
+			monthlypercent: data?.monthlypercent,
+			daily: data?.daily,
+			arrestingrate: data?.arrestingrate,
+			airstrike: data?.airstrike,
+			armed_clashes: data?.armed_clashes,
+			massacre: data?.massacre,
+			casualties: data?.casualties,
+			arrests: data?.arrests
 		})},[data])
-		console.log(details)
+		console.log('dashboard data', data)
+		console.log('details', details)
+		console.log('news', news)
+		const time_span = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA')
+		// console.log('lat', data.myanmar_lat)
+		// console.log('long', data.myanmar_long)
+		// console.log('earliest data', data.earliestDate)
+		// console.log('latest date', data.earliestDate)
+
 	const handleChartClick = (chartIndex) => {
 		setActiveChart(chartIndex);
 		setIsFullWidth(!isFullWidth);
@@ -368,14 +375,14 @@ const Dashboard = () => {
 										<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 											<img src={Cicon} className="w-[15px] h-[15px] text-white" />
 											<p className="text-black text-[12px] ml-[16px]">
-												4 June 2020 - 17 June 2020
+												{ time_span }
 											</p>
 										</div>
 
 										<div className="flex items-center mb-[7px]">
 											<img src={M} className="w-[15px] h-[15px] text-black" />
 											<p className="text-black text-[11px] ml-[10px]">
-												22.635687837958972,95.46938926418544
+												{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 											</p>
 										</div>
 
@@ -439,7 +446,7 @@ const Dashboard = () => {
 										{/* bottom  */}
 										<div className="flex  items-center mt-[10px] gap-[10px]">
 											<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-												<Data />
+												{isSuccess && <Data details={details}/>}
 											</div>
 											<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 
@@ -651,14 +658,14 @@ const Dashboard = () => {
 													className="w-[15px] h-[15px] text-black"
 												/>
 												<p className="text-black text-[12px] ml-[16px]">
-													4 June 2020 - 17 June 2020
+													{ time_span }
 												</p>
 											</div>
 
 											<div className="flex items-center mb-[7px]">
 												<img src={M} className="w-[15px] h-[15px] text-white" />
 												<p className="text-black text-[11px] ml-[10px]">
-													22.635687837958972,95.46938926418544
+													{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 												</p>
 											</div>
 
@@ -710,7 +717,7 @@ const Dashboard = () => {
 											{/* bottom  */}
 											<div className="flex  items-center mt-[10px] gap-[10px]">
 												<div className="w-[264px] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-													<Data />
+													{isSuccess && <Data details={details}/>}
 												</div>
 												<div className="w-[170px] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 													<Dates2 />
@@ -937,14 +944,14 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] text-black"
 													/>
 													<p className="text-black text-[12px] ml-[16px]">
-														4 June 2020 - 17 June 2020
+														{ time_span }
 													</p>
 												</div>
 
 												<div className="flex items-center mb-[7px]">
 													<img src={M} className="w-[15px] h-[15px] text-black" />
 													<p className="text-black text-[11px] ml-[10px]">
-														22.635687837958972,95.46938926418544
+														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
 
@@ -1167,7 +1174,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 													/>
 													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
-														4 June 2020 - 17 June 2020
+														{ time_span }
 													</p>
 												</div>
 
@@ -1177,7 +1184,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 													/>
 													<p className="text-black text-[11px] 2xl:text-[16px] ml-[10px]">
-														22.635687837958972,95.46938926418544
+														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
 
@@ -1198,7 +1205,7 @@ const Dashboard = () => {
 											<div className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col  py-[10px]  px-[20px] 3xl:py-[20px] 2xl:gap-y-[20px] 3xl:gap-y-[30px] 3xl:px-[30px]">
 												{/* top */}
 												
-												<Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge}/>
+												{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 
 												{/* Horizontal Dashed Line */}
 												<div className="relative h-[1px] mt-[10px] bg-gray-300">
@@ -1208,7 +1215,7 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className=" w-full  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-														<Data />
+														{isSuccess && <Data details={details}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates2 />
@@ -1410,7 +1417,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] xl:w-[20px] xl:h-[20px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 													/>
 													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
-														4 June 2020 - 17 June 2020
+														{ time_span }
 													</p>
 												</div>
 
@@ -1420,7 +1427,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] xl:w-[18px] xl:h-[18px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 													/>
 													<p className="text-black text-[11px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] 4xl:text-[20px] ml-[10px]">
-														22.635687837958972,95.46938926418544
+														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
 
@@ -1487,12 +1494,12 @@ const Dashboard = () => {
 														<p className="text-[13px] text-white">$9,542.39</p>
 													</div>
 												</div> */}
-												<Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} />
+												{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 
 												{/* bottom  */}
 												<div className="4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
 													<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white   rounded-md">
-														<Data />
+														{isSuccess && <Data details={details}/>}
 													</div>
 													
 													<div className="w-full  h-[100px] border-[1px] border-[#e6e6e6] bg-white   rounded-md flex justify-center items-center">
@@ -1503,7 +1510,7 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className="max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  flex items-center  rounded-md">
-														<Data />
+														{isSuccess && <Data details={details}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  rounded-md flex justify-center items-center">
 															<Dates2 />

@@ -1,7 +1,5 @@
 import { fetchResources } from "./apiService";
 import { useQuery, useQueryClient } from '@tanstack/react-query'; // Removed unused import keepPreviousData
-// Get QueryClient from the context
-
 
 export const useResourcesData = (type, page, category, search) => {
   console.log('api type: ' + type)
@@ -26,7 +24,6 @@ export const getResources = async(type, page, category) => {
 }
 
 export const useACMS = (pageParams) => {
-    console.log(pageParams)
     return useQuery({
       queryKey: ['acms', {page: pageParams}],
       queryFn: () => fetchPosts(pageParams),

@@ -29,9 +29,6 @@ const Dates2 = () => {
     "December",
   ];
 
-  console.log('startDate: ' + startDate);
-  console.log('endDate: ' + endDate);
-
   return (
     <div className="w-[251px] px-[5px] h-full  flex flex-col gap-[10px]  justify-center items-center">
       <div className="mb-[10px] w-[100px] h-[50%] flex flex-col justify-center items-center">

@@ -32,9 +32,7 @@ const Dates = ({fontSize}) => {
   
   const handleStartDateChange = () => { (date) => setStartDate(date) }
   const handleEndDateChange = () => { (date) => setEndDate(date) }
-  console.log('current year', currentYear)
-  console.log('startDate: ' + startDate)
-  console.log('endDate: ' + endDate)
+
   return (
     <div className=" w-full px-[30px] flex justify-center gap-[40px] 2xl:justify-evenly items-center">
       
