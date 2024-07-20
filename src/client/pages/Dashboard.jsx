@@ -35,15 +35,28 @@ import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarC
 
 import { useDashboardData } from "../apis/dashboardData";
 import { DashboardDateProvider } from "../context/DashboardDateContext";
+import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 // import { px } from "framer-motion";
-
+const caseName = {
+	1: 'airstrike',
+	2: 'armed_clashes',
+    3:'massacre',
+    4: 'casualties',
+    5: 'arrests',
+}
 const Dashboard = () => {
-
+	const { filteredData, setFilteredData, filterParams, setFilterParams } = useDashboardFilterContext()
+	// process filtered data to string for filtering purposes
+	const resultedParamId = filterParams.map(param => param.id)
+	const resultedParamNames = resultedParamId.map(id => caseName[id])
+	const paramString = resultedParamNames.join(",");
+	console.log('result string',paramString);
+	
 	const [ news, setNews ] = useState([]);
 	const [ townships, setTownships ] = useState([]);
 	const [ details, setDetails ] = useState([]);
 	
-	const { data, isLoading, isSuccess, isError } = useDashboardData();
+	const { data, isLoading, isSuccess, isError } = useDashboardData(paramString);
 	
 	const [activeTab, setActiveTab] = useState("chart");
 
@@ -79,6 +92,7 @@ const Dashboard = () => {
 	useEffect(() => {
 		isSuccess && setNews(data?.news)
 		isSuccess && setTownships(data?.town_ships)
+		isSuccess && setFilteredData(data)
 		isSuccess && setDetails({
 			total: data?.total,
 			caseday: data?.caseday ,
@@ -91,20 +105,16 @@ const Dashboard = () => {
 			massacre: data?.massacre,
 			casualties: data?.casualties,
 			arrests: data?.arrests
-		})},[data])
-		console.log('dashboard data', data)
+		})}
+		,[data])
 		console.log('details', details)
 		console.log('news', news)
 		const time_span = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA')
-		// console.log('lat', data.myanmar_lat)
-		// console.log('long', data.myanmar_long)
-		// console.log('earliest data', data.earliestDate)
-		// console.log('latest date', data.earliestDate)
 
-	const handleChartClick = (chartIndex) => {
-		setActiveChart(chartIndex);
-		setIsFullWidth(!isFullWidth);
-	};
+		const handleChartClick = (chartIndex) => {
+			setActiveChart(chartIndex);
+			setIsFullWidth(!isFullWidth);
+		};
 
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);

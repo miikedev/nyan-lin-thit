@@ -30,10 +30,10 @@ export const fetchResources = async (type, page, category, search) => {
   }
 };
 
-export const fetchDashboards = async() => {
-  console.log('fetch dashboard')
+export const fetchDashboards = async(paramString) => {
+  console.log('fetch dashboard', paramString)
   try {
-    const response = await axios('/api/dashboard')
+    const response = await axios(`/api/dashboard?caseTypeName=${paramString}`)
     return response.data.dashboards[0];
   } catch (error) {
     console.log(error)
