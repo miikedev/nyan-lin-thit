@@ -115,10 +115,10 @@ const Dashboard = () => {
         }  
     }, [isSuccess, data]);  
 
-    console.log('Filtered Details:', details);  
-	console.log('resulted param names', resultedParamNames)
-    console.log('News:', news);  
-    console.log('Townships:', townships);  
+    // console.log('Filtered Details:', details);  
+	// console.log('resulted param names', resultedParamNames)
+    // console.log('News:', news);  
+    // console.log('Townships:', townships);  
     const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
 	
     const handleChartClick = (chartIndex) => {  
@@ -156,10 +156,10 @@ const Dashboard = () => {
         }  
     }; 
 
-    console.log('data result', dataResult);  
+    // console.log('data result', dataResult);  
 
 	if(isLoading) return <Loading />
-	if(isSuccess) return (
+	if(isSuccess && data && data.length !== 0) return (
 		<DashboardDateProvider>
 			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
@@ -280,7 +280,7 @@ const Dashboard = () => {
 												activeChart === 0 ? "active" : ""
 											}`}
 										>
-											{activeChart === 0 && (
+											{activeChart === 0 && isSuccess && (
 												// <SimpleLineChart
 												// 	width={ipadChartWidthTwo}
 												// 	height={fullChartHeight}
@@ -542,6 +542,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
+												dataResult={dataResult}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
 												/>
@@ -608,9 +609,10 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CLineChart 
-												width={ipadChartWidthTwo}
-												height = {mediumChartHeight}
-												/>
+															dataResult={dataResult}
+															width={ipadChartWidthTwo}
+															height = {mediumChartHeight}
+															/>
 													)}
 												</div>
 												<div
@@ -802,6 +804,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
+												dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height = {smallChartHeightTwo}
 												/>
@@ -1095,6 +1098,7 @@ const Dashboard = () => {
 												>
 													
 													<CLineChart
+														dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
 													/>
@@ -1141,6 +1145,7 @@ const Dashboard = () => {
 															{activeChart === 0 && (
 																
 																<CLineChart
+																	dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
@@ -1296,6 +1301,7 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(0)}
 											>
 												<CLineChart
+													dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>
@@ -1346,6 +1352,7 @@ const Dashboard = () => {
 													>
 														{activeChart === 0 && (
 															<CLineChart
+																dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
@@ -1484,21 +1491,21 @@ const Dashboard = () => {
 												</div>
 
 												{/* <div className="text-[#7EADE3] w-[379px] h-[321px] bg-[#303d4c] px-[40px] py-[20px]">
-							<p className="font-[700] mb-[7px] text-[20px]">
-							The massacre of the military group
-							</p>
-							<p className="text-[14px]">
-							Between September and December 2023, the military
-							group committed at least (37) mass killings in which
-							five (5) or more people were killed, and a total of
-							(283) civilians were killed.2021 From February 2023 As
-							of December, the military group has committed at least
-							(210) Between September and December 2023, the
-							military group committed at least (37) mass killings
-							in which five (5) or more people were killed, and a
-							total of (283){" "}
-							</p>
-						</div> */}
+													<p className="font-[700] mb-[7px] text-[20px]">
+													The massacre of the military group
+													</p>
+													<p className="text-[14px]">
+													Between September and December 2023, the military
+													group committed at least (37) mass killings in which
+													five (5) or more people were killed, and a total of
+													(283) civilians were killed.2021 From February 2023 As
+													of December, the military group has committed at least
+													(210) Between September and December 2023, the
+													military group committed at least (37) mass killings
+													in which five (5) or more people were killed, and a
+													total of (283){" "}
+													</p>
+												</div> */}
 
 												{/* <div className="max-2xl:hidden w-full h-[350px]">
 													<TextSectionCard2 height={'350px'}/>

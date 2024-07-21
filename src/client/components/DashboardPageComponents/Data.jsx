@@ -41,7 +41,7 @@ const Data = ({details, dataAll, dataResult, setDataResult}) => {
   const isAllSelected = data.every((d) =>
     filterParams.some((sd) => sd.id === d.id)
   );
-  console.log('data filter',filterParams)
+
   return (
     <>
       {/* Datas */}
