@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
@@ -36,7 +36,9 @@ import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarC
 import { useDashboardData } from "../apis/dashboardData";
 import { DashboardDateProvider } from "../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../context/DashboardFilterContext";
+import { useDashboardDataContext } from "../context/DashboardDataContext";
 // import { px } from "framer-motion";
+import Loading from '../pages/Loading'
 const caseName = {
 	1: 'airstrike',
 	2: 'armed_clashes',
@@ -45,85 +47,122 @@ const caseName = {
     5: 'arrests',
 }
 const Dashboard = () => {
-	const { filteredData, setFilteredData, filterParams, setFilterParams } = useDashboardFilterContext()
-	// process filtered data to string for filtering purposes
-	const resultedParamId = filterParams.map(param => param.id)
-	const resultedParamNames = resultedParamId.map(id => caseName[id])
-	const paramString = resultedParamNames.join(",");
-	console.log('result string',paramString);
+	const { setFilteredData, filterParams } = useDashboardFilterContext();  
+    const { dataResult, setDataResult } = useDashboardDataContext();  
+
+    const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
+    const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
+    const paramString = resultedParamNames.join(",");   
+
+    const [news, setNews] = useState([]);  
+    const [townships, setTownships] = useState([]);  
+    const [details, setDetails] = useState([]);  
+
+    const { data, isLoading, isSuccess, isError } = useDashboardData();  
+
+    const [activeTab, setActiveTab] = useState("chart");  
+    const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
+    const [isFullWidth, setIsFullWidth] = useState(false);  
+    const [isDefaultLayout, setIsDefaultLayout] = useState(true);  
+
+    // Chart Sizes  
+    const [ipadChartWidth, setIpadChartWidth] = useState(235);  
+    const [ipadChartHeight, setIpadChartHeight] = useState(230);  
+    const [ipadChartWidthTwo, setIpadChartWidthTwo] = useState(690);  
+    const [ipadChartHeightTwo, setIpadChartHeightTwo] = useState(230);  
+    const [smallChartWidth, setSmallChartWidth] = useState(300);  
+    const [smallChartHeight, setSmallChartHeight] = useState(220);  
+    const [smallChartWidthTwo, setSmallChartWidthTwo] = useState(330);  
+    const [smallChartHeightTwo, setSmallChartHeightTwo] = useState(220);  
+    const [mediumChartWidth, setMediumChartWidth] = useState(820);  
+    const [mediumChartHeight, setMediumChartHeight] = useState(250);  
+    const [fullChartWidth, setFullChartWidth] = useState(1200);  
+    const [fullChartHeight, setFullChartHeight] = useState(250);  
+
+    const detailNameForLarge = '14px';  
+    const detailNumberForLarge = '13px';  
+    const detailNameForMedium = '12px';  
+    const detailNumberForMedium = '12px';  
+    const detailNameForSmall = '11px';  
+    const detailNumberForSmall = '12px';  
+
+    // Effect to set filtered data based on result parameters and data  
+    // useEffect(() => {  
+    //     if (isSuccess && data) {  
+    //         const filteredData = data.filter(item => resultedParamNames.includes(item.case_type?.name));  
+    //         setFilteredData(filteredData);  
+    //     }  
+    // }, [isSuccess, data, resultedParamNames, setFilteredData]);  
+
+    // Effect to handle news and townships data  
+    useEffect(() => {  
+        if (isSuccess && data) {  
+            setNews(data.news || []);  
+            setTownships(data.town_ships || []);  
+            setDetails({  
+                total: data.total || 0,  
+                caseday: data.caseday || 0,  
+                death: data.death || 0,  
+                monthlypercent: data.monthlypercent || 0,  
+                daily: data.daily || 0,  
+                arrestingrate: data.arrestingrate || 0,  
+                airstrike: data.airstrike || 0,  
+                armed_clashes: data.armed_clashes || 0,  
+                massacre: data.massacre || 0,  
+                casualties: data.casualties || 0,  
+                arrests: data.arrests || 0  
+            });  
+        }  
+    }, [isSuccess, data]);  
+
+    console.log('Filtered Details:', details);  
+	console.log('resulted param names', resultedParamNames)
+    console.log('News:', news);  
+    console.log('Townships:', townships);  
+    const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
 	
-	const [ news, setNews ] = useState([]);
-	const [ townships, setTownships ] = useState([]);
-	const [ details, setDetails ] = useState([]);
-	
-	const { data, isLoading, isSuccess, isError } = useDashboardData(paramString);
-	
-	const [activeTab, setActiveTab] = useState("chart");
+    const handleChartClick = (chartIndex) => {  
+        setActiveChart(chartIndex);  
+        setIsFullWidth(!isFullWidth);  
+    };  
 
-	const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts
-	const [isFullWidth, setIsFullWidth] = useState(false);
+    const handleTabChange = (tab) => {  
+        setActiveTab(tab);  
+    };
+	useEffect(() => {  
+        if (isSuccess) {  
+            filterDataWithParams(townships, resultedParamNames);  
+        }  
+    }, [resultedParamNames, isSuccess, townships]);  
 
-	const [isDefaultLayout, setIsDefaultLayout] = useState(true);
+	const filterDataWithParams = (data, resultedParamNames) => {  
+        // Check if resultedParamNames is an empty array  
+        if (!resultedParamNames || resultedParamNames.length === 0) {  
+            // Return all data if resultedParamNames is empty  
+            if (dataResult !== data) {  
+                setDataResult(data);  
+            }  
+            return;  
+        }  
 
-	// I-pad Chart Sizes
-	const [ipadChartWidth, setIpadChartWidth] = useState(235);
-	const [ipadChartHeight, setIpadChartHeight] = useState(230);
-	const [ipadChartWidthTwo, setIpadChartWidthTwo] = useState(690);
-	const [ipadChartHeightTwo, setIpadChartHeightTwo] = useState(230);
-	
+        // Filter data based on resultedParamNames when it's not empty  
+        const filteredData = data.filter(item =>  
+            resultedParamNames.includes(item.case_type?.name)  
+        );  
 
-	const [smallChartWidth, setSmallChartWidth] = useState(300);
-	const [smallChartHeight, setSmallChartHeight] = useState(220);
-	const [smallChartWidthTwo, setSmallChartWidthTwo] = useState(330);
-	const [smallChartHeightTwo, setSmallChartHeightTwo] = useState(220);
-	const [mediumChartWidth, setMediumChartWidth] = useState(820);
-	const [mediumChartHeight, setMediumChartHeight] = useState(250);
-	const [fullChartWidth, setFullChartWidth] = useState(1200);
-	const [fullChartHeight, setFullChartHeight] = useState(250);
+        // Only set filtered data if it's different  
+        if (JSON.stringify(filteredData) !== JSON.stringify(dataResult)) {  
+            setDataResult(filteredData);  
+        }  
+    }; 
 
-	const detailNameForLarge = '14px';
-	const detailNumberForLarge = '13px';
+    console.log('data result', dataResult);  
 
-	const detailNameForMedium = '12px';
-	const detailNumberForMedium = '12px';
-	
-	const detailNameForSmall = '11px';
-	const detailNumberForSmall = '12px';
-	useEffect(() => {
-		isSuccess && setNews(data?.news)
-		isSuccess && setTownships(data?.town_ships)
-		isSuccess && setFilteredData(data)
-		isSuccess && setDetails({
-			total: data?.total,
-			caseday: data?.caseday ,
-			death: data?.death,
-			monthlypercent: data?.monthlypercent,
-			daily: data?.daily,
-			arrestingrate: data?.arrestingrate,
-			airstrike: data?.airstrike,
-			armed_clashes: data?.armed_clashes,
-			massacre: data?.massacre,
-			casualties: data?.casualties,
-			arrests: data?.arrests
-		})}
-		,[data])
-		console.log('details', details)
-		console.log('news', news)
-		const time_span = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA')
-
-		const handleChartClick = (chartIndex) => {
-			setActiveChart(chartIndex);
-			setIsFullWidth(!isFullWidth);
-		};
-
-	const handleTabChange = (tab) => {
-		setActiveTab(tab);
-	};
-
-	return (
+	if(isLoading) return <Loading />
+	if(isSuccess) return (
 		<DashboardDateProvider>
 			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
-			{/*Mobile Phone Size */}
+				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
 					{/* Top Section */}
 					<div className=" md:hidden w-full h-[200px] flex flex-col justify-between items-center pt-[3px]">
@@ -385,7 +424,7 @@ const Dashboard = () => {
 										<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 											<img src={Cicon} className="w-[15px] h-[15px] text-white" />
 											<p className="text-black text-[12px] ml-[16px]">
-												{ time_span }
+												{ timeSpan }
 											</p>
 										</div>
 
@@ -456,7 +495,8 @@ const Dashboard = () => {
 										{/* bottom  */}
 										<div className="flex  items-center mt-[10px] gap-[10px]">
 											<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-												{isSuccess && <Data details={details}/>}
+												{isLoading && <h1>loading...</h1>}
+												{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 											</div>
 											<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 
@@ -668,7 +708,7 @@ const Dashboard = () => {
 													className="w-[15px] h-[15px] text-black"
 												/>
 												<p className="text-black text-[12px] ml-[16px]">
-													{ time_span }
+													{ timeSpan }
 												</p>
 											</div>
 
@@ -727,7 +767,8 @@ const Dashboard = () => {
 											{/* bottom  */}
 											<div className="flex  items-center mt-[10px] gap-[10px]">
 												<div className="w-[264px] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-													{isSuccess && <Data details={details}/>}
+													{isLoading && <h1>loading...</h1>}
+													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 												</div>
 												<div className="w-[170px] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 													<Dates2 />
@@ -954,7 +995,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] text-black"
 													/>
 													<p className="text-black text-[12px] ml-[16px]">
-														{ time_span }
+														{ timeSpan }
 													</p>
 												</div>
 
@@ -1184,7 +1225,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 													/>
 													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
-														{ time_span }
+														{ timeSpan }
 													</p>
 												</div>
 
@@ -1225,7 +1266,8 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className=" w-full  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-														{isSuccess && <Data details={details}/>}
+														{isLoading && <h1>loading...</h1>}
+														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates2 />
@@ -1427,7 +1469,7 @@ const Dashboard = () => {
 														className="w-[15px] h-[15px] xl:w-[20px] xl:h-[20px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 													/>
 													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
-														{ time_span }
+														{ timeSpan }
 													</p>
 												</div>
 
@@ -1509,7 +1551,8 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className="4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
 													<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white   rounded-md">
-														{isSuccess && <Data details={details}/>}
+														{isLoading && <h1>loading...</h1>}
+														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													
 													<div className="w-full  h-[100px] border-[1px] border-[#e6e6e6] bg-white   rounded-md flex justify-center items-center">
@@ -1520,7 +1563,8 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className="max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  flex items-center  rounded-md">
-														{isSuccess && <Data details={details}/>}
+														{isLoading && <h1>loading...</h1>}
+														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  rounded-md flex justify-center items-center">
 															<Dates2 />

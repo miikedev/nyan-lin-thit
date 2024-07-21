@@ -3,12 +3,15 @@ import { Outlet } from 'react-router-dom'
 import Header from './Header'
 import Footer from './Footer'
 import { DashboardFilterProvider } from '../context/DashboardFilterContext'
+import { DashboardDataProvider } from '../context/DashboardDataContext'
 const Layout = () => {
   return (
     <>
         <Header />
         <DashboardFilterProvider>
-        <Outlet />
+        <DashboardDataProvider>
+          <Outlet />
+        </DashboardDataProvider>
         </DashboardFilterProvider>
         <Footer />
     </>

@@ -10,7 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
+import { useDashboardDataContext } from '../../context/DashboardDataContext'
 
 ChartJS.register(
   CategoryScale,
@@ -21,6 +21,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 
 export const options = {
   responsive: true,
@@ -56,49 +57,66 @@ export const options = {
   },
 };
 
+
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'AirStrike',
-      data: [100, 200, 10, 300, 250, 400, 350],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      radius:5,
-    },
-    {
-      label: 'Armed_Clashes',
-      data: [50, 150, 300, 200, 100, 250, 400],
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      radius:5,
-    },
-    {
-      label: 'Massacre',
-      data: [250, 180, 320, 150, 280, 200, 350],
-      borderColor: 'rgb(75, 192, 192)',
-      backgroundColor: 'rgba(75, 192, 192, 0.5)',
-      radius:5,
-    },
-    {
-      label: 'Casualty',
-      data: [120, 300, 180, 280, 220, 350, 400],
-      borderColor: 'rgb(201, 203, 207)',
-      backgroundColor: 'rgba(201, 203, 207, 0.5)',
-      radius:5,
-    },
-    {
-      label: 'Arrest',
-      data: [300, 150, 250, 200, 350, 280, 400],
-      borderColor: 'rgb(153, 102, 255)',
-      backgroundColor: 'rgba(153, 102, 255, 0.5)',
-      radius:5,
-    },
-  ],
-};
 
-export default function CLineChart({ width, height, fontSize, isFullWidth  }) {
+export default function CLineChart({ width, height, fontSize, isFullWidth }) {
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'AirStrike',
+        data: [100, 200, 10, 300, 250, 400, 350],
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        radius:5,
+      },
+      {
+        label: 'Armed_Clashes',
+        data: [50, 150, 300, 200, 100, 250, 400],
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        radius:5,
+      },
+      {
+        label: 'Massacre',
+        data: [250, 180, 320, 150, 280, 200, 350],
+        borderColor: 'rgb(75, 192, 192)',
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        radius:5,
+      },
+      {
+        label: 'Casualty',
+        data: [120, 300, 180, 280, 220, 350, 400],
+        borderColor: 'rgb(201, 203, 207)',
+        backgroundColor: 'rgba(201, 203, 207, 0.5)',
+        radius:5,
+      },
+      {
+        label: 'Arrest',
+        data: [300, 150, 250, 200, 350, 280, 400],
+        borderColor: 'rgb(153, 102, 255)',
+        backgroundColor: 'rgba(153, 102, 255, 0.5)',
+        radius:5,
+      },
+    ],
+  };
+  
+  //   const refinedData = data.reduce((acc, item) => {
+  //     const caseTypeName = item.case_type.name;
+  //     if (!acc[caseTypeName]) {
+  //         acc[caseTypeName] = {
+  //             name: caseTypeName,
+  //             times: []
+  //         };
+  //     }
+  //     acc[caseTypeName].times.push(item.times);
+  //     return acc;
+  //   }, {});
+
+  // const result = Object.values(refinedData);
+
+  // console.log(result);
   return <Line options={options} data={data} width={width} height={height}/>;
 }

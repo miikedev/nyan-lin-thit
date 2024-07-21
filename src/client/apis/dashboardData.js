@@ -3,8 +3,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 export const useDashboardData = (paramString) => {
   console.log('useDashboard')
   return useQuery({
-    queryKey: [`dashboard/${paramString}`],
-    queryFn: () => fetchDashboards(paramString),
+    queryKey: [`dashboard`],
+    queryFn: () => fetchDashboards(),
     onSuccess: (data) => {
       console.log('resources fetch success!', data)
     }

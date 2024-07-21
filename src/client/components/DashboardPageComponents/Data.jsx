@@ -7,7 +7,7 @@ import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 
-const Data = ({details}) => {
+const Data = ({details, dataAll, dataResult, setDataResult}) => {
   const data = [
   { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , param : 'airstrike'},
   { id: 2, logo: L2, name: "Armed Clashes", number: details.armed_clashes , param : 'armed_clashes'},
@@ -17,7 +17,7 @@ const Data = ({details}) => {
 ];
   const [selectedData, setSelectedData] = useState([]);
   const { filteredData, setFilteredData, filterParams, setFilterParams } = useDashboardFilterContext()
-  const handleDataClick = (data) => {
+  const handleDataClick = (data, dataResult, setDataResult) => {
     setFilterParams((prevSelectedData) => {
       if (prevSelectedData.some((d) => d.id === data.id)) {
         return prevSelectedData.filter((d) => d.id !== data.id);
