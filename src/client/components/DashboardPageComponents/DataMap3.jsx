@@ -150,7 +150,7 @@ const SetBounds = () => {
 
     const handleZoomEnd = () => {
       const currentZoom = map.getZoom();
-      console.log('current Zoom:',currentZoom)
+
       if (currentZoom < 7) {
         if (!map.hasLayer(stateLayerGroup)) {
           map.addLayer(stateLayerGroup);
@@ -236,7 +236,6 @@ const DataMap3 = ({ width, height }) => {
 
   return (
     <div className="">
-      {console.log(`${width} ${height}`)}
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}

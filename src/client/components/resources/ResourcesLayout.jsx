@@ -15,7 +15,7 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
     const [tags, setTags] = useState([]);
     const [text, setText] = useState('')
     const { resource } = useResourceContext();
-    console.log(resource)
+
     const { searchingText, setSearchingText } = useSearchContext();
     const darkMode = true;
     const icons = {
@@ -27,13 +27,6 @@ const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, 
         if (resource == 'statements') setTags(statementTags);
         if (resource == 'advocacy') setTags(advocacyTags);
     }, [resource])
-
-    // const handleSearchClick = async() => {
-    //     //type get from current path
-    //     let type = pathname.replace(/.*\//, '');
-    //     console.log(type, 'type');
-    //     setSearchingText(searchingText);
-    // }
 
     return (
         <div className="sm:py-15vh py-[6vh] sm:px-10 px-4">

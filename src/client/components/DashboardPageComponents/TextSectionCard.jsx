@@ -3,37 +3,47 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 
-const TextSectionCard = ({height}) => {
+const TextSectionCard = ({height, data}) => {
+  const [titles, setTitle] = useState([])
+  const [contents, setContent] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalContent, setModalContent] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const titles = [
-    'The massacre of the military group',
-    'Mass Killings in September 2023',
-    'Mass Killings in October 2023',
-    'Mass Killings in November 2023',
-    'Mass Killings in December 2023',
-  ];
+  // const titles = [
+  //   'The massacre of the military group',
+  //   'Mass Killings in September 2023',
+  //   'Mass Killings in October 2023',
+  //   'Mass Killings in November 2023',
+  //   'Mass Killings in December 2023',
+  // ];
 
-  const contents = [
-    'Between September and December 2023, the military group committed at least (37) mass killings in which five (5) or more people were killed, and a total of (283) civilians were killed.',
-    'In September 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (71) civilians were killed.',
-    'In October 2023, the military group committed at least (8) mass killings in which five (5) or more people were killed, and a total of (62) civilians were killed.',
-    'In November 2023, the military group committed at least (9) mass killings in which five (5) or more people were killed, and a total of (78) civilians were killed.',
-    'In December 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (72) civilians were killed.',
-  ];
+  // const contents = [
+  //   'Between September and December 2023, the military group committed at least (37) mass killings in which five (5) or more people were killed, and a total of (283) civilians were killed.',
+  //   'In September 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (71) civilians were killed.',
+  //   'In October 2023, the military group committed at least (8) mass killings in which five (5) or more people were killed, and a total of (62) civilians were killed.',
+  //   'In November 2023, the military group committed at least (9) mass killings in which five (5) or more people were killed, and a total of (78) civilians were killed.',
+  //   'In December 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (72) civilians were killed.',
+  // ];
+
+  useEffect(()=>{
+    setTitle(()=> data?.map(d=>d.title))
+    setContent(() => data?.map(d=>d.description))
+  }, [data])
+
+  // console.log(titles_from_props)
+  // console.log(descriptions_from_props)
 
   const handlePrevClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + 5) % 5);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + titles.length) % titles.length);
   };
 
   const handleNextClick = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % 5);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % titles.length);
   };
 
   const handleCardClick = () => {

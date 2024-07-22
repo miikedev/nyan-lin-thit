@@ -107,6 +107,7 @@ const Header = () => {
             navItems.map((item, index) => {
                 if(item.name === 'resources') return (
                     <Dropdown 
+                        key={index}
                         radius="none"
                         classNames={{
                             content: "p-0 border-small border-divider bg-primary p-1",

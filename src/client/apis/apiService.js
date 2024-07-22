@@ -31,10 +31,10 @@ export const fetchResources = async (type, page, category, search) => {
 };
 
 export const fetchDashboards = async() => {
-  console.log('fetch dashboard')
+  // console.log('fetch dashboard', paramString)
   try {
-    const response = await axios('/api/dashboard')
-    return response.data.dashboards;
+    const response = await axios(`/api/dashboard`)
+    return response.data.dashboards[0];
   } catch (error) {
     console.log(error)
   }

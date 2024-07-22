@@ -14,8 +14,6 @@ const Dates = ({fontSize}) => {
     (_, i) => currentYear - (currentYear - 2021 - i)
   );
 
- 
-
   const months = [
     "January",
     "February",
@@ -31,7 +29,12 @@ const Dates = ({fontSize}) => {
     "December",
   ];
 
+  
+  const handleStartDateChange = () => { (date) => setStartDate(date) }
+  const handleEndDateChange = () => { (date) => setEndDate(date) }
 
+  console.log('start date: ' + startDate);
+  console.log('end date: ' + endDate);
   return (
     <div className=" w-full px-[30px] flex justify-center gap-[40px] 2xl:justify-evenly items-center">
       
@@ -89,7 +92,7 @@ const Dates = ({fontSize}) => {
               </div>
             )}
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={handleStartDateChange}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -158,11 +161,9 @@ const Dates = ({fontSize}) => {
             endDate={endDate}
             minDate={startDate}
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={handleEndDateChange}
             className="custom-input"
-          
             placeholderText="Add dates"
-            
           />
         </div>
       </div>

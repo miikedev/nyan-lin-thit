@@ -20,19 +20,16 @@ import { usePaginationContext } from '../../context/PaginationContext';
 
 import { PaginationProvider } from '../../context/PaginationContext';
 const ResourcesList = ({ type }) => {
-    console.log('list type: ', type)
     const { pathname } = useLocation();
     const { searchingText, setSearchingText } = useSearchContext();
     const { page, setPage } = usePaginationContext();
     const [searchParams, setSearchParams] = useSearchParams("");
     const [filteredData, setFilteredData] = useState([]);
     const category = searchParams.get("category");
-    console.log('page from context: ' + page)
     const { data, isLoading, isError, isSuccess, isPreviousData } = useResourcesData(type, page, category, searchingText);
     useEffect(() => {
         if(searchingText) {
             setFilteredData(data?.resources.filter((resource) => {
-                console.log('fld', resource)
                 return resource.title.toLowerCase().includes(searchingText.trim().toLowerCase())
             }))
         }else{
@@ -41,9 +38,7 @@ const ResourcesList = ({ type }) => {
         window.scrollTo(0, 0);
     }, [searchingText,type,pathname,category]);
     useEffect(()=>setSearchingText(''),[type])
-    console.log('filter data',filteredData)
-    // console.log('filter data length', filteredData.length)
-    console.log('data',data)
+
     if (isLoading) {
         return (
                 <div className='flex justify-start flex-wrap w-full gap-3 py-10'>

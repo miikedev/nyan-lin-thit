@@ -1,46 +1,45 @@
-
-
 import React, { useState } from "react";
-
-// Added Logo
 
 import L1 from '../DashboardPageComponents/assets2/airStrike.svg';
 import L2 from "../DashboardPageComponents/assets2/armed.svg";
 import L3 from "../DashboardPageComponents/assets2/massacre.svg";
 import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
+import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 
-const Data = () => {
+const Data = ({details, dataAll, dataResult, setDataResult}) => {
+  const data = [
+  { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , param : 'airstrike'},
+  { id: 2, logo: L2, name: "Armed Clashes", number: details.armed_clashes , param : 'armed_clashes'},
+  { id: 3, logo: L3, name: "Massacre", number: details.massacre , param : 'massacre'},
+  { id: 4, logo: L4, name: "Casualty", number: details.casualties , param : 'casualties'},
+  { id: 5, logo: L5, name: "Arrest", number: details.arrests , param : 'arrests'},
+];
   const [selectedData, setSelectedData] = useState([]);
-
-  const handleDataClick = (data) => {
-    setSelectedData((prevSelectedData) => {
+  const { filteredData, setFilteredData, filterParams, setFilterParams } = useDashboardFilterContext()
+  const handleDataClick = (data, dataResult, setDataResult) => {
+    setFilterParams((prevSelectedData) => {
       if (prevSelectedData.some((d) => d.id === data.id)) {
         return prevSelectedData.filter((d) => d.id !== data.id);
       } else {
         return [...prevSelectedData, data];
       }
+      
     });
   };
 
   const handleSelectAll = () => {
-    setSelectedData(data);
+    setFilterParams(data);
   };
 
   const handleClearAll = () => {
-    setSelectedData([]);
+    setFilterParams([]);
   };
 
-  const data = [
-    { id: 1, logo: L1, name: "Airstrike", number: 10 },
-    { id: 2, logo: L2, name: "Armed Clashes", number: 20 },
-    { id: 3, logo: L3, name: "Massacre", number: 30 },
-    { id: 4, logo: L4, name: "Casualty", number: 40 },
-    { id: 5, logo: L5, name: "Arrest", number: 50 },
-  ];
+  
 
   const isAllSelected = data.every((d) =>
-    selectedData.some((sd) => sd.id === d.id)
+    filterParams.some((sd) => sd.id === d.id)
   );
 
   return (
@@ -71,7 +70,7 @@ const Data = () => {
           <div
             key={id}
             className={`w-full h-full cursor-pointer border-[1px] border-[#e6e6e6] flex justify-between items-center py-[5px] px-[7px] rounded-md ${
-              selectedData.some((d) => d.id === id) ? "bg-[#0f007b] text-white " : "bg-[#e6e6e6] text-black"
+              filterParams.some((d) => d.id === id) ? "bg-[#0f007b] text-white " : "bg-[#e6e6e6] text-black"
             }`}
             onClick={() => handleDataClick({ id, name, number, logo })}
           >
