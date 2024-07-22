@@ -3,8 +3,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-export const options = {
+import { getChartData } from '../../../utils/utils';
+const options = {
     scales: {
         x: {
             ticks: {
@@ -40,45 +40,21 @@ export const options = {
  
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
-const dataset1Data = [120, 180, 240, 300, 360, 420, 480];
-const dataset2Data = [80, 120, 160, 200, 240, 280, 320];
-const dataset3Data = [60, 90, 120, 150, 180, 210, 240];
-const dataset4Data = [40, 60, 80, 100, 120, 140, 160];
-const dataset5Data = [20, 30, 40, 50, 60, 70, 80];
+// const dataset1Data = [120, 180, 240, 300, 360, 420, 480];
+// const dataset2Data = [80, 120, 160, 200, 240, 280, 320];
+// const dataset3Data = [60, 90, 120, 150, 180, 210, 240];
+// const dataset4Data = [40, 60, 80, 100, 120, 140, 160];
+// const dataset5Data = [20, 30, 40, 50, 60, 70, 80];
 
 
-export const data = {
+export default function CStackedBarChart({width,height,dataResult}) {
+  const { labels, datasets } = getChartData(dataResult);  
+  
+  const data = {
     labels,
-    datasets: [
-      {
-        label: 'AirStrike',
-        data: dataset1Data,
-        backgroundColor: 'rgb(255, 99, 132)',
-      },
-      {
-        label: 'Armed_Clashes',
-        data: dataset2Data,
-        backgroundColor: 'rgb(75, 192, 192)',
-      },
-      {
-        label: 'Massacre',
-        data: dataset3Data,
-        backgroundColor: 'rgb(53, 162, 235)',
-      },
-      {
-        label: 'Casualty',
-        data: dataset4Data,
-        backgroundColor: 'rgb(201, 203, 207)',
-      },
-      {
-        label: 'Arrest',
-        data: dataset5Data,
-        backgroundColor: 'rgb(255, 159, 64)',
-      },
-    ],
+    datasets:datasets
   };
-export default function CStackedBarChart({width,height}) {
   return <Bar options={options} data={data} width={width} height={height}/>;
 }

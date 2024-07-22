@@ -241,6 +241,7 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										<CScatterChart
+										    dataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
@@ -257,10 +258,11 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
-										<CStackedBarChart
+										{isSuccess && <CStackedBarChart
+										   dataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
-										/>
+										/>}
 									</div>
 								</>
 							)}
@@ -306,6 +308,7 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CScatterChart
+												    dataResult={dataResult}
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
 												/>
@@ -316,7 +319,7 @@ const Dashboard = () => {
 												activeChart === 2 ? "active" : ""
 											}`}
 										>
-											{activeChart === 2 && (
+											{isSuccess && activeChart === 2 && (
 												// <StackedBarChart
 												// 	width={ipadChartWidthTwo}
 												// 	height={fullChartHeight}
@@ -324,6 +327,7 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CStackedBarChart
+												dataResult={dataResult}
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
 												/>
@@ -560,6 +564,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CScatterChart
+												    dataResult={dataResult}
 												width ={ipadChartWidth}
 												height = {ipadChartHeight}
 												/>
@@ -576,10 +581,11 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
-												<CStackedBarChart
+												{isSuccess && <CStackedBarChart
+												   dataResult={dataResult}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
-												/>
+												/>}
 											</div>
 										</>
 									)}
@@ -628,6 +634,7 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CScatterChart
+														    dataResult={dataResult}
 														width={ipadChartWidthTwo}
 														height={mediumChartHeight}
 														/>
@@ -638,7 +645,7 @@ const Dashboard = () => {
 														activeChart === 2 ? "active" : ""
 													}`}
 												>
-													{activeChart === 2 && (
+													{isSuccess && activeChart === 2 && (
 														// <StackedBarChart
 														// 	width={ipadChartWidthTwo}
 														// 	height={mediumChartHeight}
@@ -646,6 +653,7 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CStackedBarChart
+														dataResult={dataResult}
 														width={ipadChartWidthTwo}
 														height = {mediumChartHeight}
 														/>
@@ -823,6 +831,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CScatterChart
+												    dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height= {smallChartHeightTwo}
 												/>
@@ -839,10 +848,11 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
-												<CStackedBarChart
+												{isSuccess && <CStackedBarChart
+												   dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height={smallChartHeightTwo}
-												/>
+												/>}
 											</div>
 										</>
 									)}
@@ -890,6 +900,7 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CScatterChart
+														    dataResult={dataResult}
 														width={fullChartWidth}
 														height={ipadChartHeight}
 														/>
@@ -900,14 +911,15 @@ const Dashboard = () => {
 														activeChart === 2 ? "active" : ""
 													}`}
 												>
-													{activeChart === 2 && (
+													{isSuccess && activeChart === 2 && (
 														// <StackedBarChart
 														// 	width={fullChartWidth}
 														// 	height={ipadChartHeight}
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CStackedBarChart
+														 <CStackedBarChart
+														 dataResult={dataResult}
 														width={fullChartWidth}
 														height={ipadChartHeight}
 														/>
@@ -1111,6 +1123,7 @@ const Dashboard = () => {
 												>
 													
 													<CScatterChart
+													    dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
 													/>
@@ -1121,10 +1134,11 @@ const Dashboard = () => {
 													className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(2)}
 												>
-													<CStackedBarChart
+													{isSuccess && <CStackedBarChart
+													   dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
-													/>
+													/>}
 												</div>
 											</>
 										)}
@@ -1156,6 +1170,7 @@ const Dashboard = () => {
 															{activeChart === 1 && (
 															
 																<CScatterChart
+																    dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
@@ -1163,9 +1178,10 @@ const Dashboard = () => {
 														</div>
 
 														<div className=" ">
-															{activeChart === 2 && (
+															{isSuccess && activeChart === 2 && (
 																
 																<CStackedBarChart
+																dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
@@ -1313,6 +1329,7 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(1)}
 											>
 												<CScatterChart
+												    dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>
@@ -1323,10 +1340,11 @@ const Dashboard = () => {
 												className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(2)}
 											>
-												<CStackedBarChart
+												{isSuccess && <CStackedBarChart
+												  dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
-												/>
+												/>}
 											</div>
 										</>
 									)}
@@ -1365,6 +1383,7 @@ const Dashboard = () => {
 													>
 														{activeChart === 1 && (
 															<CScatterChart
+															    dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
@@ -1375,9 +1394,10 @@ const Dashboard = () => {
 															activeChart === 2 ? "active" : ""
 														}`}
 													>
-														{activeChart === 2 && (
+														{isSuccess && activeChart === 2 && (
 															
-															<CStackedBarChart
+															 <CStackedBarChart
+															 dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
