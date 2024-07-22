@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import * as d3 from 'd3'
 export const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
@@ -41,7 +41,7 @@ export function getUniqueMonths(data) {
   });
 }
 //old code start
-export function getSpanOfTime(dates, numColumns) {
+export function getDateOfSpan(dates, numColumns) {
   const spanSize = Math.ceil(dates.length / numColumns);
   const spans = [];
 
@@ -56,7 +56,7 @@ export function getSpanOfTime(dates, numColumns) {
 
 export function refinedDataForClineChart(dataResult, colorMapping) {
   return dataResult.reduce((acc, item) => {
-    const caseTypeName = item.case_type.name;
+    const caseTypeName = item.name;
     if (!acc[caseTypeName]) {
       const colorsAndLabel = colorMapping[caseTypeName] || {
            
@@ -72,6 +72,100 @@ export function refinedDataForClineChart(dataResult, colorMapping) {
     return acc;
   }, {});
 }
+export function extractCaseTypesWithTimes(summarizedData) {  
+  const caseTypeMap = {};  
+
+  // Loop through each time span data  
+  summarizedData.forEach(({ span, data }) => {  
+      // Loop through each case type in the span data  
+      for (const caseType in data) {  
+          if (!caseTypeMap[caseType]) {  
+              // Initialize the case type if it doesn't exist  
+              caseTypeMap[caseType] = { name: caseType, times: [] };  
+          }  
+          // Push the count of times for this case type  
+          caseTypeMap[caseType].times.push(data[caseType]);  
+      }  
+  });  
+
+  // Convert the map object to an array  
+  return Object.values(caseTypeMap);  
+}  
+
+export function summarizedDataBySpan(data, spans, dateFormat = 'MMM-YYYY') {
+  // Convert spans to a more accessible structure
+  const spanRanges = spans.map(span => {
+    const [start, end] = span.split(' - ');
+    return { start, end };
+  });
+
+  // Initialize result object
+  const result = spanRanges.map(range => ({
+    span: `${range.start} - ${range.end}`,
+    data: {}
+  }));
+
+  // Group data by case_type_name and date
+  const groupedData = d3.rollups( 
+    data,
+    v => d3.sum(v, d => d.times),
+    d => d.case_type_name,
+    d => d.date
+  );
+
+  // Populate the result object
+  groupedData.forEach(([case_type_name, dateGroups]) => {
+    dateGroups.forEach(([date, times]) => {
+      spanRanges.forEach((range, idx) => {
+        const formattedDate = d3.timeFormat(dateFormat)(new Date(date));
+        if (formattedDate >= range.start && formattedDate <= range.end) {
+          if (!result[idx].data[case_type_name]) {
+            result[idx].data[case_type_name] = 0;
+          }
+          result[idx].data[case_type_name] += times;
+        }
+      });
+    });
+  });
+
+  return result;
+}
+
+const parseDate = d3.timeParse("%b-%Y");
+const formatDate = d3.timeFormat("%b-%Y");
+
+// Function to check if a date falls within a time span
+function isDateInRange(date, range) {
+  const [start, end] = range.split(' - ').map(parseDate);
+  const formattedDate = parseDate(date);
+  return formattedDate >= start && formattedDate <= end;
+}
+
+// Function to summarize data by time spans
+export function summarizeDataByTimeSpan(data, timeSpans) {
+  const result = [];
+
+  timeSpans.forEach(span => {
+    const [start, end] = span.split(' - ');
+    const spanData = { span, data: {} };
+
+    data.forEach(({ case_type_name, times, date }) => {
+      if (isDateInRange(date, span)) {
+        if (!spanData.data[case_type_name]) {
+          spanData.data[case_type_name] = 0;
+        }
+        spanData.data[case_type_name] += times;
+      }
+    });
+
+    result.push(spanData);
+  });
+
+  return result;
+}
+
+
+
 //old code end
 //new code
 // Helper function to determine which time span a date falls into

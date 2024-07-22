@@ -12,7 +12,9 @@ import {
 import { Line } from 'react-chartjs-2';
 import { useDashboardDataContext } from '../../context/DashboardDataContext'
 // import { refinedDataForClineChart } from '../../../utils/new-utils';
-import { getUniqueMonths, transformDates, getSpanOfTime, refinedDataForClineChart} from '../../../utils/utils';
+import { getUniqueMonths, transformDates, getDateOfSpan, summarizeDataByTimeSpan,
+   refinedDataForClineChart, extractCaseTypesWithTimes
+  } from '../../../utils/utils';
 import { color } from 'chart.js/helpers';
 ChartJS.register(
   CategoryScale,
@@ -52,11 +54,32 @@ export const options = {
     },
   },
 };
+import * as d3 from 'd3'
+
 
 export default function CLineChart({ width, height, fontSize, isFullWidth, dataResult }) {
   console.log('data result: ', dataResult);
-  const sliceData = dataResult && dataResult.slice(0, 40);
-  console.log('slice data: ', sliceData);
+  let summarizedData = [];
+  if(dataResult !== undefined && dataResult.length > 0) {
+
+    const groupedData = d3.rollups(
+      dataResult,
+      v => d3.sum(v, d => d.times),
+      d => new Date(d.date).toLocaleDateString('en-CA',{month: 'short'}) + '-' + new Date(d.date).toLocaleDateString('en-CA',{year: 'numeric'}),
+      d => d.case_type.name
+    );
+    // Transform grouped data into the desired format
+     summarizedData = groupedData.flatMap(([date, caseTypes]) => 
+      caseTypes.map(([case_type_name, times]) => ({
+        date,
+        case_type_name,
+        times
+      }))
+    );
+    
+    console.log('summarized data',summarizedData);
+  }
+  
   const colorMapping = {
     airstrike: {
       label: 'Airstrike',
@@ -87,23 +110,34 @@ export default function CLineChart({ width, height, fontSize, isFullWidth, dataR
   // const refinedData = [];
   let labels = [];
   let result = [];
-  if (dataResult !== undefined) {
-    const transformedDates = transformDates(dataResult);
-    // const databymonths = groupDataByMonths(dataResult);
-    const uniqueMonths = getUniqueMonths(transformedDates);
-    console.log('unique months', uniqueMonths);
-    const timeSpans = getSpanOfTime(uniqueMonths, 12);
-    labels = timeSpans;
-    console.log('timeSpans',timeSpans);
-    const refinedData = refinedDataForClineChart(dataResult, colorMapping, timeSpans);
-    console.log('refinedData', refinedData)
-    result = Object.values(refinedData);
+  if (summarizedData !== undefined) {
+    // const transformedDates = transformDates(summarizedData);
+    // // const databymonths = groupDataByMonths(summarizedData);
+    // const uniqueMonths = getUniqueMonths(transformedDates);
+    // console.log('unique months', uniqueMonths);
+    const uniqueDates = Array.from(new Set(summarizedData.map(item => item.date)));
+    console.log('unique dates',uniqueDates);
+    labels = getDateOfSpan(uniqueDates, 12);
+    console.log('labels', labels);
+    const dataResult = summarizeDataByTimeSpan(summarizedData, labels)
+    console.log('result', dataResult)
+    const extract = extractCaseTypesWithTimes(dataResult);
+    console.log('extract', extract)
+    // const mapping = extract.map(item => {
+    //   if(colorMapping.airstrike =)
+    // })
+    console.log(extract)
+    // labels = timeSpans;
+    // console.log('timeSpans',timeSpans);
+    // const refinedData = refinedDataForClineChart(summarizedData, colorMapping, timeSpans);
+    // console.log('refinedData', refinedData)
+    // result = Object.values(refinedData);
   }
   console.log('result', result)
-    const data = {
-      labels,
-      datasets: result
-    };
+  const data = {
+    labels,
+    datasets: result
+  };
   
   //   const refinedData = data.reduce((acc, item) => {
   //     const caseTypeName = item.case_type.name;
