@@ -165,8 +165,63 @@ export function summarizeDataByTimeSpan(data, timeSpans) {
   return result;
 }
 
+export const colorMapping = {  
+  airstrike: {  
+    label: 'Airstrike',  
+    borderColor: 'rgb(255, 99, 132)',  
+    backgroundColor: 'rgba(255, 99, 132, 0.5)',  
+  },  
+  armed_clashes: {  
+    label: 'Armed Clashes',  
+    borderColor: 'rgb(53, 162, 235)',  
+    backgroundColor: 'rgba(53, 162, 235, 0.5)',  
+  },  
+  massacre: {  
+    label: 'Massacre',  
+    borderColor: 'rgb(75, 192, 192)',  
+    backgroundColor: 'rgba(75, 192, 192, 0.5)',  
+  },  
+  casualties: {  
+    label: 'Casualty',  
+    borderColor: 'rgb(201, 203, 207)',  
+    backgroundColor: 'rgba(201, 203, 207, 0.5)',  
+  },  
+  arrests: {  
+    label: 'Arrests',  
+    borderColor: 'rgb(153, 102, 255)',  
+    backgroundColor: 'rgba(153, 102, 255, 0.5)',  
+  },  
+};  
+export const getChartData = (dataResult) => {  
+  if (!dataResult || dataResult.length === 0) return { labels: [], datasets: [] };  
 
+  // Grouping data by date and case type  
+  const groupedData = d3.rollups(  
+    dataResult,  
+    v => d3.sum(v, d => d.times),  
+    d => new Date(d.date).toLocaleDateString('en-CA', { month: 'short' }) + '-' + new Date(d.date).toLocaleDateString('en-CA', { year: 'numeric' }),  
+    d => d.case_type.name  
+  );  
 
+  // Transform grouped data into the desired format  
+  const summarizedData = groupedData.flatMap(([date, caseTypes]) =>  
+    caseTypes.map(([case_type_name, times]) => ({  
+      date,  
+      case_type_name,  
+      times  
+    }))  
+  );  
+
+  const uniqueDates = Array.from(new Set(summarizedData.map(item => item.date)));  
+  const labels = getDateOfSpan(uniqueDates, 12);  
+  const dataSummary = summarizeDataByTimeSpan(summarizedData, labels);  
+  const extractedData = extractCaseTypesWithTimes(dataSummary);  
+  const refinedData = refinedDataForClineChart(extractedData, colorMapping);  
+
+  const datasets = Object.values(refinedData);  
+
+  return { labels, datasets };  
+};  
 //old code end
 //new code
 // Helper function to determine which time span a date falls into
