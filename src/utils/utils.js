@@ -194,7 +194,6 @@ export const colorMapping = {
 };  
 export const getChartData = (dataResult) => {  
   if (!dataResult || dataResult.length === 0) return { labels: [], datasets: [] };  
-
   // Grouping data by date and case type  
   const groupedData = d3.rollups(  
     dataResult,  
@@ -222,61 +221,3 @@ export const getChartData = (dataResult) => {
 
   return { labels, datasets };  
 };  
-//old code end
-//new code
-// Helper function to determine which time span a date falls into
-// export function getSpanOfTime(date, timeSpans) {
-//   const year = date.getFullYear();
-//   const month = date.getMonth() + 1;
-//   const monthYear = `${month}-${year}`;
-  
-//   return timeSpans.find(span => {
-//     const [start, end] = span.split(' - ');
-//     const [startMonth, startYear] = start.split('-').map(Number);
-//     const [endMonth, endYear] = end.split('-').map(Number);
-//     const isAfterStart = (year > startYear) || (year === startYear && month >= startMonth);
-//     const isBeforeEnd = (year < endYear) || (year === endYear && month <= endMonth);
-//     return isAfterStart && isBeforeEnd;
-//   }) || "Unknown";
-// }
-
-// export function refinedDataForClineChart(dataResult, colorMapping, timeSpans) {
-//   const acc = {};
-  
-//   timeSpans.forEach(span => {
-//     acc[span] = {}; // Ensure each time span is initialized
-//   });
-
-//   // Process each item to sum times within each time span
-//   dataResult.forEach(item => {
-//     const caseTypeName = item.case_type.name;
-//     const itemDate = new Date(item.date);
-//     const span = getSpanOfTime(itemDate, timeSpans);
-
-//     // Ensure the span is valid and initialized
-//     if (!acc[span]) {
-//       console.error(`Time span ${span} is not defined.`);
-//       return;
-//     }
-    
-//     if (!acc[span][caseTypeName]) {
-//       acc[span][caseTypeName] = 0;
-//     }
-//     acc[span][caseTypeName] += item.times;
-//   });
-
-//   // Prepare the final data structure for the chart
-//   const dataset = Object.keys(colorMapping).map(caseTypeName => {
-//     const data = timeSpans.map(span => acc[span][caseTypeName] || 0);
-//     return {
-//       label: caseTypeName,
-//       data: data,
-//       ...colorMapping[caseTypeName],
-//       radius: 5,
-//     };
-//   });
-
-//   return dataset;
-// }
-
-//new code

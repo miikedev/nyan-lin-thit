@@ -1,7 +1,7 @@
 import React from 'react';
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
-
+import { getChartData } from '../../../utils/utils';
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 export const options = {
@@ -74,48 +74,54 @@ const customData1 = [
   ];
   
 
-  export const data = {
-    datasets: [
-      {
-        label: 'AirStrike',
-        data: customData1,
-        backgroundColor: 'rgba(255, 99, 132, 1)',
-        pointStyle: 'circle',
-         radius: 6,
+  // export const data = {
+  //   datasets: [
+  //     {
+  //       label: 'AirStrike',
+  //       data: customData1,
+  //       backgroundColor: 'rgba(255, 99, 132, 1)',
+  //       pointStyle: 'circle',
+  //        radius: 6,
        
-      },
-      {
-        label: 'Armed_Clashes',
-        data: customData2,
-        backgroundColor: 'rgba(54, 162, 235, 1)',
-        pointStyle: 'circle',
-         radius: 6,
-      },
-      {
-        label: 'Massacre',
-        data: customData3,
-        backgroundColor: 'rgba(75, 192, 192, 1)',
-        pointStyle: 'circle',
-         radius: 6,
-      },
-      {
-        label: 'Casualty',
-        data: customData4,
-        backgroundColor: 'rgba(153, 102, 255, 1)',
-        pointStyle: 'circle',
-         radius: 6,
-      },
-      {
-        label: 'Arrest',
-        data: customData5,
-        backgroundColor: 'rgba(255, 159, 64, 1)',
-        pointStyle: 'circle',
-         radius: 6,
-      },
-    ],
-  };
+  //     },
+  //     {
+  //       label: 'Armed_Clashes',
+  //       data: customData2,
+  //       backgroundColor: 'rgba(54, 162, 235, 1)',
+  //       pointStyle: 'circle',
+  //        radius: 6,
+  //     },
+  //     {
+  //       label: 'Massacre',
+  //       data: customData3,
+  //       backgroundColor: 'rgba(75, 192, 192, 1)',
+  //       pointStyle: 'circle',
+  //        radius: 6,
+  //     },
+  //     {
+  //       label: 'Casualty',
+  //       data: customData4,
+  //       backgroundColor: 'rgba(153, 102, 255, 1)',
+  //       pointStyle: 'circle',
+  //        radius: 6,
+  //     },
+  //     {
+  //       label: 'Arrest',
+  //       data: customData5,
+  //       backgroundColor: 'rgba(255, 159, 64, 1)',
+  //       pointStyle: 'circle',
+  //        radius: 6,
+  //     },
+  //   ],
+  // };
   
 
-export default function CScatterChart({width,height}) {
+export default function CScatterChart({width,height,dataResult}) {
+  const {labels, datasets } = getChartData(dataResult);
+  console.log('cscatterChart',dataResult);
+  const data = {
+    labels,
+    datasets:datasets,
+  }
   return <Scatter options={options} data={data} width={width} height={height} />;
 }
