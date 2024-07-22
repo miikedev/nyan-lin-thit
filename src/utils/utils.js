@@ -56,6 +56,7 @@ export function getDateOfSpan(dates, numColumns) {
 
 export function refinedDataForClineChart(dataResult, colorMapping) {
   return dataResult.reduce((acc, item) => {
+    console.log('refined',item)
     const caseTypeName = item.name;
     if (!acc[caseTypeName]) {
       const colorsAndLabel = colorMapping[caseTypeName] || {
@@ -63,12 +64,12 @@ export function refinedDataForClineChart(dataResult, colorMapping) {
       };
       acc[caseTypeName] = {
         label: caseTypeName,
-        data: [],
+        data: item.times,
         ...colorsAndLabel,
         radius: 5,
       };
     }
-    acc[caseTypeName].data.push(item.times);
+    acc[caseTypeName]
     return acc;
   }, {});
 }

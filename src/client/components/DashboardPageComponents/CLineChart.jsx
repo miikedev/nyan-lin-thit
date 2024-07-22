@@ -1,4 +1,6 @@
 import React from 'react';
+import * as d3 from 'd3'
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -14,7 +16,7 @@ import { useDashboardDataContext } from '../../context/DashboardDataContext'
 // import { refinedDataForClineChart } from '../../../utils/new-utils';
 import { getUniqueMonths, transformDates, getDateOfSpan, summarizeDataByTimeSpan,
    refinedDataForClineChart, extractCaseTypesWithTimes
-  } from '../../../utils/utils';
+} from '../../../utils/utils';
 import { color } from 'chart.js/helpers';
 ChartJS.register(
   CategoryScale,
@@ -54,11 +56,10 @@ export const options = {
     },
   },
 };
-import * as d3 from 'd3'
 
 
 export default function CLineChart({ width, height, fontSize, isFullWidth, dataResult }) {
-  console.log('data result: ', dataResult);
+
   let summarizedData = [];
   if(dataResult !== undefined && dataResult.length > 0) {
 
@@ -76,8 +77,6 @@ export default function CLineChart({ width, height, fontSize, isFullWidth, dataR
         times
       }))
     );
-    
-    console.log('summarized data',summarizedData);
   }
   
   const colorMapping = {
@@ -107,52 +106,27 @@ export default function CLineChart({ width, height, fontSize, isFullWidth, dataR
       backgroundColor: 'rgba(153, 102, 255, 0.5)',
     },
   };
-  // const refinedData = [];
+
   let labels = [];
   let result = [];
   if (summarizedData !== undefined) {
-    // const transformedDates = transformDates(summarizedData);
-    // // const databymonths = groupDataByMonths(summarizedData);
-    // const uniqueMonths = getUniqueMonths(transformedDates);
-    // console.log('unique months', uniqueMonths);
     const uniqueDates = Array.from(new Set(summarizedData.map(item => item.date)));
-    console.log('unique dates',uniqueDates);
+
     labels = getDateOfSpan(uniqueDates, 12);
-    console.log('labels', labels);
+
     const dataResult = summarizeDataByTimeSpan(summarizedData, labels)
-    console.log('result', dataResult)
+
     const extract = extractCaseTypesWithTimes(dataResult);
-    console.log('extract', extract)
-    // const mapping = extract.map(item => {
-    //   if(colorMapping.airstrike =)
-    // })
-    console.log(extract)
-    // labels = timeSpans;
-    // console.log('timeSpans',timeSpans);
-    // const refinedData = refinedDataForClineChart(summarizedData, colorMapping, timeSpans);
-    // console.log('refinedData', refinedData)
-    // result = Object.values(refinedData);
+
+    const refinedData = refinedDataForClineChart(extract, colorMapping);
+
+    result = Object.values(refinedData);
   }
-  console.log('result', result)
+
   const data = {
     labels,
     datasets: result
   };
-  
-  //   const refinedData = data.reduce((acc, item) => {
-  //     const caseTypeName = item.case_type.name;
-  //     if (!acc[caseTypeName]) {
-  //         acc[caseTypeName] = {
-  //             name: caseTypeName,
-  //             times: []
-  //         };
-  //     }
-  //     acc[caseTypeName].times.push(item.times);
-  //     return acc;
-  //   }, {});
 
-  // const result = Object.values(refinedData);
-
-  // console.log(result);
   return <Line options={options} data={data} width={width} height={height}/>;
 }
