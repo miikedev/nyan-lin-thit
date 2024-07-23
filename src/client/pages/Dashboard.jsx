@@ -107,7 +107,7 @@ const Dashboard = () => {
             });  
         }  
     }, [isSuccess, data]);  
-
+	console.log('dataResult', data)
     // console.log('Filtered Details:', details);  
 	// console.log('resulted param names', resultedParamNames)
     // console.log('News:', news);  
@@ -495,9 +495,7 @@ const Dashboard = () => {
 												{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 											</div>
 											<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-
-													<Dates2 />
-
+												<Dates2 />
 											</div>
 										</div>
 									</div>
@@ -520,7 +518,6 @@ const Dashboard = () => {
 							{/* Parent Right Container */}
 							<div className=" w-[735px]">
 								{/*Top Right Container */}
-
 								<div
 									className={`relative p-[5px] bg-white w-full h-[240px] rounded-md flex justify-center items-center  mb-[10px]`}
 								>
@@ -1043,7 +1040,7 @@ const Dashboard = () => {
 												{/* bottom  */}
 												<div className="w-[300px] flex flex-col items-center mt-[10px] gap-[5px]">
 													<div className="w-full h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
-														<Data2 deatils={details} />
+														{isSuccess && <Data2 details={details} />}
 													</div>
 													<div className="w-full h-[71px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates fontSize={"11px"} fontSizeTwo={"14px"} />
