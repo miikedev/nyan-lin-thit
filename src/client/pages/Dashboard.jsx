@@ -32,9 +32,10 @@ import TabContent from "../components/DashboardPageComponents/TabContent";
 import CLineChart from "../components/DashboardPageComponents/CLineChart";
 import CScatterChart from "../components/DashboardPageComponents/CScatterChart";
 import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
+import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
 
 import { useDashboardData } from "../apis/dashboardData";
-import { DashboardDateProvider } from "../context/DashboardDateContext";
+import { useDashboardDateContext } from "../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 import { useDashboardDataContext } from "../context/DashboardDataContext";
 // import { px } from "framer-motion";
@@ -42,14 +43,14 @@ import Loading from '../pages/Loading'
 const caseName = {
 	1: 'airstrike',
 	2: 'armed_clashes',
-    3:'massacre',
+    3:	'massacre',
     4: 'casualties',
     5: 'arrests',
 }
 const Dashboard = () => {
 	const { setFilteredData, filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
-
+	const date = useDashboardDateContext();
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
     const paramString = resultedParamNames.join(",");   
@@ -58,8 +59,8 @@ const Dashboard = () => {
     const [townships, setTownships] = useState([]);  
     const [details, setDetails] = useState([]);  
 
-    const { data, isLoading, isSuccess, isError } = useDashboardData();  
-
+    const { data, isLoading, isSuccess, isError } = useDashboardData(date);  
+	console.log('fetched data', data)
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
     const [isFullWidth, setIsFullWidth] = useState(false);  
@@ -85,14 +86,6 @@ const Dashboard = () => {
     const detailNumberForMedium = '12px';  
     const detailNameForSmall = '11px';  
     const detailNumberForSmall = '12px';  
-
-    // Effect to set filtered data based on result parameters and data  
-    // useEffect(() => {  
-    //     if (isSuccess && data) {  
-    //         const filteredData = data.filter(item => resultedParamNames.includes(item.case_type?.name));  
-    //         setFilteredData(filteredData);  
-    //     }  
-    // }, [isSuccess, data, resultedParamNames, setFilteredData]);  
 
     // Effect to handle news and townships data  
     useEffect(() => {  
@@ -160,7 +153,6 @@ const Dashboard = () => {
 
 	if(isLoading) return <Loading />
 	if(isSuccess && data && data.length !== 0) return (
-		<DashboardDateProvider>
 			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
@@ -240,7 +232,7 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
-										<CScatterChart
+										<CLineChartStacked
 										    dataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
@@ -307,10 +299,10 @@ const Dashboard = () => {
 												// 	fontSize={chartFontSize}
 												// 	isFullWidth={true}
 												// />
-												<CScatterChart
+												<CLineChartStacked
 												    dataResult={dataResult}
-												width={ipadChartWidthTwo}
-												height={fullChartHeight}
+													width={ipadChartWidthTwo}
+													height={fullChartHeight}
 												/>
 											)}
 										</div>
@@ -563,10 +555,10 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
-												<CScatterChart
+												<CLineChartStacked
 												    dataResult={dataResult}
-												width ={ipadChartWidth}
-												height = {ipadChartHeight}
+													width ={ipadChartWidth}
+													height = {ipadChartHeight}
 												/>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
@@ -627,16 +619,10 @@ const Dashboard = () => {
 													}`}
 												>
 													{activeChart === 1 && (
-														// <ScatterChartComponent
-														// 	width={ipadChartWidthTwo}
-														// 	height={mediumChartHeight}
-														// 	fontSize={chartFontSize}
-														// 	isFullWidth={true}
-														// />
-														<CScatterChart
+														<CLineChartStacked
 														    dataResult={dataResult}
-														width={ipadChartWidthTwo}
-														height={mediumChartHeight}
+															width={ipadChartWidthTwo}
+															height={mediumChartHeight}
 														/>
 													)}
 												</div>
@@ -646,16 +632,10 @@ const Dashboard = () => {
 													}`}
 												>
 													{isSuccess && activeChart === 2 && (
-														// <StackedBarChart
-														// 	width={ipadChartWidthTwo}
-														// 	height={mediumChartHeight}
-														// 	fontSize={chartFontSize}
-														// 	isFullWidth={true}
-														// />
 														<CStackedBarChart
-														dataResult={dataResult}
-														width={ipadChartWidthTwo}
-														height = {mediumChartHeight}
+															dataResult={dataResult}
+															width={ipadChartWidthTwo}
+															height = {mediumChartHeight}
 														/>
 													)}
 												</div>
@@ -664,7 +644,6 @@ const Dashboard = () => {
 													className="text-[25px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
 													onClick={() => setActiveChart((activeChart + 1) % 3)}
 												>
-													{/* &#8594; */}
 													&gt;
 												</button>
 											</div>
@@ -830,7 +809,7 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
-												<CScatterChart
+												<CLineChartStacked
 												    dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height= {smallChartHeightTwo}
@@ -899,7 +878,7 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CScatterChart
+														<CLineChartStacked
 														    dataResult={dataResult}
 														width={fullChartWidth}
 														height={ipadChartHeight}
@@ -1058,13 +1037,13 @@ const Dashboard = () => {
 														<p className="text-[12px] text-white">$9,542.39</p>
 													</div>
 												</div> */}
-													<Detail layout={false} name={detailNameForMedium} number={detailNumberForMedium}/>
+													<Detail layout={false} name={detailNameForMedium} number={detailNumberForMedium} data={details}/>
 
 
 												{/* bottom  */}
 												<div className="w-[300px] flex flex-col items-center mt-[10px] gap-[5px]">
 													<div className="w-full h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
-														<Data2 />
+														<Data2 deatils={details} />
 													</div>
 													<div className="w-full h-[71px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates fontSize={"11px"} fontSizeTwo={"14px"} />
@@ -1122,7 +1101,7 @@ const Dashboard = () => {
 													onClick={() => handleChartClick(1)}
 												>
 													
-													<CScatterChart
+													<CLineChartStacked
 													    dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
@@ -1169,7 +1148,7 @@ const Dashboard = () => {
 														<div className=" ">
 															{activeChart === 1 && (
 															
-																<CScatterChart
+																<CLineChartStacked
 																    dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
@@ -1328,7 +1307,7 @@ const Dashboard = () => {
 												className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(1)}
 											>
-												<CScatterChart
+												<CLineChartStacked
 												    dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
@@ -1382,7 +1361,7 @@ const Dashboard = () => {
 														}`}
 													>
 														{activeChart === 1 && (
-															<CScatterChart
+															<CLineChartStacked
 															    dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
@@ -1607,7 +1586,6 @@ const Dashboard = () => {
 					)}
 				</div>
 			</section>
-		</DashboardDateProvider>
 	);
 };
 

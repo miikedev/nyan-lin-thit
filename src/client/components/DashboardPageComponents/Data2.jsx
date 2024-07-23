@@ -9,7 +9,7 @@ import L3 from "../DashboardPageComponents/assets2/massacre.svg";
 import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
 
-const Data2 = () => {
+const Data2 = ({details}) => {
   const [selectedData, setSelectedData] = useState([]);
 
   const handleDataClick = (data) => {
@@ -31,11 +31,11 @@ const Data2 = () => {
   };
 
   const data = [
-    { id: 1, logo: L1, name: "Airstrike", number: 10 },
-    { id: 2, logo: L2, name: "Armed Clashes", number: 20 },
-    { id: 3, logo: L3, name: "Massacre", number: 30 },
-    { id: 4, logo: L4, name: "Casualty", number: 40 },
-    { id: 5, logo: L5, name: "Arrest", number: 50 },
+    { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , param : 'airstrike'},
+    { id: 2, logo: L2, name: "Armed Clashes", number: details.armed_clashes , param : 'armed_clashes'},
+    { id: 3, logo: L3, name: "Massacre", number: details.massacre , param : 'massacre'},
+    { id: 4, logo: L4, name: "Casualty", number: details.casualties , param : 'casualties'},
+    { id: 5, logo: L5, name: "Arrest", number: details.arrests , param : 'arrests'},
   ];
 
   const isAllSelected = data.every((d) =>
@@ -79,7 +79,6 @@ const Data2 = () => {
             </div>
             <div className="text-[10px] text-left ">{name}</div>
             <div className="text-[10px] text-left">{number} Cases</div>
-            
           </div>
         ))}
       </div>

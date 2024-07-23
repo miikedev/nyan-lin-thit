@@ -5,8 +5,8 @@ const DashboardDateContext = createContext();
 export const useDashboardDateContext = () => useContext(DashboardDateContext);
 
 export const DashboardDateProvider = ({ children }) => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   return (
     <DashboardDateContext.Provider value={{ startDate, endDate, setStartDate, setEndDate }}>

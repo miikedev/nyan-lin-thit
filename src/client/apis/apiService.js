@@ -30,11 +30,16 @@ export const fetchResources = async (type, page, category, search) => {
   }
 };
 
-export const fetchDashboards = async() => {
+export const fetchDashboards = async(startDate, endDate) => {
   // console.log('fetch dashboard', paramString)
+  const paramString = startDate && endDate? `startDate=${
+    new Date(startDate).toLocaleDateString('en-CA')
+  }&endDate=${
+    new Date(endDate).toLocaleDateString('en-CA')
+  }` : ''
   try {
-    const response = await axios(`/api/dashboard`)
-    return response.data.dashboards[0];
+    const {data} = await axios(`/api/dashboard?${paramString}`)
+    return data.dashboards[0];
   } catch (error) {
     console.log(error)
   }
