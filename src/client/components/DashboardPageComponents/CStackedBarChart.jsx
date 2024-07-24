@@ -49,12 +49,13 @@ const options = {
 // const dataset5Data = [20, 30, 40, 50, 60, 70, 80];
 
 
-export default function CStackedBarChart({width,height,dataResult}) {
+export default function CStackedBarChart({width,height,dataResult,newDataResult}) {
   const { labels, datasets } = getChartData(dataResult);  
-  
+  if(newDataResult === undefined) return ;
+
   const data = {
-    labels,
-    datasets:datasets
+    labels: newDataResult.labels,
+    datasets: newDataResult.datasets
   };
   return <Bar options={options} data={data} width={width} height={height}/>;
 }

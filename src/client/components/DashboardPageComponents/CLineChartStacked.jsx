@@ -7,6 +7,7 @@ import {
   LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
@@ -19,9 +20,9 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
+  Filler,
   Legend
 );
-
 export const options = {
   responsive: true,
   scales: {
@@ -110,15 +111,26 @@ export const data = {
   ],
 };
 
-const CLineChartStacked = (width, height, dataResult) => {
-    // const { labels, datasets } = getChartData(dataResult);  
+export default function CLineChartStacked({ width, height, fontSize, isFullWidth, dataResult, newDataResult }) {
+  // Get labels and datasets from dataResult  
+  // const { labels, datasets } = getChartData(dataResult);  
+  if(newDataResult === undefined) return ;
+    console.log('newDataResult', newDataResult);
+  const { labels, data: regionDataArray } = newDataResult.regionData; 
+  const result = regionDataArray.map(region => {
+    return {
+      label: region.name,
+      data: region,
+      backgroundColor: `rgba(0, 0, 255, 0.5)`,
+      borderColor: `rgba(0, 0, 255, 1)`,
+      fill: true,
+    };
+  })
+  const data = {
+    labels: labels,
+    datasets:newDataResult.datasets
+  };
 
-    // const data = {
-    //     labels,
-    //     datasets: datasets
-    // };
-
-    return <Line options={options} data={data} width={width} height={height} />;
+  return <Line options={options} data={data} width={width} height={height}/>;
 }
 
-export default CLineChartStacked;

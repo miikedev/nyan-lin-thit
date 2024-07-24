@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { getChartData } from '../../../utils/utils';
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -52,13 +51,15 @@ export const options = {
 };
 
 
-export default function CLineChart({ width, height, fontSize, isFullWidth, dataResult }) {
+export default function CLineChart({ width, height, fontSize, isFullWidth, dataResult, newDataResult }) {
   // Get labels and datasets from dataResult  
   const { labels, datasets } = getChartData(dataResult);  
+  if(newDataResult === undefined) return ;
+  console.log('newDataResult', newDataResult);
 
   const data = {
-    labels,
-    datasets: datasets
+    labels: newDataResult.labels,
+    datasets:newDataResult.datasets
   };
 
   return <Line options={options} data={data} width={width} height={height}/>;
