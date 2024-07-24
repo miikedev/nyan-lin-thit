@@ -16,9 +16,6 @@ import R from "../components/DashboardPageComponents/assets2/right-arrow.svg";
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
 import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
 
-
-
-
 import Dates from "../components/DashboardPageComponents/Dates";
 import Dates2 from "../components/DashboardPageComponents/Dates2";
 
@@ -34,7 +31,7 @@ import CScatterChart from "../components/DashboardPageComponents/CScatterChart";
 import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
 import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
 
-import { useDashboardData } from "../apis/dashboardData";
+import { useDashboardData, useDashboardChartData } from "../apis/dashboardData";
 import { useDashboardDateContext } from "../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 import { useDashboardDataContext } from "../context/DashboardDataContext";
@@ -60,7 +57,8 @@ const Dashboard = () => {
     const [details, setDetails] = useState([]);  
 
     const { data, isLoading, isSuccess, isError } = useDashboardData(date);  
-	console.log('fetched data', data)
+    const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(date);  
+
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
     const [isFullWidth, setIsFullWidth] = useState(false);  
@@ -107,7 +105,6 @@ const Dashboard = () => {
             });  
         }  
     }, [isSuccess, data]);  
-	console.log('dataResult', data)
     // console.log('Filtered Details:', details);  
 	// console.log('resulted param names', resultedParamNames)
     // console.log('News:', news);  
@@ -151,8 +148,8 @@ const Dashboard = () => {
 
     // console.log('data result', dataResult);  
 
-	if(isLoading) return <Loading />
-	if(isSuccess && data && data.length !== 0) return (
+	if(isLoading && newIsLoading) return <Loading />
+	if(isSuccess && newIsSuccess && data && data.length !== 0 && newData && newData.length !== 0) return (
 			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
@@ -216,6 +213,7 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										<CLineChart
+										newDataResult={newData}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
@@ -233,7 +231,7 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										<CLineChartStacked
-										    dataResult={dataResult}
+										newDataResult={newData}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
@@ -251,6 +249,7 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										{isSuccess && <CStackedBarChart
+											newDataResult={newData}
 										   dataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
@@ -282,6 +281,8 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CLineChart
+										newDataResult={newData}
+
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
 												/>
@@ -300,6 +301,7 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CLineChartStacked
+												newDataResult={newData}
 												    dataResult={dataResult}
 													width={ipadChartWidthTwo}
 													height={fullChartHeight}
@@ -319,6 +321,8 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CStackedBarChart
+											newDataResult={newData}
+
 												dataResult={dataResult}
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
@@ -535,6 +539,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
+										newDataResult={newData}
+
 												dataResult={dataResult}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
@@ -553,6 +559,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChartStacked
+												newDataResult={newData}
 												    dataResult={dataResult}
 													width ={ipadChartWidth}
 													height = {ipadChartHeight}
@@ -571,6 +578,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												{isSuccess && <CStackedBarChart
+											newDataResult={newData}
+
 												   dataResult={dataResult}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
@@ -603,7 +612,9 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CLineChart 
+														<CLineChart
+										newDataResult={newData}
+
 															dataResult={dataResult}
 															width={ipadChartWidthTwo}
 															height = {mediumChartHeight}
@@ -617,6 +628,7 @@ const Dashboard = () => {
 												>
 													{activeChart === 1 && (
 														<CLineChartStacked
+														newDataResult={newData}
 														    dataResult={dataResult}
 															width={ipadChartWidthTwo}
 															height={mediumChartHeight}
@@ -630,6 +642,8 @@ const Dashboard = () => {
 												>
 													{isSuccess && activeChart === 2 && (
 														<CStackedBarChart
+											newDataResult={newData}
+
 															dataResult={dataResult}
 															width={ipadChartWidthTwo}
 															height = {mediumChartHeight}
@@ -788,6 +802,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
+										newDataResult={newData}
+
 												dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height = {smallChartHeightTwo}
@@ -807,6 +823,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChartStacked
+												newDataResult={newData}
 												    dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height= {smallChartHeightTwo}
@@ -825,6 +842,7 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												{isSuccess && <CStackedBarChart
+											newDataResult={newData}
 												   dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height={smallChartHeightTwo}
@@ -858,6 +876,8 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CLineChart 
+										newDataResult={newData}
+
 															width = {fullChartWidth}
 															height = {ipadChartHeight}
 														/>
@@ -876,6 +896,7 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CLineChartStacked
+														newDataResult={newData}
 														    dataResult={dataResult}
 														width={fullChartWidth}
 														height={ipadChartHeight}
@@ -895,6 +916,8 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														 <CStackedBarChart
+											newDataResult={newData}
+
 														 dataResult={dataResult}
 														width={fullChartWidth}
 														height={ipadChartHeight}
@@ -1086,6 +1109,8 @@ const Dashboard = () => {
 												>
 													
 													<CLineChart
+										newDataResult={newData}
+
 														dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
@@ -1099,6 +1124,7 @@ const Dashboard = () => {
 												>
 													
 													<CLineChartStacked
+													newDataResult={newData}
 													    dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
@@ -1111,6 +1137,8 @@ const Dashboard = () => {
 													onClick={() => handleChartClick(2)}
 												>
 													{isSuccess && <CStackedBarChart
+											newDataResult={newData}
+
 													   dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
@@ -1135,6 +1163,8 @@ const Dashboard = () => {
 															{activeChart === 0 && (
 																
 																<CLineChart
+										newDataResult={newData}
+
 																	dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
@@ -1146,6 +1176,7 @@ const Dashboard = () => {
 															{activeChart === 1 && (
 															
 																<CLineChartStacked
+																newDataResult={newData}
 																    dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
@@ -1157,6 +1188,8 @@ const Dashboard = () => {
 															{isSuccess && activeChart === 2 && (
 																
 																<CStackedBarChart
+											newDataResult={newData}
+
 																dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
@@ -1293,6 +1326,8 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(0)}
 											>
 												<CLineChart
+										newDataResult={newData}
+
 													dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
@@ -1305,6 +1340,7 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(1)}
 											>
 												<CLineChartStacked
+												newDataResult={newData}
 												    dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
@@ -1317,6 +1353,8 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(2)}
 											>
 												{isSuccess && <CStackedBarChart
+											newDataResult={newData}
+
 												  dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
@@ -1346,6 +1384,8 @@ const Dashboard = () => {
 													>
 														{activeChart === 0 && (
 															<CLineChart
+										newDataResult={newData}
+
 																dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
@@ -1359,6 +1399,7 @@ const Dashboard = () => {
 													>
 														{activeChart === 1 && (
 															<CLineChartStacked
+															newDataResult={newData}
 															    dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
@@ -1373,6 +1414,8 @@ const Dashboard = () => {
 														{isSuccess && activeChart === 2 && (
 															
 															 <CStackedBarChart
+											newDataResult={newData}
+
 															 dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}

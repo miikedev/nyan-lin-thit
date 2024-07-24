@@ -46,3 +46,11 @@ export const fetchDashboards = async(startDate, endDate) => {
 }
 
 
+export const fetchDashboardChart = async() => {
+  try {
+    const {data} = await axios(`/api/dashboard/chart`)
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
