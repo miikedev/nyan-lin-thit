@@ -167,7 +167,7 @@ const Dashboard = () => {
 
 	if(isLoading && newIsLoading) return <Loading />
 	if(isSuccess && newIsSuccess) return (
-			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
+			<section className="bg-[#dedede] pr-[10px] pl-[10px] py-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
 					{/* Top Section */}
