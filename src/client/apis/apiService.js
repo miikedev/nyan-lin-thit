@@ -32,13 +32,9 @@ export const fetchResources = async (type, page, category, search) => {
 
 export const fetchDashboards = async(startDate, endDate) => {
   // console.log('fetch dashboard', paramString)
-  const paramString = startDate && endDate? `startDate=${
-    new Date(startDate).toLocaleDateString('en-CA')
-  }&endDate=${
-    new Date(endDate).toLocaleDateString('en-CA')
-  }` : ''
+
   try {
-    const {data} = await axios(`/api/dashboard?${paramString}`)
+    const {data} = await axios(`/api/dashboard`)
     return data.dashboards[0];
   } catch (error) {
     console.log(error)
@@ -46,9 +42,11 @@ export const fetchDashboards = async(startDate, endDate) => {
 }
 
 
-export const fetchDashboardChart = async() => {
+export const fetchDashboardChart = async(startDate,endDate) => {
+  const paramString = (startDate != 'Invalid Date' && endDate != 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';
+  console.log('paramString', paramString)
   try {
-    const {data} = await axios(`/api/dashboard/chart`)
+    const {data} = await axios(`/api/dashboard/chart${paramString}`)
     return data;
   } catch (error) {
     console.log(error)
