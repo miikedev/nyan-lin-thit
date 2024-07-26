@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, lazy } from "react";
 
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
-import DataMap3 from "../components/DashboardPageComponents/DataMap3";
+const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
 
 // Icons
 import Cicon from "../components/DashboardPageComponents/assets2/calendar.svg";
@@ -53,11 +53,24 @@ const Dashboard = () => {
 
     const paramString = resultedParamNames.join(",");   
 
+	const [chartLoading, setChartLoading ] = useState(false)
     const [news, setNews] = useState([]);  
     const [labels, setLabels] = useState([]);  
 
     const [townships, setTownships] = useState([]);  
-    const [details, setDetails] = useState([]);  
+    const [details, setDetails] = useState({
+		total: 0,  
+    	caseday: 0,  
+    	death: 0,  
+    	monthlypercent: 0,  
+    	daily: 0,  
+    	arrestingrate: 0,  
+    	airstrike: 0,  
+    	armed_clashes: 0,  
+    	massacre: 0,  
+    	casualties: 0,  
+    	arrests: 0
+	});  
 
     const { data, isLoading, isSuccess, isError } = useDashboardData(date);  
     const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(date);  
@@ -107,11 +120,14 @@ const Dashboard = () => {
                 arrests: data.arrests || 0  
             });  
         }  
-		if(newIsSuccess && newData) {
+		
+    }, [isSuccess, newIsSuccess, resultedParamNames]);
+	useEffect(() => {  
+        if(newIsSuccess && newData) {
 			setDataResult(newData.datasets)
 			setLabels(newData.labels)
 		}
-    }, [isSuccess, newIsSuccess, data, newData, resultedParamNames]);  
+    }, [newIsSuccess, newData]);    
 	console.log('resulted param names', resultedParamNames)
 	console.log('date selected', date)
     const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
@@ -126,9 +142,11 @@ const Dashboard = () => {
         if (newIsSuccess) {  
             filterDataWithParams(dataResult, resultedParamNames);  
         }  
+		setChartLoading(false)
     }, [resultedParamNames, newIsSuccess, dataResult]);  
 	const filterDataWithParams = (data, resultedParamNames) => {  
         // Check if resultedParamNames is an empty array  
+		setChartLoading(true)
         if (!resultedParamNames || resultedParamNames.length === 0) {  
             // Return all data if resultedParamNames is empty  
             if (dataResult !== data) {  
@@ -364,9 +382,9 @@ const Dashboard = () => {
 								onClick={() => setIsFullWidth(!isFullWidth)}
 							>
 								{isFullWidth ? (
-									<img src={Min} className="w-[25px] h-[25px]" />
+									<img src={Min} className="w-[25px] h-[25px] border-1 border-red-800" />
 								) : (
-									<img src={Max} className="w-[25px] h-[25px]" />
+									<img src={Max} className="w-[25px] h-[25px] border-1 border-red-800" />
 								)}
 							</button>
 						</div>
@@ -451,7 +469,7 @@ const Dashboard = () => {
 						</p>
 						</div> */}
 										<div>
-											{isSuccess && data && <TextSectionCard data={news} />}
+											{<TextSectionCard data={news} />}
 										</div>
 									</div>
 
@@ -1638,6 +1656,7 @@ const Dashboard = () => {
 				</div>
 			</section>
 	);
+	return null;
 };
 
 export default Dashboard;

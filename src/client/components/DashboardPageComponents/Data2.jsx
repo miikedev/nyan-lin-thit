@@ -70,7 +70,7 @@ const Data2 = ({details}) => {
           <div
             key={id}
             className={`w-full cursor-pointer border-[1px] border-[#e6e6e6] flex justify-between items-center py-[2px] px-[3px] rounded-md ${
-              selectedData.some((d) => d.id === id) ? "bg-[#0f007b] text-white" : "bg-[#212121] text-black"
+              selectedData.some((d) => d.id === id) ? "bg-[#0f007b] text-white" : "bg-[#e6e6e6] text-black"
             }`}
             onClick={() => handleDataClick({ id, name, number, logo })}
           >
