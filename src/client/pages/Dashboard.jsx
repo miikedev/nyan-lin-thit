@@ -36,6 +36,7 @@ import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 import { useDashboardDataContext } from "../context/DashboardDataContext";
 // import { px } from "framer-motion";
 import Loading from '../pages/Loading'
+import useFetchData from "../hooks/useFetchData";
 const caseName = {
 	1: 'airstrike',
 	2: 'armed_clashes',
@@ -54,23 +55,7 @@ const Dashboard = () => {
     const paramString = resultedParamNames.join(",");   
 
 	const [chartLoading, setChartLoading ] = useState(false)
-    const [news, setNews] = useState([]);  
-    const [labels, setLabels] = useState([]);  
-
-    const [townships, setTownships] = useState([]);  
-    const [details, setDetails] = useState({
-		total: 0,  
-    	caseday: 0,  
-    	death: 0,  
-    	monthlypercent: 0,  
-    	daily: 0,  
-    	arrestingrate: 0,  
-    	airstrike: 0,  
-    	armed_clashes: 0,  
-    	massacre: 0,  
-    	casualties: 0,  
-    	arrests: 0
-	});  
+    const [labels, setLabels] = useState([]);   
 
     const { data, isLoading, isSuccess, isError } = useDashboardData(date);  
     const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(date);  
@@ -102,26 +87,26 @@ const Dashboard = () => {
     const detailNumberForSmall = '12px';  
 
     // Effect to handle news and townships data  
-    useEffect(() => {  
-        if (isSuccess && data) {  
-            setNews(data.news || []);  
-            setTownships(data.town_ships || []);  
-            setDetails({  
-                total: data.total || 0,  
-                caseday: data.caseday || 0,  
-                death: data.death || 0,  
-                monthlypercent: data.monthlypercent || 0,  
-                daily: data.daily || 0,  
-                arrestingrate: data.arrestingrate || 0,  
-                airstrike: data.airstrike || 0,  
-                armed_clashes: data.armed_clashes || 0,  
-                massacre: data.massacre || 0,  
-                casualties: data.casualties || 0,  
-                arrests: data.arrests || 0  
-            });  
-        }  
+	const {news, details} = useFetchData(isSuccess,data)
+    // useEffect(() => {  
+    //     if (isSuccess && data) {  
+    //         setNews(data.news || []);  
+    //         setDetails({  
+    //             total: data.total || 0,  
+    //             caseday: data.caseday || 0,  
+    //             death: data.death || 0,  
+    //             monthlypercent: data.monthlypercent || 0,  
+    //             daily: data.daily || 0,  
+    //             arrestingrate: data.arrestingrate || 0,  
+    //             airstrike: data.airstrike || 0,  
+    //             armed_clashes: data.armed_clashes || 0,  
+    //             massacre: data.massacre || 0,  
+    //             casualties: data.casualties || 0,  
+    //             arrests: data.arrests || 0  
+    //         });  
+    //     }  
 		
-    }, [isSuccess, newIsSuccess, resultedParamNames]);
+    // }, [isSuccess, newIsSuccess, resultedParamNames]);
 	useEffect(() => {  
         if(newIsSuccess && newData) {
 			setDataResult(newData.datasets)
