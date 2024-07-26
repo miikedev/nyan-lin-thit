@@ -27,7 +27,6 @@ import Detail from "../components/DashboardPageComponents/Detail";
 import Tab from "../components/DashboardPageComponents/Tab";
 import TabContent from "../components/DashboardPageComponents/TabContent";
 import CLineChart from "../components/DashboardPageComponents/CLineChart";
-import CScatterChart from "../components/DashboardPageComponents/CScatterChart";
 import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
 import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
 
@@ -48,11 +47,15 @@ const Dashboard = () => {
 	const { setFilteredData, filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
 	const date = useDashboardDateContext();
+
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
+
     const paramString = resultedParamNames.join(",");   
 
     const [news, setNews] = useState([]);  
+    const [labels, setLabels] = useState([]);  
+
     const [townships, setTownships] = useState([]);  
     const [details, setDetails] = useState([]);  
 
@@ -104,27 +107,26 @@ const Dashboard = () => {
                 arrests: data.arrests || 0  
             });  
         }  
-    }, [isSuccess, data]);  
-    // console.log('Filtered Details:', details);  
-	// console.log('resulted param names', resultedParamNames)
-    // console.log('News:', news);  
-    // console.log('Townships:', townships);  
+		if(newIsSuccess && newData) {
+			setDataResult(newData.datasets)
+			setLabels(newData.labels)
+		}
+    }, [isSuccess, newIsSuccess, data, newData, resultedParamNames]);  
+	console.log('resulted param names', resultedParamNames)
+	console.log('date selected', date)
     const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
-	
     const handleChartClick = (chartIndex) => {  
         setActiveChart(chartIndex);  
         setIsFullWidth(!isFullWidth);  
     };  
-
     const handleTabChange = (tab) => {  
         setActiveTab(tab);  
     };
 	useEffect(() => {  
-        if (isSuccess) {  
-            filterDataWithParams(townships, resultedParamNames);  
+        if (newIsSuccess) {  
+            filterDataWithParams(dataResult, resultedParamNames);  
         }  
-    }, [resultedParamNames, isSuccess, townships]);  
-
+    }, [resultedParamNames, newIsSuccess, dataResult]);  
 	const filterDataWithParams = (data, resultedParamNames) => {  
         // Check if resultedParamNames is an empty array  
         if (!resultedParamNames || resultedParamNames.length === 0) {  
@@ -134,10 +136,9 @@ const Dashboard = () => {
             }  
             return;  
         }  
-
         // Filter data based on resultedParamNames when it's not empty  
         const filteredData = data.filter(item =>  
-            resultedParamNames.includes(item.case_type?.name)  
+            resultedParamNames.includes(item.label)  
         );  
 
         // Only set filtered data if it's different  
@@ -146,10 +147,8 @@ const Dashboard = () => {
         }  
     }; 
 
-    // console.log('data result', dataResult);  
-
 	if(isLoading && newIsLoading) return <Loading />
-	if(isSuccess && newIsSuccess && data && data.length !== 0 && newData && newData.length !== 0) return (
+	if(isSuccess && newIsSuccess) return (
 			<section className="bg-[#dedede]   pr-[10px] pl-[10px] pb-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
@@ -213,7 +212,8 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										<CLineChart
-										newDataResult={newData}
+										labels={labels}
+										newDataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
@@ -230,7 +230,8 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
-										<CLineChartStacked
+										<CLineChartStacked 
+											paramResult={resultedParamNames}
 										newDataResult={newData}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
@@ -249,8 +250,8 @@ const Dashboard = () => {
 											isFullWidth={false}
 										/> */}
 										{isSuccess && <CStackedBarChart
-											newDataResult={newData}
-										   dataResult={dataResult}
+											datasets={dataResult}
+											labels={labels}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>}
@@ -281,7 +282,8 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
@@ -300,7 +302,8 @@ const Dashboard = () => {
 												// 	fontSize={chartFontSize}
 												// 	isFullWidth={true}
 												// />
-												<CLineChartStacked
+												<CLineChartStacked 
+													paramResult={resultedParamNames}
 												newDataResult={newData}
 												    dataResult={dataResult}
 													width={ipadChartWidthTwo}
@@ -321,9 +324,8 @@ const Dashboard = () => {
 												// 	isFullWidth={true}
 												// />
 												<CStackedBarChart
-											newDataResult={newData}
-
-												dataResult={dataResult}
+												datasets={dataResult}
+												labels={labels}
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
 												/>
@@ -539,7 +541,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 												dataResult={dataResult}
 												width={ipadChartWidth}
@@ -558,7 +561,8 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
-												<CLineChartStacked
+												<CLineChartStacked 
+													paramResult={resultedParamNames}
 												newDataResult={newData}
 												    dataResult={dataResult}
 													width ={ipadChartWidth}
@@ -578,9 +582,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												{isSuccess && <CStackedBarChart
-											newDataResult={newData}
-
-												   dataResult={dataResult}
+											datasets={dataResult}
+											labels={labels}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
 												/>}
@@ -613,7 +616,8 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 															dataResult={dataResult}
 															width={ipadChartWidthTwo}
@@ -627,7 +631,8 @@ const Dashboard = () => {
 													}`}
 												>
 													{activeChart === 1 && (
-														<CLineChartStacked
+														<CLineChartStacked 
+															paramResult={resultedParamNames}
 														newDataResult={newData}
 														    dataResult={dataResult}
 															width={ipadChartWidthTwo}
@@ -642,9 +647,8 @@ const Dashboard = () => {
 												>
 													{isSuccess && activeChart === 2 && (
 														<CStackedBarChart
-											newDataResult={newData}
-
-															dataResult={dataResult}
+														datasets={dataResult}
+														labels={labels}
 															width={ipadChartWidthTwo}
 															height = {mediumChartHeight}
 														/>
@@ -802,7 +806,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												<CLineChart 
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 												dataResult={dataResult}
 												width={smallChartWidthTwo}
@@ -822,7 +827,8 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
-												<CLineChartStacked
+												<CLineChartStacked 
+													paramResult={resultedParamNames}
 												newDataResult={newData}
 												    dataResult={dataResult}
 												width={smallChartWidthTwo}
@@ -842,8 +848,8 @@ const Dashboard = () => {
 													isFullWidth={false}
 												/> */}
 												{isSuccess && <CStackedBarChart
-											newDataResult={newData}
-												   dataResult={dataResult}
+											datasets={dataResult}
+											labels={labels}
 												width={smallChartWidthTwo}
 												height={smallChartHeightTwo}
 												/>}
@@ -876,7 +882,8 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														<CLineChart 
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 															width = {fullChartWidth}
 															height = {ipadChartHeight}
@@ -895,7 +902,8 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CLineChartStacked
+														<CLineChartStacked 
+															paramResult={resultedParamNames}
 														newDataResult={newData}
 														    dataResult={dataResult}
 														width={fullChartWidth}
@@ -916,9 +924,8 @@ const Dashboard = () => {
 														// 	isFullWidth={true}
 														// />
 														 <CStackedBarChart
-											newDataResult={newData}
-
-														 dataResult={dataResult}
+														 datasets={dataResult}
+														 labels={labels}
 														width={fullChartWidth}
 														height={ipadChartHeight}
 														/>
@@ -1109,7 +1116,8 @@ const Dashboard = () => {
 												>
 													
 													<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 														dataResult={dataResult}
 														width={smallChartWidth}
@@ -1123,7 +1131,8 @@ const Dashboard = () => {
 													onClick={() => handleChartClick(1)}
 												>
 													
-													<CLineChartStacked
+													<CLineChartStacked 
+														paramResult={resultedParamNames}
 													newDataResult={newData}
 													    dataResult={dataResult}
 														width={smallChartWidth}
@@ -1137,9 +1146,8 @@ const Dashboard = () => {
 													onClick={() => handleChartClick(2)}
 												>
 													{isSuccess && <CStackedBarChart
-											newDataResult={newData}
-
-													   dataResult={dataResult}
+											datasets={dataResult}
+											labels={labels}
 														width={smallChartWidth}
 														height={smallChartHeight}
 													/>}
@@ -1163,7 +1171,8 @@ const Dashboard = () => {
 															{activeChart === 0 && (
 																
 																<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 																	dataResult={dataResult}
 																	width={mediumChartWidth}
@@ -1175,7 +1184,8 @@ const Dashboard = () => {
 														<div className=" ">
 															{activeChart === 1 && (
 															
-																<CLineChartStacked
+																<CLineChartStacked 
+																	paramResult={resultedParamNames}
 																newDataResult={newData}
 																    dataResult={dataResult}
 																	width={mediumChartWidth}
@@ -1188,9 +1198,8 @@ const Dashboard = () => {
 															{isSuccess && activeChart === 2 && (
 																
 																<CStackedBarChart
-											newDataResult={newData}
-
-																dataResult={dataResult}
+																datasets={dataResult}
+																labels={labels}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
@@ -1326,7 +1335,8 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(0)}
 											>
 												<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 													dataResult={dataResult}
 													width={smallChartWidthTwo}
@@ -1339,7 +1349,8 @@ const Dashboard = () => {
 												className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(1)}
 											>
-												<CLineChartStacked
+												<CLineChartStacked 
+													paramResult={resultedParamNames}
 												newDataResult={newData}
 												    dataResult={dataResult}
 													width={smallChartWidthTwo}
@@ -1353,9 +1364,8 @@ const Dashboard = () => {
 												onClick={() => handleChartClick(2)}
 											>
 												{isSuccess && <CStackedBarChart
-											newDataResult={newData}
-
-												  dataResult={dataResult}
+													datasets={dataResult}
+													labels={labels}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>}
@@ -1384,7 +1394,8 @@ const Dashboard = () => {
 													>
 														{activeChart === 0 && (
 															<CLineChart
-										newDataResult={newData}
+										newDataResult={dataResult}
+										labels={labels}
 
 																dataResult={dataResult}
 																width={fullChartWidth}
@@ -1398,7 +1409,8 @@ const Dashboard = () => {
 														}`}
 													>
 														{activeChart === 1 && (
-															<CLineChartStacked
+															<CLineChartStacked 
+																paramResult={resultedParamNames}
 															newDataResult={newData}
 															    dataResult={dataResult}
 																width={fullChartWidth}
@@ -1414,9 +1426,8 @@ const Dashboard = () => {
 														{isSuccess && activeChart === 2 && (
 															
 															 <CStackedBarChart
-											newDataResult={newData}
-
-															 dataResult={dataResult}
+															 datasets={dataResult}
+															 labels={labels}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>

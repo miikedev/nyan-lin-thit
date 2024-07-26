@@ -51,15 +51,13 @@ export const options = {
 };
 
 
-export default function CLineChart({ width, height, fontSize, isFullWidth, dataResult, newDataResult }) {
+export default function CLineChart({ width, height, fontSize, isFullWidth, newDataResult, labels }) {
   // Get labels and datasets from dataResult  
-  const { labels, datasets } = getChartData(dataResult);  
   if(newDataResult === undefined) return ;
-  console.log('newDataResult', newDataResult);
 
   const data = {
-    labels: newDataResult.labels,
-    datasets:newDataResult.datasets
+    labels: labels,
+    datasets:newDataResult
   };
 
   return <Line options={options} data={data} width={width} height={height}/>;
