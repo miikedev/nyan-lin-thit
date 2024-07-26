@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, lazy } from "react";
+import React, { useEffect, useState, useMemo, lazy, Suspense } from "react";
 
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
@@ -34,31 +34,31 @@ import { useDashboardData, useDashboardChartData } from "../apis/dashboardData";
 import { useDashboardDateContext } from "../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 import { useDashboardDataContext } from "../context/DashboardDataContext";
-// import { px } from "framer-motion";
 import Loading from '../pages/Loading'
-import useFetchData from "../hooks/useFetchData";
+import {useFetchData} from "../hooks/useFetchData";
+
 const caseName = {
 	1: 'airstrike',
 	2: 'armed_clashes',
-    3:	'massacre',
+    3: 'massacre',
     4: 'casualties',
     5: 'arrests',
 }
 const Dashboard = () => {
 	const { setFilteredData, filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
-	const date = useDashboardDateContext();
-
+	const {startDate, endDate} = useDashboardDateContext();
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
 
     const paramString = resultedParamNames.join(",");   
 
-	const [chartLoading, setChartLoading ] = useState(false)
     const [labels, setLabels] = useState([]);   
 
-    const { data, isLoading, isSuccess, isError } = useDashboardData(date);  
-    const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(date);  
+    const { data, isLoading, isSuccess, isError } = useDashboardData();  
+    const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(
+		new Date(startDate).toLocaleDateString('en-CA'), 
+		new Date(endDate).toLocaleDateString('en-CA'));  
 
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
@@ -87,51 +87,37 @@ const Dashboard = () => {
     const detailNumberForSmall = '12px';  
 
     // Effect to handle news and townships data  
-	const {news, details} = useFetchData(isSuccess,data)
-    // useEffect(() => {  
-    //     if (isSuccess && data) {  
-    //         setNews(data.news || []);  
-    //         setDetails({  
-    //             total: data.total || 0,  
-    //             caseday: data.caseday || 0,  
-    //             death: data.death || 0,  
-    //             monthlypercent: data.monthlypercent || 0,  
-    //             daily: data.daily || 0,  
-    //             arrestingrate: data.arrestingrate || 0,  
-    //             airstrike: data.airstrike || 0,  
-    //             armed_clashes: data.armed_clashes || 0,  
-    //             massacre: data.massacre || 0,  
-    //             casualties: data.casualties || 0,  
-    //             arrests: data.arrests || 0  
-    //         });  
-    //     }  
-		
-    // }, [isSuccess, newIsSuccess, resultedParamNames]);
+	const {news, details} = useFetchData(isSuccess,data,resultedParamNames)
+    
 	useEffect(() => {  
         if(newIsSuccess && newData) {
 			setDataResult(newData.datasets)
 			setLabels(newData.labels)
 		}
-    }, [newIsSuccess, newData]);    
+    }, [newIsSuccess, newData, resultedParamNames]);  
+
 	console.log('resulted param names', resultedParamNames)
-	console.log('date selected', date)
+
     const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
-    const handleChartClick = (chartIndex) => {  
+    
+	const handleChartClick = (chartIndex) => {  
         setActiveChart(chartIndex);  
         setIsFullWidth(!isFullWidth);  
     };  
+
     const handleTabChange = (tab) => {  
         setActiveTab(tab);  
     };
+
 	useEffect(() => {  
         if (newIsSuccess) {  
             filterDataWithParams(dataResult, resultedParamNames);  
         }  
-		setChartLoading(false)
     }, [resultedParamNames, newIsSuccess, dataResult]);  
+
+
 	const filterDataWithParams = (data, resultedParamNames) => {  
         // Check if resultedParamNames is an empty array  
-		setChartLoading(true)
         if (!resultedParamNames || resultedParamNames.length === 0) {  
             // Return all data if resultedParamNames is empty  
             if (dataResult !== data) {  
@@ -150,8 +136,9 @@ const Dashboard = () => {
         }  
     }; 
 
-	if(isLoading && newIsLoading) return <Loading />
-	if(isSuccess && newIsSuccess) return (
+	// if(isLoading && newIsLoading) return <Loading />
+
+	 return (
 			<section className="bg-[#dedede] pr-[10px] pl-[10px] py-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className=" md:hidden mt-[25px] bg-white">
@@ -189,7 +176,9 @@ const Dashboard = () => {
 					</div>
 					{/* Bottom Section */}
 					<div className=" md:hidden bg-white  mt-[30px] px-[5px] mx-auto w-full  h-[420px]">
-						<DataMap3 width={"full"} height={"420px"} />
+						<Suspense fallback={<Loading />}>
+							<DataMap3 width={"full"} height={"420px"} />
+						</Suspense>
 					</div>
 				</div>
 
@@ -214,12 +203,20 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
+									{
+										newIsSuccess ?
+										<Suspense fallback={<Loading />}>
 										<CLineChart
 										labels={labels}
 										newDataResult={dataResult}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
+										</Suspense>
+										 : 
+										<Loading />
+									}
+									
 									</div>
 									<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
 									{/*2 container */}
@@ -233,12 +230,14 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
+									<Suspense fallback={<Loading />}>
 										<CLineChartStacked 
 											paramResult={resultedParamNames}
 										newDataResult={newData}
 										width={ipadChartWidth}
 										height={smallChartHeightTwo}
 										/>
+									</Suspense>
 									</div>
 									<div className="w-[1px]  h-full bg-[#4d5eb2]">---</div>
 									{/* 3 container */}
@@ -252,12 +251,16 @@ const Dashboard = () => {
 											fontSize={chartFontSize}
 											isFullWidth={false}
 										/> */}
-										{isSuccess && <CStackedBarChart
-											datasets={dataResult}
-											labels={labels}
-										width={ipadChartWidth}
-										height={smallChartHeightTwo}
-										/>}
+										{newIsSuccess ?
+										<Suspense fallback={<Loading />}>
+											<CStackedBarChart
+												datasets={dataResult}
+												labels={labels}
+												width={ipadChartWidth}
+												height={smallChartHeightTwo}
+											/>
+										</Suspense> : <Loading />
+										}
 									</div>
 								</>
 							)}
@@ -284,13 +287,14 @@ const Dashboard = () => {
 												// 	fontSize={chartFontSize}
 												// 	isFullWidth={true}
 												// />
+											<Suspense fallback={<Loading />}>
 												<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
+												newDataResult={dataResult}
+												labels={labels}
 												width={ipadChartWidthTwo}
 												height={fullChartHeight}
 												/>
+											</Suspense>
 											)}
 										</div>
 										<div
@@ -305,6 +309,7 @@ const Dashboard = () => {
 												// 	fontSize={chartFontSize}
 												// 	isFullWidth={true}
 												// />
+												<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
 												newDataResult={newData}
@@ -312,6 +317,7 @@ const Dashboard = () => {
 													width={ipadChartWidthTwo}
 													height={fullChartHeight}
 												/>
+												</Suspense>
 											)}
 										</div>
 										<div
@@ -319,20 +325,18 @@ const Dashboard = () => {
 												activeChart === 2 ? "active" : ""
 											}`}
 										>
-											{isSuccess && activeChart === 2 && (
-												// <StackedBarChart
-												// 	width={ipadChartWidthTwo}
-												// 	height={fullChartHeight}
-												// 	fontSize={chartFontSize}
-												// 	isFullWidth={true}
-												// />
-												<CStackedBarChart
-												datasets={dataResult}
-												labels={labels}
-												width={ipadChartWidthTwo}
-												height={fullChartHeight}
-												/>
-											)}
+
+
+											{ 	newIsSuccess ?
+												<Suspense fallback={<Loading />}>
+													<CStackedBarChart
+													datasets={dataResult}
+													labels={labels}
+													width={ipadChartWidthTwo}
+													height={fullChartHeight}
+													/>
+												</Suspense> : <Loading />
+											}
 										</div>
 										{/* Right Navigate Button */}
 										<button
@@ -394,7 +398,9 @@ const Dashboard = () => {
 
 							{/* Map */}
 							<div className="mt-[10px] bg-white w-full h-[523px]">
-								<DataMap3 width={"full"} height={"523px"} />
+								<Suspense fallback={<Loading  height={"523px"} />}>
+									<DataMap3 width={"full"} height={"523px"} />
+								</Suspense>
 							</div>
 							{/*Under Right Container  */}
 							<div className="bg-white w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
@@ -500,7 +506,7 @@ const Dashboard = () => {
 										{/* bottom  */}
 										<div className="flex  items-center mt-[10px] gap-[10px]">
 											<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-												{isLoading && <h1>loading...</h1>}
+												{isLoading && <Loading />}
 												{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 											</div>
 											<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
@@ -521,7 +527,9 @@ const Dashboard = () => {
 							{/* Left Container */}
 							<div className="w-[370px] ">
 								<div className="bg-white  w-[370px] h-[640px] ">
-									<DataMap3 width={"370px"} height={"640px"} />
+									<Suspense fallback={<Loading width={"370px"} height={"640px"}/>}>
+										<DataMap3 width={"370px"} height={"640px"} />
+									</Suspense>
 								</div>
 							</div>
 							{/* Parent Right Container */}
@@ -543,14 +551,15 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
+											<Suspense fallback={<Loading />}>
 												<CLineChart 
-										newDataResult={dataResult}
-										labels={labels}
-
+												newDataResult={dataResult}
+												labels={labels}
 												dataResult={dataResult}
 												width={ipadChartWidth}
 												height = {ipadChartHeight}
 												/>
+												</Suspense>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
 											{/*2 container */}
@@ -564,13 +573,15 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
+												<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
-												newDataResult={newData}
+													newDataResult={newData}
 												    dataResult={dataResult}
 													width ={ipadChartWidth}
 													height = {ipadChartHeight}
 												/>
+												</Suspense>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
 											{/* 3 container */}
@@ -584,12 +595,16 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
-												{isSuccess && <CStackedBarChart
-											datasets={dataResult}
-											labels={labels}
-												width={ipadChartWidth}
-												height = {ipadChartHeight}
-												/>}
+												{isSuccess && 
+												<Suspense fallback={<Loading />}>
+												<CStackedBarChart
+													datasets={dataResult}
+													labels={labels}
+													width={ipadChartWidth}
+													height = {ipadChartHeight}
+												/>
+												</Suspense>
+												}
 											</div>
 										</>
 									)}
@@ -618,15 +633,16 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
-															dataResult={dataResult}
-															width={ipadChartWidthTwo}
-															height = {mediumChartHeight}
-															/>
-													)}
+														<Suspense fallback={<Loading />}>
+                                                        <CLineChart 
+                                                        newDataResult={dataResult}
+                                                        labels={labels}
+                                                        dataResult={dataResult}
+                                                        width={ipadChartWidthTwo}
+                                                        height = {mediumChartHeight}
+                                                        />
+                                                        </Suspense>
+														)}
 												</div>
 												<div
 													className={`chart-transition ${
@@ -634,6 +650,7 @@ const Dashboard = () => {
 													}`}
 												>
 													{activeChart === 1 && (
+													<Suspense fallback={<Loading />}>
 														<CLineChartStacked 
 															paramResult={resultedParamNames}
 														newDataResult={newData}
@@ -641,6 +658,7 @@ const Dashboard = () => {
 															width={ipadChartWidthTwo}
 															height={mediumChartHeight}
 														/>
+													</Suspense>
 													)}
 												</div>
 												<div
@@ -649,12 +667,14 @@ const Dashboard = () => {
 													}`}
 												>
 													{isSuccess && activeChart === 2 && (
+													<Suspense fallback={<Loading />}>
 														<CStackedBarChart
-														datasets={dataResult}
-														labels={labels}
+															datasets={dataResult}
+															labels={labels}
 															width={ipadChartWidthTwo}
 															height = {mediumChartHeight}
 														/>
+													</Suspense>
 													)}
 												</div>
 												{/* Right Navigate Button */}
@@ -808,15 +828,15 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
+											<Suspense fallback={<Loading />}>
 												<CLineChart 
-										newDataResult={dataResult}
-										labels={labels}
-
+												newDataResult={dataResult}
+												labels={labels}
 												dataResult={dataResult}
 												width={smallChartWidthTwo}
 												height = {smallChartHeightTwo}
 												/>
-												
+											</Suspense>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 											{/*2 container */}
@@ -830,6 +850,7 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
+												<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
 												newDataResult={newData}
@@ -837,6 +858,7 @@ const Dashboard = () => {
 												width={smallChartWidthTwo}
 												height= {smallChartHeightTwo}
 												/>
+												</Suspense>
 											</div>
 											<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
 											{/* 3 container */}
@@ -850,12 +872,16 @@ const Dashboard = () => {
 													fontSize={chartFontSize}
 													isFullWidth={false}
 												/> */}
-												{isSuccess && <CStackedBarChart
+												{isSuccess && 
+												<Suspense fallback={<Loading />}>
+												<CStackedBarChart
 											datasets={dataResult}
 											labels={labels}
 												width={smallChartWidthTwo}
 												height={smallChartHeightTwo}
-												/>}
+												/>
+												</Suspense>
+												}
 											</div>
 										</>
 									)}
@@ -884,13 +910,14 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
+													<Suspense fallback={<Loading />}>
 														<CLineChart 
-										newDataResult={dataResult}
-										labels={labels}
-
+															newDataResult={dataResult}
+															labels={labels}
 															width = {fullChartWidth}
 															height = {ipadChartHeight}
 														/>
+													</Suspense>
 													)}
 												</div>
 												<div
@@ -905,13 +932,14 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
-														<CLineChartStacked 
-															paramResult={resultedParamNames}
-														newDataResult={newData}
-														    dataResult={dataResult}
-														width={fullChartWidth}
-														height={ipadChartHeight}
-														/>
+														<Suspense fallback={<Loading />}>
+                                                        <CLineChart 
+                                                            newDataResult={dataResult}
+                                                            labels={labels}
+                                                            width={fullChartWidth}
+                                                            height={ipadChartHeight}
+                                                        />
+														</Suspense>
 													)}
 												</div>
 												<div
@@ -926,12 +954,14 @@ const Dashboard = () => {
 														// 	fontSize={chartFontSize}
 														// 	isFullWidth={true}
 														// />
+														<Suspense fallback={<Loading />}>
 														 <CStackedBarChart
-														 datasets={dataResult}
-														 labels={labels}
-														width={fullChartWidth}
-														height={ipadChartHeight}
+														 	datasets={dataResult}
+														 	labels={labels}
+															width={fullChartWidth}
+															height={ipadChartHeight}
 														/>
+														</Suspense>
 													)}
 												</div>
 												{/* Right Navigate Button */}
@@ -980,7 +1010,9 @@ const Dashboard = () => {
 								<div className="w-full flex justify-between">
 									{/*Bottom Left Container */}
 									<div className="bg-white w-[375px] h-[456px] mr-[10px]">
-										<DataMap3 width={"375px"} height={"456px"} />
+										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+											<DataMap3 width={"375px"} height={"456px"} />
+										</Suspense>
 									</div>
 
 									{/*Bottom Right Container  */}
@@ -1096,11 +1128,15 @@ const Dashboard = () => {
 								{/* Left Container */}
 								<div className="w-[30%] h-full">
 									<div className="bg-white 2xl:hidden w-full h-[640px] mr-[16px]">
-										<DataMap3 width={"full"} height={"640px"} />
-									</div>
+										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+											<DataMap3 width={"full"} height={"640px"} />
+										</Suspense>						
+										</div>
 
 									<div className="bg-white max-2xl:hidden w-full h-[1200px] mr-[16px]">
-										<DataMap3 width={"full"} height={"1200px"} />
+										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+											<DataMap3 width={"full"} height={"1200px"} />
+										</Suspense>
 									</div>
 								</div>
 								{/* Parent Right Container */}
@@ -1117,15 +1153,15 @@ const Dashboard = () => {
 													className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
 													onClick={() => handleChartClick(0)}
 												>
-													
+													<Suspense fallback={<Loading />}>
 													<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
+														newDataResult={dataResult}
+														labels={labels}
 														dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
 													/>
+													</Suspense>
 												</div>
 												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 												{/*2 container */}
@@ -1148,12 +1184,16 @@ const Dashboard = () => {
 													className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(2)}
 												>
-													{isSuccess && <CStackedBarChart
-											datasets={dataResult}
-											labels={labels}
+													{isSuccess && 
+												<Suspense fallback={<Loading />}>
+													<CStackedBarChart
+														datasets={dataResult}
+														labels={labels}
 														width={smallChartWidth}
 														height={smallChartHeight}
-													/>}
+													/>
+												</Suspense>
+													}
 												</div>
 											</>
 										)}
@@ -1172,21 +1212,21 @@ const Dashboard = () => {
 													<div className="w-full xl:h-[256px] 2xl:h-[470px]  flex justify-center items-center">
 														<div className=" ">
 															{activeChart === 0 && (
-																
+															<Suspense fallback={<Loading />}>
 																<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
+																	newDataResult={dataResult}
+																	labels={labels}
 																	dataResult={dataResult}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
+															</Suspense>
 															)}
 														</div>
 
 														<div className=" ">
 															{activeChart === 1 && (
-															
+																<Suspense fallback={<Loading />}>
 																<CLineChartStacked 
 																	paramResult={resultedParamNames}
 																newDataResult={newData}
@@ -1194,18 +1234,20 @@ const Dashboard = () => {
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
+																</Suspense>
 															)}
 														</div>
 
 														<div className=" ">
 															{isSuccess && activeChart === 2 && (
-																
+																<Suspense fallback={<Loading />}>
 																<CStackedBarChart
 																datasets={dataResult}
 																labels={labels}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
+																</Suspense>
 															)}
 														</div>
 													</div>
@@ -1337,14 +1379,15 @@ const Dashboard = () => {
 												className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center"
 												onClick={() => handleChartClick(0)}
 											>
+												<Suspense fallback={<Loading />}>
 												<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
+													newDataResult={dataResult}
+													labels={labels}
 													dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>
+												</Suspense>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 											{/*2 container */}
@@ -1352,6 +1395,7 @@ const Dashboard = () => {
 												className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(1)}
 											>
+											<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
 												newDataResult={newData}
@@ -1359,6 +1403,7 @@ const Dashboard = () => {
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>
+											</Suspense>
 											</div>
 											<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
 											{/* 3 container */}
@@ -1366,12 +1411,16 @@ const Dashboard = () => {
 												className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(2)}
 											>
-												{isSuccess && <CStackedBarChart
+												{isSuccess && 
+												<Suspense fallback={<Loading />}>
+												<CStackedBarChart
 													datasets={dataResult}
 													labels={labels}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
-												/>}
+												/>
+												</Suspense>
+												}
 											</div>
 										</>
 									)}
@@ -1396,14 +1445,15 @@ const Dashboard = () => {
 														}`}
 													>
 														{activeChart === 0 && (
+															<Suspense fallback={<Loading />}>
 															<CLineChart
-										newDataResult={dataResult}
-										labels={labels}
-
+																newDataResult={dataResult}
+																labels={labels}
 																dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
+															</Suspense>
 														)}
 													</div>
 													<div
@@ -1412,6 +1462,7 @@ const Dashboard = () => {
 														}`}
 													>
 														{activeChart === 1 && (
+														<Suspense fallback={<Loading />}>
 															<CLineChartStacked 
 																paramResult={resultedParamNames}
 															newDataResult={newData}
@@ -1419,6 +1470,7 @@ const Dashboard = () => {
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
+														</Suspense>
 														)}
 													</div>
 													<div
@@ -1427,13 +1479,14 @@ const Dashboard = () => {
 														}`}
 													>
 														{isSuccess && activeChart === 2 && (
-															
+															<Suspense fallback={<Loading />}>
 															 <CStackedBarChart
 															 datasets={dataResult}
 															 labels={labels}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
+															</Suspense>
 														)}
 													</div>
 												</div>
@@ -1486,11 +1539,15 @@ const Dashboard = () => {
 										<DataMap3 width={"full"} height={"720px"} />
 									</div> */}
 									<div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px]">
-										<DataMap3 width={"full"} height={"640px"} />
+										<Suspense fallback={<Loading width={"370px"} height={"640px"}/>}>
+											<DataMap3 width={"full"} height={"640px"} />
+										</Suspense>
 									</div>
 
 									<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px]">
-										<DataMap3 width={"full"} height={"800px"} />
+										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+											<DataMap3 width={"full"} height={"800px"} />
+										</Suspense>
 									</div>
 
 									{/*Bottom Right Container  */}

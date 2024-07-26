@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';  
 
-export const useFetchData = (isSuccess, data, resultedParamNames) => {  
+const useFetchNewsAndDetails = (isSuccess, data, resultedParamNames) => {  
     const [news, setNews] = useState([]);   
     const [details, setDetails] = useState({  
         total: 0,  
@@ -37,12 +37,5 @@ export const useFetchData = (isSuccess, data, resultedParamNames) => {
 
     return { news, details };  
 };  
-export const useFetchNewData = (newIsSuccess, newData, resultedParamNames) => {
 
-    useEffect(() => {  
-        if(newIsSuccess && newData) {
-			setDataResult(newData.datasets)
-			setLabels(newData.labels)
-		}
-    }, [newIsSuccess, newData, resultedParamNames]);   
-}
+export default useFetchNewsAndDetails;
