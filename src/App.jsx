@@ -1,4 +1,4 @@
-
+import { lazy, Suspense } from 'react'
 import './App.css'
 import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import {
@@ -8,12 +8,13 @@ import {
 
 import Layout from './client/components/Layout'
 import Home from './client/pages/Home'
-import Dashboard from './client/pages/Dashboard'
+const Dashboard = lazy(()=> import('./client/pages/Dashboard'));
 import About from './client/pages/About'
 import ResourcesLayout from './client/components/resources/ResourcesLayout'
 import ResourcesList from './client/components/resources/ResourcesList'
 import Error from './client/pages/Error'
 import NotFound from './client/pages/NotFound'
+import Loading from './client/pages/Loading'
 import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
 import { SearchContextProvider } from './client/context/SearchContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
@@ -29,7 +30,11 @@ const queryClient = new QueryClient({
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} errorElement={<Error />}/>
-    <Route path='dashboard' element={<Dashboard />} errorElement={<Error />} />
+    <Route path='dashboard' element={
+      <Suspense fallback={<Loading />}>
+        <Dashboard />
+      </Suspense>
+    } errorElement={<Error />} />
     <Route 
       path='resources' 
       element={<ResourcesLayout 
