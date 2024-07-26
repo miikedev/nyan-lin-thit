@@ -4,7 +4,7 @@ import Dates3 from "./Dates3";
 import Data2 from "./Data2";
 import Detail from './Detail';
 import CLineChart from "./CLineChart";
-import CScatterChart from "./CScatterChart";
+import CLineChartStacked from "./CLineChartStacked";
 import CStackedBarChart from "./CStackedBarChart";
 
 const TabContent = ({ active }) => {
@@ -54,7 +54,7 @@ const TabContent = ({ active }) => {
               }`}
             >
               {activeChart === 1 && (
-                <CScatterChart
+                <CLineChartStacked
                   width={mobileWidth}
                   height={mobileHeight}
                   fontSize={chartFontSize}

@@ -3,7 +3,6 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Toolti
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-import { getChartData } from '../../../utils/utils';
 const options = {
     scales: {
         x: {
@@ -49,13 +48,11 @@ const options = {
 // const dataset5Data = [20, 30, 40, 50, 60, 70, 80];
 
 
-export default function CStackedBarChart({width,height,dataResult,newDataResult}) {
-  const { labels, datasets } = getChartData(dataResult);  
-  if(newDataResult === undefined) return ;
-
+export default function CStackedBarChart({width,height,datasets,labels}) {
+  if(datasets === undefined) return ;
   const data = {
-    labels: newDataResult.labels,
-    datasets: newDataResult.datasets
+    labels: labels,
+    datasets: datasets
   };
   return <Bar options={options} data={data} width={width} height={height}/>;
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { getChartData } from '../../../utils/utils';
+import { useDashboardFilterContext } from '../../context/DashboardFilterContext';
 
 ChartJS.register(
   CategoryScale,
@@ -23,6 +23,7 @@ ChartJS.register(
   Filler,
   Legend
 );
+
 export const options = {
   responsive: true,
   scales: {
@@ -111,26 +112,58 @@ export const data = {
   ],
 };
 
-export default function CLineChartStacked({ width, height, fontSize, isFullWidth, dataResult, newDataResult }) {
-  // Get labels and datasets from dataResult  
-  // const { labels, datasets } = getChartData(dataResult);  
-  if(newDataResult === undefined) return ;
-    console.log('newDataResult', newDataResult);
-  const { labels, data: regionDataArray } = newDataResult.regionData; 
-  const result = regionDataArray.map(region => {
-    return {
-      label: region.name,
-      data: region,
-      backgroundColor: `rgba(0, 0, 255, 0.5)`,
-      borderColor: `rgba(0, 0, 255, 1)`,
-      fill: true,
-    };
-  })
-  const data = {
-    labels: labels,
-    datasets:newDataResult.datasets
+export default function CLineChartStacked({ width, height, fontSize, isFullWidth, newDataResult, paramResult }) {
+  const caseColors = {
+    'airstrike': { backgroundColor: 'rgba(255, 99, 132, 0.5)', borderColor: 'rgb(255, 99, 132)' },
+    'armed_clashes': { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' },
+    'massacre': { backgroundColor: 'rgba(255, 206, 86, 0.5)', borderColor: 'rgb(255, 206, 86)' },
+    'casualties': { backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgb(75, 192, 192)' },
+    'arrests': { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' },
   };
 
-  return <Line options={options} data={data} width={width} height={height}/>;
+  const caseName = {
+    1: 'airstrike',
+    2: 'armed_clashes',
+    3: 'massacre',
+    4: 'casualties',
+    5: 'arrests',
+  };
+
+  const { filterParams } = useDashboardFilterContext();
+  const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
+  const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
+
+  if (newDataResult === undefined) return null;
+
+  console.log('paramResult', paramResult);
+  console.log('stacked chart', newDataResult);
+  console.log('filter params', resultedParamNames);
+
+  const { labels, datasets: regionDataDatasets } = newDataResult.regionData;
+
+  const filteredData = resultedParamNames.length > 0
+    ? regionDataDatasets.filter(region => resultedParamNames.includes(region.label))
+    : regionDataDatasets;
+
+  const result = filteredData.map(region => {
+    const colors = caseColors[region.label] || { backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgb(0, 0, 0)' }; // Default color if label not found
+    return {
+      label: region.label,
+      data: region.data,
+      backgroundColor: colors.backgroundColor,
+      borderColor: colors.borderColor,
+      fill: true,
+    };
+  });
+
+  console.log('stacked result', result);
+
+  const data = {
+    labels: labels,
+    datasets: result,
+  };
+
+  return <Line options={options} data={data} width={width} height={height} />;
 }
+
 
