@@ -82,7 +82,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           statementTags.map((tag) => {
-            console.log(tag.to)
             return (
               <Route
                 path={tag.to}

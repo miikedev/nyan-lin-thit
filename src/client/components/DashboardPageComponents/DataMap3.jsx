@@ -7,7 +7,13 @@ import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
 import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
 import "leaflet/dist/leaflet.css";
 import markerData from "../DashboardPageComponents/assets2/markerData";
-
+import { useDashboardMapData } from "../../apis/dashboardData";
+import icon1 from './assets2/airStrike.svg'
+import icon2 from './assets2/armed.svg'
+import icon3 from './assets2/massacre.svg'
+import icon4 from './assets2/casualty.svg'
+import icon5 from './assets2/arrest.svg'
+import Loading from "../../pages/Loading";
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const map = useMap();
@@ -215,12 +221,42 @@ const SetBounds = () => {
       </button>
     </div>
   );
+};const iconMapping = {
+  airstrikeIconObject: L.icon({
+    iconUrl: icon1,
+    iconSize: [13, 13],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  // Add other icon objects similarly
+  armed_clashesIconObject: L.icon({
+    iconUrl: icon2,
+    iconSize: [13, 13],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  massacreIconObject: L.icon({
+    iconUrl: icon3,
+    iconSize: [13, 13],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  casualtiesIconObject: L.icon({
+    iconUrl: icon4,
+    iconSize: [13, 13],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  arrestsIconObject: L.icon({
+    iconUrl: icon5,
+    iconSize: [13, 13],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
 };
-
 const DataMap3 = ({ width, height }) => {
-  // if (zoom === undefined) {
-  //   zoom = true;
-  // }
+	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData()
+  console.log('mapData', mapData)
   const zoomPropperties = {
     doubleClickZoom: true,
     closePopupOnClick: true,
@@ -232,24 +268,29 @@ const DataMap3 = ({ width, height }) => {
     zoomControl: true,
     scrollWheelZoom: false,
   };
-  
-
+  const displayedResult = mapData.map(data => ({
+    ...data, 
+    icon: iconMapping[data.icon]
+  })
+  )
+  console.log('displayedResult', displayedResult)
   return (
-    <div className="">
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
         className={` border-2 w-[${width}] h-[${height}] rounded-[4px]  flex justify-center items-center z-20`}
       >
         <SetBounds />
-        {markerData.map((marker, index) => (
-          <Marker key={index} position={marker.position} icon={marker.icon}>
-            <Popup>{marker.popupText}</Popup>
-          </Marker>
-        ))}
+        {
+          displayedResult.map((marker, index) => (
+            <Marker key={index} position={marker.position} icon={marker.icon}>
+              <Popup>{marker.popupText}</Popup>
+            </Marker>
+          ))
+        }
       </MapContainer>
-    </div>
   );
+  return null;
 };
 
 export default DataMap3;
