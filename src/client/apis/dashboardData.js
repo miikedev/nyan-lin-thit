@@ -1,5 +1,5 @@
-import { fetchDashboards, fetchDashboardChart, fetchDashboardMap } from "./apiService";
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { fetchDashboardChart, fetchDashboardMap, fetchDashboards } from "./apiService";
 export const useDashboardData = () => {
 
   return useQuery({

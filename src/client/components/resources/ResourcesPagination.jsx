@@ -1,6 +1,5 @@
+import { Pagination } from "@nextui-org/react";
 import React from "react";
-import {Pagination} from "@nextui-org/react";
-import { ChevronIcon } from "../../icons/ChevronIcon";
 import { usePaginationContext } from "../../context/PaginationContext";
 const ResourcesPagination = ({pages, isPreviousData, data}) => {
     console.log('has more', data.hasMore)

@@ -1,23 +1,23 @@
-import { lazy, Suspense } from 'react'
-import './App.css'
-import { RouterProvider, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { lazy, Suspense } from 'react'
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import './App.css'
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Layout from './client/components/Layout'
-import Home from './client/pages/Home'
-const Dashboard = lazy(()=> import('./client/pages/Dashboard'));
-import About from './client/pages/About'
 import ResourcesLayout from './client/components/resources/ResourcesLayout'
 import ResourcesList from './client/components/resources/ResourcesList'
-import Error from './client/pages/Error'
-import NotFound from './client/pages/NotFound'
-import Loading from './client/pages/Loading'
-import { weeklyHighlightsTags, publicationTags, advocacyTags, statementTags } from './utils/tags'
 import { SearchContextProvider } from './client/context/SearchContext'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import About from './client/pages/About'
+import Error from './client/pages/Error'
+import Home from './client/pages/Home'
+import Loading from './client/pages/Loading'
+import NotFound from './client/pages/NotFound'
+import { advocacyTags, publicationTags, statementTags, weeklyHighlightsTags } from './utils/tags'
+const Dashboard = lazy(()=> import('./client/pages/Dashboard'));
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

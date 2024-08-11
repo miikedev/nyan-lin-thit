@@ -5,9 +5,9 @@ import React, { useState } from "react";
 // Added Logo
 import L1 from "../DashboardPageComponents/assets2/airStrike.svg";
 import L2 from "../DashboardPageComponents/assets2/armed.svg";
-import L3 from "../DashboardPageComponents/assets2/massacre.svg";
-import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
+import L4 from "../DashboardPageComponents/assets2/casualty.svg";
+import L3 from "../DashboardPageComponents/assets2/massacre.svg";
 
 const Data2 = ({details}) => {
   const [selectedData, setSelectedData] = useState([]);

@@ -1,5 +1,5 @@
+import { Box, Space, Text, Title } from '@mantine/core'
 import React from 'react'
-import { Box, Title, Text, Space } from '@mantine/core'
 const Hero = () => {
   return (
     <Box className='px-[140px] flex gap-20'>

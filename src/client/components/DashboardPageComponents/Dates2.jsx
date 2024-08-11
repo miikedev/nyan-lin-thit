@@ -1,13 +1,11 @@
-import React, { useState } from "react";  
-import DatePicker from "react-datepicker";  
-import "react-datepicker/dist/react-datepicker.css";  
-import "./Dates.css";  
-import CalendarIcon from "../DashboardPageComponents/assets2/calendar.svg";  
-import { useDashboardDateContext } from "../../context/DashboardDateContext";
-const Dates2 = () => {  
+import React from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import CalendarIcon from "../DashboardPageComponents/assets2/calendar.svg";
+import "./Dates.css";
+const Dates2 = ({ startDate, setStartDate, setEndDate, endDate }) => {  
   // const [startDate, setStartDate] = useState(null); // Initial state should be null  
   // const [endDate, setEndDate] = useState(null); // Initial state should be null  
-  const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
   const currentYear = new Date().getFullYear();  
   const years = Array.from(  
     { length: currentYear - 2021 + 1 },  

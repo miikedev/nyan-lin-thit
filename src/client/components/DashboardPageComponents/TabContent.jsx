@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
-import Dates3 from "./Dates3";
-import Data2 from "./Data2";
-import Detail from './Detail';
 import CLineChart from "./CLineChart";
 import CLineChartStacked from "./CLineChartStacked";
 import CStackedBarChart from "./CStackedBarChart";
+import Data2 from "./Data2";
+import Dates3 from "./Dates3";
+import Detail from './Detail';
 
 const TabContent = ({ active }) => {
   const [activeChart, setActiveChart] = useState(0);

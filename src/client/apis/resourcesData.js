@@ -1,5 +1,5 @@
+import { useQuery } from '@tanstack/react-query'; // Removed unused import keepPreviousData
 import { fetchResources } from "./apiService";
-import { useQuery, useQueryClient } from '@tanstack/react-query'; // Removed unused import keepPreviousData
 
 export const useResourcesData = (type, page, category, search) => {
   console.log('api type: ' + type)
@@ -32,6 +32,7 @@ export const useACMS = (pageParams) => {
       }
     });
 }
+
 
 export const useOthers = (pageParams) => {
   return useQuery({

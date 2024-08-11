@@ -1,5 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
+
 import { instance } from "./apiService";
+
 export const useSubscribe = () => {
     return useMutation({
       mutationFn: async(email) => {

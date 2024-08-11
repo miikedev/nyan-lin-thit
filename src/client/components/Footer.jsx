@@ -1,11 +1,11 @@
+import { Box, Text, Title } from '@mantine/core'
+import { Button, Input, Link } from '@nextui-org/react'
+import { useForm } from '@tanstack/react-form'
 import React, { useState } from 'react'
-import { useLocation, Link as RouterLink } from 'react-router-dom'
-import { Title, Text, Box } from '@mantine/core'
-import { Link, Button, Input } from '@nextui-org/react'
+import { useLocation } from 'react-router-dom'
+import { useSubscribe } from '../apis/subscribe'
 import Logo from '../icons/Logo'
 import SocialIcons from '../icons/socials/socialIcons'
-import { useForm } from '@tanstack/react-form'
-import { useSubscribe } from '../apis/subscribe'
 const Footer = () => {
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)

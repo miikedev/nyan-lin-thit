@@ -1,9 +1,9 @@
-import {useEffect} from 'react'
+import { Box, Space, Text, Title } from '@mantine/core'
+import { Button, Image } from '@nextui-org/react'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Hero from '../components/about/Hero'
 import ImageSection from '../components/about/ImageSection'
-import { Box, Space, Title, Text } from '@mantine/core'
-import { Image, Button } from '@nextui-org/react'
-import { useLocation } from'react-router-dom'
 const About = () => {
   const { pathname } = useLocation();
   useEffect(() => {

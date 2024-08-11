@@ -1,24 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useEffect, useState } from 'react';
 import {
-    useNavigate,
-    useSearchParams,
-    useLocation
+    useLocation,
+    useSearchParams
 } from "react-router-dom";
-import {
-    QueryClient,
-    QueryClientProvider,
-  } from '@tanstack/react-query'
 //components
-import Resource from './Resource';
-import ResourceSkeleton from './ResourceSkeleton';
-import { Container, Skeleton, Paper, Title, Button, Box, Image } from '@mantine/core';
-import { Card, usePagination } from '@nextui-org/react';
+import { Box, Container, Paper, Skeleton, Title } from '@mantine/core';
+import { Card } from '@nextui-org/react';
 import { useResourcesData } from '../../apis/resourcesData';
-import { useSearchContext } from '../../context/SearchContext';
-import ResourcesPagination from './ResourcesPagination';
 import { usePaginationContext } from '../../context/PaginationContext';
+import { useSearchContext } from '../../context/SearchContext';
+import Resource from './Resource';
+import ResourcesPagination from './ResourcesPagination';
 
-import { PaginationProvider } from '../../context/PaginationContext';
 const ResourcesList = ({ type }) => {
     const { pathname } = useLocation();
     const { searchingText, setSearchingText } = useSearchContext();

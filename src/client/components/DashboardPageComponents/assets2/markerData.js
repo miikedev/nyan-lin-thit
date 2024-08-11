@@ -50,7 +50,7 @@ const markerData = [
 	{ position: [24.8688705	,94.9168779], icon: icon5Object, popupText: "Arrest" },
 	{ position: [25.6123483	,96.3125388], icon: icon1Object, popupText: "Airstrike" },
 	{ position: [18.06496,	97.444878], icon: icon2Object, popupText: "Armed Clashes" },
-	{ position: [19.4146408	,97.1295212], icon: icon3Object, popupText: "Massacre" },
+	{ position: [19.4146408	,97.1295212], icon: icon3Object, popupText: "Massacre" },   
 	{ position: [23.2589046,	98.136046], icon: icon4Object, popupText: "Casualty" },
 	{ position: [24.2226633	,96.1411781], icon: icon5Object, popupText: "Arrest" },
 	// Add more marker objects as needed

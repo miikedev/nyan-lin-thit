@@ -1,5 +1,5 @@
-import { Box, Image, Title, Grid, Text, Space } from '@mantine/core'
-import { Button, Card, CardFooter } from '@nextui-org/react'
+import { Box, Grid, Image, Space, Text, Title } from '@mantine/core'
+import { Button } from '@nextui-org/react'
 const Blog = () => {
   return (
     <Box className='bg-primary-600 bg-opacity-10 px-[140px] py-[120px] relative bottom-[100px]'>

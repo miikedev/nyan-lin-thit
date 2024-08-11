@@ -1,14 +1,14 @@
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Tab, Tabs } from '@nextui-org/react'
+import { useAnimate } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { useLocation, NavLink, Outlet, Link } from 'react-router-dom'
-import { SearchIcon } from '../../icons/SearchIcon'
-import { Tabs, Tab, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu, Button, Input } from '@nextui-org/react'
-import { ChevronDown } from '../../icons/ChevronDown'
-import { capitalizeFirstLetter } from '../../../utils/utils'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { others } from '../../../utils/tags'
-import { useResourceContext } from '../../context/ResourceContext'
-import { AnimatePresence, useAnimate } from 'framer-motion'
-import { useSearchContext } from '../../context/SearchContext'
+import { capitalizeFirstLetter } from '../../../utils/utils'
 import { PaginationProvider } from '../../context/PaginationContext'
+import { useResourceContext } from '../../context/ResourceContext'
+import { useSearchContext } from '../../context/SearchContext'
+import { ChevronDown } from '../../icons/ChevronDown'
+import { SearchIcon } from '../../icons/SearchIcon'
 const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, advocacyTags}) => {
     const [scope, animate] = useAnimate();
     const { pathname } = useLocation()

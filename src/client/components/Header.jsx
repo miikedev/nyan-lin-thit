@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import {Navbar, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarBrand, NavbarContent, NavbarItem, Button, DropdownItem, DropdownTrigger, Dropdown, DropdownMenu} from "@nextui-org/react";
-// import {ChevronDown, Lock, Activity, Flash, Server, TagUser, Scale} from "./Icons.jsx";
-import Logo from "../icons/Logo";
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Navbar, NavbarBrand, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from "@nextui-org/react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { ChevronDown } from "../icons/ChevronDown";
+
 import { resources } from "../../utils/tags";
 import { useResourceContext } from "../context/ResourceContext";
+import { ChevronDown } from "../icons/ChevronDown";
+import Logo from "../icons/Logo";
+
 const Header = () => {
     const navItems = [
         { to: '/', name: 'Home'},
