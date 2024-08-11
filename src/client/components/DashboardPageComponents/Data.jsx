@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
+import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import L1 from '../DashboardPageComponents/assets2/airStrike.svg';
 import L2 from "../DashboardPageComponents/assets2/armed.svg";
-import L3 from "../DashboardPageComponents/assets2/massacre.svg";
-import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
-import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
+import L4 from "../DashboardPageComponents/assets2/casualty.svg";
+import L3 from "../DashboardPageComponents/assets2/massacre.svg";
 
 const Data = ({details, dataAll, dataResult, setDataResult}) => {
   const data = [

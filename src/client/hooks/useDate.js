@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react';
 import { useDashboardChartData } from '../apis/dashboardData';
 import { useDashboardDataContext } from '../context/DashboardDataContext';
 

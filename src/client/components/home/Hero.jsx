@@ -1,6 +1,6 @@
+import { Box } from '@mantine/core'
+import { Button, Image, Spacer } from '@nextui-org/react'
 import React from 'react'
-import { Image, Spacer, Button } from '@nextui-org/react'
-import { Box, Text } from '@mantine/core'
 import homeHeroImage from '../../../assets/home-hero.jpg'
 const Hero = ({motion, navigate}) => {
   return (

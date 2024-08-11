@@ -1,41 +1,41 @@
-import React, { useEffect, useState, useMemo, lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
 
 // Icons
-import Cicon from "../components/DashboardPageComponents/assets2/calendar.svg";
-import M from "../components/DashboardPageComponents/assets2/map.svg";
-import Data from "../components/DashboardPageComponents/Data";
-import Data2 from "../components/DashboardPageComponents/Data2";
-import Max from "../components/DashboardPageComponents/assets2/maximize.svg";
-import Min from "../components/DashboardPageComponents/assets2/minimize.svg";
-import L from "../components/DashboardPageComponents/assets2/left-arrow.svg";
-import R from "../components/DashboardPageComponents/assets2/right-arrow.svg";
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
 import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
+import Cicon from "../components/DashboardPageComponents/assets2/calendar.svg";
+import L from "../components/DashboardPageComponents/assets2/left-arrow.svg";
+import M from "../components/DashboardPageComponents/assets2/map.svg";
+import Max from "../components/DashboardPageComponents/assets2/maximize.svg";
+import Min from "../components/DashboardPageComponents/assets2/minimize.svg";
+import R from "../components/DashboardPageComponents/assets2/right-arrow.svg";
+import Data from "../components/DashboardPageComponents/Data";
+import Data2 from "../components/DashboardPageComponents/Data2";
 
 import Dates from "../components/DashboardPageComponents/Dates";
 import Dates2 from "../components/DashboardPageComponents/Dates2";
 
-import TextSectionCard2 from "../components/DashboardPageComponents/TextSectionCard2";
 import Detail from "../components/DashboardPageComponents/Detail";
+import TextSectionCard2 from "../components/DashboardPageComponents/TextSectionCard2";
 
 
 // Tab Section
+import CLineChart from "../components/DashboardPageComponents/CLineChart";
+import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
+import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
 import Tab from "../components/DashboardPageComponents/Tab";
 import TabContent from "../components/DashboardPageComponents/TabContent";
-import CLineChart from "../components/DashboardPageComponents/CLineChart";
-import CStackedBarChart from "../components/DashboardPageComponents/CStackedBarChart";
-import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
 
-import { useDashboardData, useDashboardChartData } from "../apis/dashboardData";
+import { useDashboardChartData, useDashboardData } from "../apis/dashboardData";
+import { useDashboardDataContext } from "../context/DashboardDataContext";
 import { useDashboardDateContext } from "../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../context/DashboardFilterContext";
-import { useDashboardDataContext } from "../context/DashboardDataContext";
-import Loading from '../pages/Loading'
-import {useFetchData} from "../hooks/useFetchData";
+import { useFetchData } from "../hooks/useFetchData";
+import Loading from '../pages/Loading';
 
 const caseName = {
 	1: 'airstrike',
@@ -45,9 +45,10 @@ const caseName = {
     5: 'arrests',
 }
 const Dashboard = () => {
+	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 	const { setFilteredData, filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
-	const {startDate, endDate} = useDashboardDateContext();
+
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
 
@@ -58,7 +59,8 @@ const Dashboard = () => {
     const { data, isLoading, isSuccess, isError } = useDashboardData();  
     const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(
 		new Date(startDate).toLocaleDateString('en-CA'), 
-		new Date(endDate).toLocaleDateString('en-CA'));  
+		new Date(endDate).toLocaleDateString('en-CA')
+	);  
 
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
@@ -95,8 +97,6 @@ const Dashboard = () => {
 			setLabels(newData.labels)
 		}
     }, [newIsSuccess, newData, resultedParamNames]);  
-
-	console.log('resulted param names', resultedParamNames)
 
     const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
     
@@ -141,7 +141,7 @@ const Dashboard = () => {
 	 return (
 			<section className="bg-[#dedede] pr-[10px] pl-[10px] py-[10px] w-full h-auto">
 				{/*Mobile Phone Size */}
-				<div className=" md:hidden mt-[25px] bg-white">
+				<div className="md:hidden mt-[25px] bg-white">
 					{/* Top Section */}
 					<div className=" md:hidden w-full h-[200px] flex flex-col justify-between items-center pt-[3px]">
 						<div className=" bg-[#e6e6e6] border-[#737373] rounded-[8px] gap-[5px] w-[80%] h-[30px]  px-4 py-[2px] flex  justify-center items-center">
@@ -175,18 +175,16 @@ const Dashboard = () => {
 						</div>
 					</div>
 					{/* Bottom Section */}
-					<div className=" md:hidden bg-white  mt-[30px] px-[5px] mx-auto w-full  h-[420px]">
-						<Suspense fallback={<Loading />}>
+					<div className=" md:hidden bg-white  mt-[30px] px-[5px] mx-auto w-full  h-[420px] rounded-md">
+						<Suspense fallback={<Loading width={"100%"} height={"420px"} />}>
 							<DataMap3 width={"full"} height={"420px"} />
 						</Suspense>
 					</div>
 				</div>
-
 				{/*Vertical Tablet Sizes */}
-				<div className="  lg:hidden ">
+				<div className="lg:hidden">
 					<div className="max-md:hidden py-[10px]  w-full flex flex-col justify-center items-center">
 						{/* Top Container */}
-
 						<div
 							className={`relative bg-white w-full h-[260px] rounded-md flex justify-center items-center gap-[10px] py-[20px] mb-[10px]`}
 						>
@@ -377,28 +375,23 @@ const Dashboard = () => {
 								)}
 							</button>
 						</div>
-
 						{/* Bottom Parent Container */}
 						<div className=" w-full flex flex-col justify-center items-center">
 							{/*Bottom Left Container */}
-
 							{/* i-pads and tablet sizes */}
 							{/* <div className="bg-[#161616] hidden md:block w-[716px] h-[520px]">
-				<DataMap3 width={"716px"} height={"520px"} />
-				</div> */}
-
+							<DataMap3 width={"716px"} height={"520px"} />
+							</div> */}
 							{/* i-phones and phones sizes */}
 							{/* <div className="bg-[#161616] block max-[424px]:hidden md:hidden w-[410px] h-[640px]">
-				<DataMap3 width={"410px"} height={"640px"} />
-				</div> */}
-
+							<DataMap3 width={"410px"} height={"640px"} />
+							</div> */}
 							{/* <div className="bg-[#161616] block min-[424px]:hidden w-[350px] h-[640px]">
-				<DataMap3 width={"350px"} height={"640px"} />
-				</div> */}
-
+							<DataMap3 width={"350px"} height={"640px"} />
+							</div> */}
 							{/* Map */}
-							<div className="mt-[10px] bg-white w-full h-[523px]">
-								<Suspense fallback={<Loading  height={"523px"} />}>
+							<div className="mt-[10px] bg-white w-full h-[523px] rounded-md">
+								<Suspense fallback={<Loading width={"100%"}  height={"523px"} />}>
 									<DataMap3 width={"full"} height={"523px"} />
 								</Suspense>
 							</div>
@@ -410,27 +403,27 @@ const Dashboard = () => {
 										<div className="flex items-center justify-between mr-1">
 											<h2 className="text-black font-bold">Myanmar</h2>
 											{/* <div className=" flex justify-end p-0">
-							<button
-							className={`p-1 rounded mr-2 ${
-								isDefaultLayout
-								? "bg-blue-500 text-white"
-								: "bg-gray-300"
-							}`}
-							onClick={() => setIsDefaultLayout(true)}
-							>
-							L1
-							</button>
-							<button
-							className={`p-1 rounded ${
-								isDefaultLayout
-								? "bg-gray-300"
-								: "bg-blue-500 text-white"
-							}`}
-							onClick={() => setIsDefaultLayout(false)}
-							>
-							L2
-							</button>
-						</div> */}
+												<button
+												className={`p-1 rounded mr-2 ${
+													isDefaultLayout
+													? "bg-blue-500 text-white"
+													: "bg-gray-300"
+												}`}
+												onClick={() => setIsDefaultLayout(true)}
+												>
+												L1
+												</button>
+												<button
+												className={`p-1 rounded ${
+													isDefaultLayout
+													? "bg-gray-300"
+													: "bg-blue-500 text-white"
+												}`}
+												onClick={() => setIsDefaultLayout(false)}
+												>
+												L2
+												</button>
+											</div> */}
 										</div>
 										<div className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
 											<img src={Cicon} className="w-[15px] h-[15px] text-white" />
@@ -447,18 +440,18 @@ const Dashboard = () => {
 										</div>
 
 										{/* <div className="text-[#7EADE3] w-[274px] h-[183px] bg-[#303d4c] px-[20px] py-[7px]">
-						<p className="font-[700] mb-[7px]">
-							The massacre of the military group
-						</p>
-						<p className="text-[11px]">
-							Between September and December 2023, the military group
-							committed at least (37) mass killings in which five (5)
-							or more people were killed, and a total of (283)
-							civilians were killed.2021 From February 2023 As of
-							December, the military group has committed at least
-							(210){" "}
-						</p>
-						</div> */}
+										<p className="font-[700] mb-[7px]">
+											The massacre of the military group
+										</p>
+										<p className="text-[11px]">
+											Between September and December 2023, the military group
+											committed at least (37) mass killings in which five (5)
+											or more people were killed, and a total of (283)
+											civilians were killed.2021 From February 2023 As of
+											December, the military group has committed at least
+											(210){" "}
+										</p>
+										</div> */}
 										<div>
 											{<TextSectionCard data={news} />}
 										</div>
@@ -504,13 +497,12 @@ const Dashboard = () => {
 										</div>
 
 										{/* bottom  */}
-										<div className="flex  items-center mt-[10px] gap-[10px]">
-											<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-												{isLoading && <Loading />}
+										<div className="relative flex  items-center mt-[10px] gap-[10px] rounded-md">
+											<div className="w-[65%] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-lg">
 												{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 											</div>
 											<div className="w-[35%] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-												<Dates2 />
+												<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 											</div>
 										</div>
 									</div>
@@ -519,18 +511,17 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
-
 				{/* Horizontal Tablet Sizes */}
 				<div className="xl:hidden max-lg:hidden w-full h-full flex justify-center gap-[20px]">
 					{isDefaultLayout ? (
 						<>
 							{/* Left Container */}
-							<div className="w-[370px] ">
-								<div className="bg-white  w-[370px] h-[640px] ">
+							<div className="w-[370px] rounded-md">
+								<div className="bg-white  w-[370px] h-[640px] rounded-md">
 									<Suspense fallback={<Loading width={"370px"} height={"640px"}/>}>
 										<DataMap3 width={"370px"} height={"640px"} />
 									</Suspense>
-								</div>
+								</div>	
 							</div>
 							{/* Parent Right Container */}
 							<div className=" w-[735px]">
@@ -793,12 +784,12 @@ const Dashboard = () => {
 
 											{/* bottom  */}
 											<div className="flex  items-center mt-[10px] gap-[10px]">
-												<div className="w-[264px] h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-													{isLoading && <h1>loading...</h1>}
+												<div className="w-[264px] relaative h-[220px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
+													{isLoading && <Loading  />}
 													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 												</div>
 												<div className="w-[170px] h-[220px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-													<Dates2 />
+													<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 												</div>
 											</div>
 										</div>
@@ -811,7 +802,6 @@ const Dashboard = () => {
 							{/* Parent Container */}
 							<div className="max-w-[1133px] flex flex-col justify-center items-center">
 								{/* Top Container */}
-
 								<div
 									className={`relative bg-white w-full h-[232px] rounded-md flex justify-center items-center gap-[5px] p-[5px] mb-[10px]`}
 								>
@@ -820,14 +810,13 @@ const Dashboard = () => {
 											{/*1 container */}
 											<div
 												className="w-1/3  p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center"
-												onClick={() => handleChartClick(0)}
-											>
-												{/* <SimpleLineChart
-													width={smallChartWidthTwo}
-													height={smallChartHeightTwo}
-													fontSize={chartFontSize}
-													isFullWidth={false}
-												/> */}
+												onClick={() => handleChartClick(0)}>
+											{/* <SimpleLineChart
+												width={smallChartWidthTwo}
+												height={smallChartHeightTwo}
+												fontSize={chartFontSize}
+												isFullWidth={false}
+											/> */}
 											<Suspense fallback={<Loading />}>
 												<CLineChart 
 												newDataResult={dataResult}
@@ -844,21 +833,21 @@ const Dashboard = () => {
 												className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(1)}
 											>
-												{/* <ScatterChartComponent
-													width={smallChartWidthTwo}
-													height={smallChartHeightTwo}
-													fontSize={chartFontSize}
-													isFullWidth={false}
-												/> */}
-												<Suspense fallback={<Loading />}>
-												<CLineChartStacked 
-													paramResult={resultedParamNames}
-												newDataResult={newData}
-												    dataResult={dataResult}
+											{/* <ScatterChartComponent
 												width={smallChartWidthTwo}
-												height= {smallChartHeightTwo}
-												/>
-												</Suspense>
+												height={smallChartHeightTwo}
+												fontSize={chartFontSize}
+												isFullWidth={false}
+											/> */}
+											<Suspense fallback={<Loading />}>
+											<CLineChartStacked 
+												paramResult={resultedParamNames}
+											newDataResult={newData}
+											    dataResult={dataResult}
+											width={smallChartWidthTwo}
+											height= {smallChartHeightTwo}
+											/>
+											</Suspense>
 											</div>
 											<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
 											{/* 3 container */}
@@ -866,22 +855,22 @@ const Dashboard = () => {
 												className="w-1/3  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(2)}
 											>
-												{/* <StackedBarChart
-													width={smallChartWidthTwo}
-													height={smallChartHeightTwo}
-													fontSize={chartFontSize}
-													isFullWidth={false}
-												/> */}
-												{isSuccess && 
-												<Suspense fallback={<Loading />}>
-												<CStackedBarChart
-											datasets={dataResult}
-											labels={labels}
+											{/* <StackedBarChart
+											width={smallChartWidthTwo}
+											height={smallChartHeightTwo}
+											fontSize={chartFontSize}
+											isFullWidth={false}
+											/> */}
+											{isSuccess && 
+											<Suspense fallback={<Loading />}>
+											<CStackedBarChart
+												datasets={dataResult}
+												labels={labels}
 												width={smallChartWidthTwo}
 												height={smallChartHeightTwo}
-												/>
-												</Suspense>
-												}
+											/>
+											</Suspense>
+											}
 											</div>
 										</>
 									)}
@@ -947,29 +936,29 @@ const Dashboard = () => {
 														activeChart === 2 ? "active" : ""
 													}`}
 												>
-													{isSuccess && activeChart === 2 && (
-														// <StackedBarChart
-														// 	width={fullChartWidth}
-														// 	height={ipadChartHeight}
-														// 	fontSize={chartFontSize}
-														// 	isFullWidth={true}
-														// />
-														<Suspense fallback={<Loading />}>
-														 <CStackedBarChart
-														 	datasets={dataResult}
-														 	labels={labels}
-															width={fullChartWidth}
-															height={ipadChartHeight}
-														/>
-														</Suspense>
-													)}
+												{isSuccess && activeChart === 2 && (
+													// <StackedBarChart
+													// 	width={fullChartWidth}
+													// 	height={ipadChartHeight}
+													// 	fontSize={chartFontSize}
+													// 	isFullWidth={true}
+													// />
+													<Suspense fallback={<Loading />}>
+													 <CStackedBarChart
+													 	datasets={dataResult}
+													 	labels={labels}
+														width={fullChartWidth}
+														height={ipadChartHeight}
+													/>
+													</Suspense>
+												)}
 												</div>
 												{/* Right Navigate Button */}
 												<button
 													className="ml-[70px] text-[40px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
 													onClick={() => setActiveChart((activeChart + 1) % 3)}
 												>
-													{/* &#8594; */}
+												{/* &#8594; */}
 													&gt;
 												</button>
 											</div>
@@ -980,10 +969,9 @@ const Dashboard = () => {
 													}
 													className="slide-nav-arrow left "
 												>
-													{/* &lt; */}
+												{/* &lt; */}
 													<img src={L} className="w-[25px] h-[25px]" />
 												</button>
-
 												<button
 													onClick={() => setActiveChart((activeChart + 1) % 3)}
 													className="slide-nav-arrow right"
@@ -1005,16 +993,14 @@ const Dashboard = () => {
 										)}
 									</button>
 								</div>
-
 								{/* Bottom Parent Container */}
 								<div className="w-full flex justify-between">
 									{/*Bottom Left Container */}
-									<div className="bg-white w-[375px] h-[456px] mr-[10px]">
-										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+									<div className="bg-white w-[375px] h-[456px] mr-[10px] rounded-md">
+										<Suspense fallback={<Loading width={"375px"} height={"456px"} />}>
 											<DataMap3 width={"375px"} height={"456px"} />
 										</Suspense>
 									</div>
-
 									{/*Bottom Right Container  */}
 									<div className="bg-white w-[700px] h-[456px] flex justify-center items-center rounded-md  px-[10px]">
 										<div className="w-[665px] h-[422px] bg-[#e6e6e6] rounded flex justify-between items-center p-[20px]">
@@ -1023,9 +1009,7 @@ const Dashboard = () => {
 												<div className="flex items-center justify-between mr-1">
 													<h2 className="text-black font-bold">Myanmar</h2>
 													<div className="flex justify-end gap-[12px] p-0">
-														<button
-														
-														>
+														<button>
 														<img src={L1} 	className={`   ${
 																isDefaultLayout
 																	? "bg-blue-500 "
@@ -1054,16 +1038,12 @@ const Dashboard = () => {
 														{ timeSpan }
 													</p>
 												</div>
-
 												<div className="flex items-center mb-[7px]">
 													<img src={M} className="w-[15px] h-[15px] text-black" />
 													<p className="text-black text-[11px] ml-[10px]">
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
-
-												
-
 												<div>
 													{isSuccess && data!= undefined && <TextSectionCard data={data.news} />}
 												</div>
@@ -1100,15 +1080,13 @@ const Dashboard = () => {
 													</div>
 												</div> */}
 													<Detail layout={false} name={detailNameForMedium} number={detailNumberForMedium} data={details}/>
-
-
 												{/* bottom  */}
 												<div className="w-[300px] flex flex-col items-center mt-[10px] gap-[5px]">
-													<div className="w-full h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
+													<div className="w-full relative h-[160px] border-[1px] border-[#e6e6e6] bg-white  rounded-md">
 														{isSuccess && <Data2 details={details} />}
 													</div>
 													<div className="w-full h-[71px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-														<Dates fontSize={"11px"} fontSizeTwo={"14px"} />
+														<Dates fontSize={"11px"} fontSizeTwo={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
 											</div>
@@ -1119,22 +1097,21 @@ const Dashboard = () => {
 						</>
 					)}
 				</div>
-
 				{/* Laptop and Desktop Size */}
 				<div className="max-xl:hidden w-full h-auto flex justify-center items-center gap-[20px] ">
 					{isDefaultLayout ? (
 						<>
 							<div className="w-full xl:h-[640px] 2xl:h-[1200px] flex justify-center items-center gap-x-[14px]">
 								{/* Left Container */}
-								<div className="w-[30%] h-full">
-									<div className="bg-white 2xl:hidden w-full h-[640px] mr-[16px]">
+								<div className="w-[30%] h-full rounded-md">
+									<div className="bg-white 2xl:hidden w-full h-[640px] mr-[16px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>						
 										</div>
 
-									<div className="bg-white max-2xl:hidden w-full h-[1200px] mr-[16px]">
-										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+									<div className="bg-white max-2xl:hidden w-full h-[1200px] mr-[16px] rounded-md">
+										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
 											<DataMap3 width={"full"} height={"1200px"} />
 										</Suspense>
 									</div>
@@ -1348,13 +1325,12 @@ const Dashboard = () => {
 												</div>
 
 												{/* bottom  */}
-												<div className=" w-full  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
+												<div className="relative w-full flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
-														{isLoading && <h1>loading...</h1>}
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-														<Dates2 />
+														<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
 											</div>
@@ -1465,7 +1441,7 @@ const Dashboard = () => {
 														<Suspense fallback={<Loading />}>
 															<CLineChartStacked 
 																paramResult={resultedParamNames}
-															newDataResult={newData}
+																newDataResult={newData}
 															    dataResult={dataResult}
 																width={fullChartWidth}
 																height={fullChartHeight}
@@ -1533,19 +1509,19 @@ const Dashboard = () => {
 								</div>
 
 								{/* Bottom Parent Container */}
-								<div className="w-full  h-auto flex justify-between">
+								<div className="w-full  h-auto flex justify-between rounded-md">
 									{/*Bottom Left Container */}
 									{/* <div className="bg-[#161616] w-[30%] h-[720px] mr-[16px]">
 										<DataMap3 width={"full"} height={"720px"} />
 									</div> */}
-									<div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px]">
-										<Suspense fallback={<Loading width={"370px"} height={"640px"}/>}>
+									<div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px] rounded-md">
+										<Suspense fallback={<Loading width={"100%"} height={"640px"}/>}>
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>
 									</div>
 
-									<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px]">
-										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+									<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px] rounded-md">
+										<Suspense fallback={<Loading width={"370px"} height={"800px"} />}>
 											<DataMap3 width={"full"} height={"800px"} />
 										</Suspense>
 									</div>
@@ -1666,26 +1642,23 @@ const Dashboard = () => {
 												{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 
 												{/* bottom  */}
-												<div className="4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
+												<div className="relative 4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
 													<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white   rounded-md">
-														{isLoading && <h1>loading...</h1>}
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													
 													<div className="w-full  h-[100px] border-[1px] border-[#e6e6e6] bg-white   rounded-md flex justify-center items-center">
-														<Dates />
+														<Dates startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
 
 												{/* bottom  */}
-												<div className="max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
+												<div className="relative max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
 													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  flex items-center  rounded-md">
-														{isLoading && <h1>loading...</h1>}
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
 													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  rounded-md flex justify-center items-center">
-															<Dates2 />
-
+															<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
 											</div>

@@ -1,7 +1,5 @@
+import { Tab } from '@nextui-org/react'
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { Box, Space } from '@mantine/core'
-import { Tabs, Tab } from '@nextui-org/react'
 const ResourcesNavlink = ({tag}) => {
   return (
     <>

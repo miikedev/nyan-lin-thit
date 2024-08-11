@@ -1,5 +1,5 @@
+import { Box, Paper, Title } from '@mantine/core'
 import React from 'react'
-import { Paper, Box, Title } from '@mantine/core'
 const Error = () => {
   return (
     <Paper>

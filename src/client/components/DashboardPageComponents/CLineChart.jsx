@@ -1,16 +1,7 @@
+import { CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
 import React from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { getChartData } from '../../../utils/utils';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -25,6 +16,7 @@ export const options = {
   responsive: true,
   scales: {
     x: {
+        stacked: false,
         ticks: {
         //   color: 'red', // Color for x-axis labels
         },
@@ -54,7 +46,7 @@ export const options = {
 export default function CLineChart({ width, height, fontSize, isFullWidth, newDataResult, labels }) {
   // Get labels and datasets from dataResult  
   if(newDataResult === undefined) return ;
-
+  console.log('clineChart', newDataResult);
   const data = {
     labels: labels,
     datasets:newDataResult

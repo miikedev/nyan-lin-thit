@@ -1,6 +1,9 @@
-import React from 'react'
 import { Box } from '@mantine/core'
+import React from 'react'
+
 import './style.css'
+
+
 const ImageSection = () => {
   return (
     <Box className='h-[400px]'>

@@ -1,6 +1,5 @@
-import { Box, Image, Title, Grid, Text, Space, Skeleton } from '@mantine/core'
+import { Box, Grid, Image, Skeleton, Space, Text, Title } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
-import { useEffect, useState } from 'react'
 import { useResourcesData } from '../../apis/resourcesData'
 import { useResourceContext } from '../../context/ResourceContext'
 const Statements = ({navigate}) => {
