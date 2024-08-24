@@ -3,7 +3,6 @@ import React from 'react'
 
 import './style.css'
 
-
 const ImageSection = () => {
   return (
     <Box className='h-[400px]'>

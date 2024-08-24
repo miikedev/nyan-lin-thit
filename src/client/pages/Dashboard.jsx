@@ -4,6 +4,7 @@ import TextSectionCard from "../components/DashboardPageComponents/TextSectionCa
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
 
+import { motion } from 'framer-motion'
 // Icons
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
 import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
@@ -37,7 +38,7 @@ import { useDashboardFilterContext } from "../context/DashboardFilterContext";
 import { useFetchData } from "../hooks/useFetchData";
 import Loading from '../pages/Loading';
 
-const caseName = {
+ const caseName = {
 	1: 'airstrike',
 	2: 'armed_clashes',
     3: 'massacre',
@@ -139,7 +140,7 @@ const Dashboard = () => {
 	// if(isLoading && newIsLoading) return <Loading />
 
 	 return (
-			<section className="bg-[#dedede] pr-[10px] pl-[10px] py-[10px] w-full h-auto">
+			<section className="bg-[#dedede] p-[20px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className="md:hidden mt-[25px] bg-white">
 					{/* Top Section */}
@@ -1098,35 +1099,42 @@ const Dashboard = () => {
 					)}
 				</div>
 				{/* Laptop and Desktop Size */}
-				<div className="max-xl:hidden w-full h-auto flex justify-center items-center gap-[20px] ">
+				<div className="max-xl:hidden w-full h-auto flex justify-center items-center gap-[20px]">
 					{isDefaultLayout ? (
 						<>
-							<div className="w-full xl:h-[640px] 2xl:h-[1200px] flex justify-center items-center gap-x-[14px]">
+							<div className="w-full xl:h-[640px] 2xl:h-[1200px] flex justify-center items-center gap-x-[20px]">
 								{/* Left Container */}
-								<div className="w-[30%] h-full rounded-md">
-									<div className="bg-white 2xl:hidden w-full h-[640px] mr-[16px] rounded-md">
+								<motion.div 
+									initial={{ opacity: 0 }} 
+									animate={{ opacity: 1 }} 
+									transition={{ ease: "easeOut", duration: 1 }}
+									className="w-[30%] h-full rounded-md"
+									>
+									<div className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>						
 										</div>
 
-									<div className="bg-white max-2xl:hidden w-full h-[1200px] mr-[16px] rounded-md">
+									<div className="bg-white max-2xl:hidden w-full h-[1200px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
 											<DataMap3 width={"full"} height={"1200px"} />
 										</Suspense>
 									</div>
-								</div>
+								</motion.div>
 								{/* Parent Right Container */}
 								<div className=" w-[70%] xl:h-[640px] 2xl:h-[1200px] flex flex-col gap-y-[14px] ">
 									{/*Top Right Container */}
-
 									<div
 										className={`relative p-[5px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
 									>
 										{!isFullWidth && (
 											<>
 												{/*1 container */}
-												<div
+												<motion.div
+													initial={{ opacity: 0 }} 
+													animate={{ opacity: 1 }} 
+													transition={{ ease: "easeOut", duration: 1 }}
 													className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
 													onClick={() => handleChartClick(0)}
 												>
@@ -1139,10 +1147,13 @@ const Dashboard = () => {
 														height={smallChartHeight}
 													/>
 													</Suspense>
-												</div>
+												</motion.div>
 												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 												{/*2 container */}
-												<div
+												<motion.div
+													initial={{ opacity: 0 }} 
+													animate={{ opacity: 1 }} 
+													transition={{ ease: "easeOut", duration: 1 }}
 													className="w-1/3  h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(1)}
 												>
@@ -1154,10 +1165,13 @@ const Dashboard = () => {
 														width={smallChartWidth}
 														height={smallChartHeight}
 													/>
-												</div>
+												</motion.div>
 												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
 												{/* 3 container */}
-												<div
+												<motion.div
+													initial={{ opacity: 0 }} 
+													animate={{ opacity: 1 }} 
+													transition={{ ease: "easeOut", duration: 1 }}
 													className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(2)}
 												>
@@ -1171,7 +1185,7 @@ const Dashboard = () => {
 													/>
 												</Suspense>
 													}
-												</div>
+												</motion.div>
 											</>
 										)}
 										{isFullWidth && (
@@ -1251,10 +1265,10 @@ const Dashboard = () => {
 									</div>
 
 									{/*Under Right Container  */}
-									<div className="bg-white w-full xl:h-[384px] 2xl:h-[720px] flex items-center rounded-md px-[20px] py-[10px]">
-										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center py-[20px] ">
+									<div className="bg-white w-full xl:h-[384px] 2xl:h-[720px] flex items-center rounded-md p-[20px]">
+										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center p-[10px] ">
 											{/* Inner Left Container */}
-											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[20px] 2xl:gap-[25px] p-[15px]">
+											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] p-[14px]">
 												<div className="flex items-center justify-between mr-1">
 													<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
 													<div className=" flex justify-end gap-[12px] p-0">
@@ -1309,7 +1323,7 @@ const Dashboard = () => {
 											</div>
 
 											{/* Vertical Dashed Line */}
-											<div className="relative w-[1px] h-full bg-gray-300">
+											<div className="relative w-[1px] h-[550px] bg-gray-300">
 												<div className="absolute  h-full border-dashed border-gray-300"></div>
 											</div>
 
@@ -1514,11 +1528,11 @@ const Dashboard = () => {
 									{/* <div className="bg-[#161616] w-[30%] h-[720px] mr-[16px]">
 										<DataMap3 width={"full"} height={"720px"} />
 									</div> */}
-									<div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px] rounded-md">
+									{/* <div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px] rounded-md">
 										<Suspense fallback={<Loading width={"100%"} height={"640px"}/>}>
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>
-									</div>
+									</div> */}
 
 									<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"800px"} />}>
@@ -1530,7 +1544,7 @@ const Dashboard = () => {
 									<div className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex justify-center items-center rounded-md  p-[20px]">
 										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center p-[10px]">
 											{/* Inner Left Container */}
-											<div className="w-1/2  h-full  justify-center  xl:gap-[30px]  mx-[10px] flex flex-col gap-[16px]    ">
+											<div className="w-1/2  h-full  justify-center  xl:gap-[30px]  mx-[10px] flex flex-col gap-[16px]">
 												<div className="flex items-center justify-between mr-1 ">
 													<h2 className="text-black font-bold xl:text-[20px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]">Myanmar</h2>
 													<div className="flex justify-end gap-[12px] p-0">
@@ -1608,12 +1622,10 @@ const Dashboard = () => {
 													<TextSectionCard2  height={"400px"}/>
 												</div>
 											</div>
-
 											{/* Vertical Dashed Line */}
 											<div className="mx-[10px] relative w-[1px] h-full bg-gray-300">
 												<div className="absolute  h-full border-dashed border-gray-300"></div>
 											</div>
-
 											{/* Inner Right Container */}
 											<div className="w-1/2  h-full xl:justify-center xl:items-center flex flex-col justify-center 2xl:gap-y-[40px]  px-[20px] ">
 												{/* top */}

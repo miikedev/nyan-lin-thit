@@ -1,5 +1,6 @@
 import { Box, Paper, Title } from '@mantine/core'
 import React from 'react'
+
 const Loading = ({height,width}) => {
   return (
     <Paper className='z-50 rounded' style={{height: "100%", width: width}}>

@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import {
-    useLocation,
-    useSearchParams
-} from "react-router-dom";
 //components
 import { Box, Container, Paper, Skeleton, Title } from '@mantine/core';
 import { Card } from '@nextui-org/react';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useSearchParams } from "react-router-dom";
+
 import { useResourcesData } from '../../apis/resourcesData';
 import { usePaginationContext } from '../../context/PaginationContext';
 import { useSearchContext } from '../../context/SearchContext';

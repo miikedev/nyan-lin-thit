@@ -1,7 +1,5 @@
-
-
-
 import React, { useState } from 'react';
+
 import Modal from './Modal';
 
 const TextSectionCard2 = ({height}) => {

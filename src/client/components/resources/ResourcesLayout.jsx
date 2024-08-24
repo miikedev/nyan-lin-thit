@@ -2,6 +2,7 @@ import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, T
 import { useAnimate } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
+
 import { others } from '../../../utils/tags'
 import { capitalizeFirstLetter } from '../../../utils/utils'
 import { PaginationProvider } from '../../context/PaginationContext'
@@ -9,6 +10,7 @@ import { useResourceContext } from '../../context/ResourceContext'
 import { useSearchContext } from '../../context/SearchContext'
 import { ChevronDown } from '../../icons/ChevronDown'
 import { SearchIcon } from '../../icons/SearchIcon'
+
 const ResourcesLayout = ({weeklyHighlightsTags, publicationTags, statementTags, advocacyTags}) => {
     const [scope, animate] = useAnimate();
     const { pathname } = useLocation()

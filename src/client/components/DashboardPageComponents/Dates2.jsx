@@ -1,8 +1,11 @@
 import React from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
 import CalendarIcon from "../DashboardPageComponents/assets2/calendar.svg";
+
 import "./Dates.css";
+import "react-datepicker/dist/react-datepicker.css";
+
 const Dates2 = ({ startDate, setStartDate, setEndDate, endDate }) => {  
   // const [startDate, setStartDate] = useState(null); // Initial state should be null  
   // const [endDate, setEndDate] = useState(null); // Initial state should be null  

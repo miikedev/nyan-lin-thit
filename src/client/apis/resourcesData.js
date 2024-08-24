@@ -1,4 +1,6 @@
-import { useQuery } from '@tanstack/react-query'; // Removed unused import keepPreviousData
+import { useQuery } from '@tanstack/react-query';
+
+// Removed unused import keepPreviousData
 import { fetchResources } from "./apiService";
 
 export const useResourcesData = (type, page, category, search) => {

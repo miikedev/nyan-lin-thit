@@ -3,9 +3,11 @@ import { Button, Input, Link } from '@nextui-org/react'
 import { useForm } from '@tanstack/react-form'
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { useSubscribe } from '../apis/subscribe'
 import Logo from '../icons/Logo'
 import SocialIcons from '../icons/socials/socialIcons'
+
 const Footer = () => {
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)
