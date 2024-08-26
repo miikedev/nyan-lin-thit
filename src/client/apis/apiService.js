@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 // Get the environment variables
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
 const IS_PRODUCTION = import.meta.env.ENV === 'production';
@@ -44,7 +45,6 @@ export const fetchDashboards = async(startDate, endDate) => {
 
 export const fetchDashboardChart = async(startDate,endDate) => {
   const paramString = (startDate != 'Invalid Date' && endDate != 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';
-  console.log('paramString', paramString)
   try {
     const {data} = await axios(`/api/dashboard/chart${paramString}`)
     return data;
@@ -53,9 +53,11 @@ export const fetchDashboardChart = async(startDate,endDate) => {
   }
 }
 
-export const fetchDashboardMap = async() => {
+export const fetchDashboardMap = async(startDate,endDate) => {
+  const paramString = (startDate != 'Invalid Date' && endDate != 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';
+  console.log('paramString', paramString)
   try {
-    const {data} = await axios(`/api/dashboard/map`)
+    const {data} = await axios(`/api/dashboard/map/${paramString}`)
     return data;
   } catch (error) {
     console.log(error)

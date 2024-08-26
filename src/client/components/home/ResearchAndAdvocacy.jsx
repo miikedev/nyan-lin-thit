@@ -1,6 +1,7 @@
 import { Box, Space } from '@mantine/core'
 import { Image } from '@nextui-org/react'
 import React from 'react'
+
 const ResearchAndAdvocacy = () => {
   return (
     <>

@@ -1,6 +1,8 @@
 import { Box, Space, Text, Title } from '@mantine/core'
 import { Button, Image } from '@nextui-org/react'
+
 import { useResourceContext } from '../../context/ResourceContext'
+
 const WeeklyHighlights = ({navigate}) => {
   const { setResource } = useResourceContext()
   return (

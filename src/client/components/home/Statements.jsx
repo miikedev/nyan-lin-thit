@@ -1,7 +1,9 @@
 import { Box, Grid, Image, Skeleton, Space, Text, Title } from '@mantine/core'
 import { Button, Card, CardFooter } from '@nextui-org/react'
+
 import { useResourcesData } from '../../apis/resourcesData'
 import { useResourceContext } from '../../context/ResourceContext'
+
 const Statements = ({navigate}) => {
     const { data, isLoading, error, isSuccess } = useResourcesData('statements');
 

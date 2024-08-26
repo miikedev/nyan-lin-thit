@@ -1,17 +1,21 @@
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
+
 import { useDashboardMapData } from "../../apis/dashboardData";
+import { useDashboardDateContext } from "../../context/DashboardDateContext";
+import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
 import myanmarGeoJSON from "../DashboardPageComponents/assets2/state_region.json";
 import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
-import "../DashboardPageComponents/DataMap.css";
 import icon1 from './assets2/airStrike.svg';
 import icon2 from './assets2/armed.svg';
 import icon5 from './assets2/arrest.svg';
 import icon4 from './assets2/casualty.svg';
 import icon3 from './assets2/massacre.svg';
+
+import "../DashboardPageComponents/DataMap.css";
+import "leaflet/dist/leaflet.css";
 
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
@@ -256,7 +260,27 @@ const iconMapping = {
 };
 
 const DataMap3 = ({ width, height }) => {
-	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData()
+	const caseName = {
+    1: "airstrikeIconObject",
+    2: "armed_clashesIconObject",
+    3: 'massacreIconObject',
+    4: 'casualtiesIconObject',
+    5: 'arrestsIconObject',
+  };
+	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
+
+  const { filterParams } = useDashboardFilterContext();
+  const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
+
+  const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
+
+	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData(
+    new Date(startDate).toLocaleDateString('en-CA'), 
+		new Date(endDate).toLocaleDateString('en-CA')
+  )
+  const filteredData = resultedParamNames.length > 0
+    ? mapData.filter(region => resultedParamNames.includes(region.icon))
+    : mapData;
 
   const zoomPropperties = {
     doubleClickZoom: true,
@@ -270,7 +294,7 @@ const DataMap3 = ({ width, height }) => {
     scrollWheelZoom: false,
   };
 
-  const displayedResult = mapData?.map(data => ({
+  const displayedResult = filteredData?.map(data => ({
     ...data, 
     icon: iconMapping[data?.icon]
   })
@@ -280,7 +304,7 @@ const DataMap3 = ({ width, height }) => {
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={` border-2 w-[${width}] h-[${height}] rounded-[4px]  flex justify-center items-center z-20`}
+        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10`}
       >
         <SetBounds />
         {

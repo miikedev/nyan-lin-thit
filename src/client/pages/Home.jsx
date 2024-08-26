@@ -2,6 +2,7 @@ import { Box } from '@mantine/core'
 import { motion } from 'framer-motion'
 import React, { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+
 import Blog from '../components/home/Blog'
 import Hero from '../components/home/Hero'
 import MissionVisionValues from '../components/home/MissionVisionValues'

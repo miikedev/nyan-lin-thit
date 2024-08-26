@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+
 import CalendarIcon from "../DashboardPageComponents/assets2/calendar.svg";
+
 import "./Dates.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Dates3 = ({fontSize}) => {
   const [startDate, setStartDate] = useState(null);

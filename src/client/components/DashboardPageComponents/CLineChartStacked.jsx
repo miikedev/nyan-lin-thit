@@ -126,10 +126,6 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
 
   if (newDataResult === undefined) return null;
 
-  console.log('paramResult', paramResult);
-  console.log('stacked chart', newDataResult);
-  console.log('filter params', resultedParamNames);
-
   const { labels, datasets: regionDataDatasets } = newDataResult.regionData;
 
   const filteredData = resultedParamNames.length > 0

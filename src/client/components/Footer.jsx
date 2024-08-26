@@ -3,20 +3,17 @@ import { Button, Input, Link } from '@nextui-org/react'
 import { useForm } from '@tanstack/react-form'
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { useSubscribe } from '../apis/subscribe'
 import Logo from '../icons/Logo'
 import SocialIcons from '../icons/socials/socialIcons'
+
 const Footer = () => {
   const [loading, setLoading] = useState(false)
   const [complete, setComplete] = useState(false)
   const {pathname} = useLocation();
   const {mutate,isSuccess,isError,isIdle,isLoading,data,error} = useSubscribe();
-  console.log('data: ' + data)
-  console.log('error: ' + error);
-  console.log('isSuccess: '+ isSuccess);
-  console.log('error: '+ error);
-  console.log('isLoading: '+ isLoading);
-  console.log('isIdle: '+ isIdle)
+
   const form = useForm({
     defaultValues: {
       email: '',
@@ -51,7 +48,6 @@ const Footer = () => {
               <form.Field
                 name="email"
                 validators={{ onChange: ({value}) => { 
-                  console.log(value);
                   if(value.length == 0) { 
                     return 'Please enter a valid email address to subscribe'; 
                   } else if (!/^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/.test(value)) { 

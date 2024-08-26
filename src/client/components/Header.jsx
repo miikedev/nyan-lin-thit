@@ -17,7 +17,7 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {pathname} = useLocation();
     const { resource, setResource } = useResourceContext();
-    console.log('resource', resource);
+
     const icons = {
         chevron: <ChevronDown fill="currentColor" size={16} />,
         // scale: <Scale className="text-warning" fill="currentColor" size={30} />,

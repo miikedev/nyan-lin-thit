@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchDashboardChart, fetchDashboardMap, fetchDashboards } from "./apiService";
+
 export const useDashboardData = () => {
 
   return useQuery({
@@ -24,7 +26,7 @@ export const useDashboardChartData = (startDate, endDate) => {
 export const useDashboardMapData = (startDate, endDate) => {
   return useQuery({
     queryKey: [`map`],
-    queryFn: () => fetchDashboardMap(),
+    queryFn: () => fetchDashboardMap(startDate,endDate),
     onSuccess: (data) => {
       console.log('resources fetch success!', data)
     }

@@ -1,5 +1,6 @@
 import { Box, Paper, Title } from '@mantine/core'
 import React from 'react'
+
 const NotFound = () => {
   return (
     <Paper>

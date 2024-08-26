@@ -1,6 +1,8 @@
 import { Pagination } from "@nextui-org/react";
 import React from "react";
+
 import { usePaginationContext } from "../../context/PaginationContext";
+
 const ResourcesPagination = ({pages, isPreviousData, data}) => {
     console.log('has more', data.hasMore)
     console.log('pages', pages)

@@ -1,12 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { lazy, Suspense } from 'react'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
-import './App.css'
 
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Layout from './client/components/Layout'
 import ResourcesLayout from './client/components/resources/ResourcesLayout'
 import ResourcesList from './client/components/resources/ResourcesList'
@@ -17,6 +13,9 @@ import Home from './client/pages/Home'
 import Loading from './client/pages/Loading'
 import NotFound from './client/pages/NotFound'
 import { advocacyTags, publicationTags, statementTags, weeklyHighlightsTags } from './utils/tags'
+
+import './App.css'
+
 const Dashboard = lazy(()=> import('./client/pages/Dashboard'));
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,7 +47,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           weeklyHighlightsTags.map((tag) => {
-            console.log(tag.to)
+
             return (
               <Route
                 path={tag.to}
@@ -65,7 +64,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           publicationTags.map((tag) => {
-            console.log(tag.to)
             return (
               <Route
                 path={tag.to}
@@ -98,7 +96,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           advocacyTags.map((tag) => {
-            console.log(tag.to)
             return (
               <Route
                 path={tag.to}
@@ -121,7 +118,7 @@ function App() {
     <SearchContextProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </SearchContextProvider>
   )

@@ -1,5 +1,6 @@
 import { Avatar, Box, Space, Text, Title } from '@mantine/core'
 import React from 'react'
+
 // import { Avatar } from '@nextui-org/react'
 const MissionVisionValues = ({motion}) => {
   return (

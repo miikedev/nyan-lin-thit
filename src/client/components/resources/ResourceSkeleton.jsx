@@ -1,5 +1,6 @@
 import { Box } from '@mantine/core'
 import { Card, Skeleton } from '@nextui-org/react'
+
 const ResourceSkeleton = () => {
   return (
     <Card className="space-y-2 p-4 min-w-96 w-96" radius='md'>

@@ -24,7 +24,6 @@ const Data = ({details, dataAll, dataResult, setDataResult}) => {
       } else {
         return [...prevSelectedData, data];
       }
-      
     });
   };
 
