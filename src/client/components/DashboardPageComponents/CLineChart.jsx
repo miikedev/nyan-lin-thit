@@ -2,7 +2,7 @@ import { CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, Poin
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
-ChartJS.register(
+ChartJS.register( 
   CategoryScale,
   LinearScale,
   PointElement,
@@ -46,11 +46,11 @@ export const options = {
 export default function CLineChart({ width, height, fontSize, isFullWidth, newDataResult, labels }) {
   // Get labels and datasets from dataResult  
   if(newDataResult === undefined) return ;
-  console.log('clineChart', newDataResult);
   const data = {
     labels: labels,
     datasets:newDataResult
   };
 
-  return <Line options={options} data={data} width={width} height={height}/>;
+  return <Line options={options} data={data} width={width} height={height}/>
+
 }

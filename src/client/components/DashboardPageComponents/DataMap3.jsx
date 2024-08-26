@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 
 import { useDashboardMapData } from "../../apis/dashboardData";
+import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
 import myanmarGeoJSON from "../DashboardPageComponents/assets2/state_region.json";
@@ -266,17 +267,21 @@ const DataMap3 = ({ width, height }) => {
     4: 'casualtiesIconObject',
     5: 'arrestsIconObject',
   };
+	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 
   const { filterParams } = useDashboardFilterContext();
   const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
-  console.log('map result param id', resultedParamId);
+
   const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
-  console.log(resultedParamNames)
-	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData()
+
+	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData(
+    new Date(startDate).toLocaleDateString('en-CA'), 
+		new Date(endDate).toLocaleDateString('en-CA')
+  )
   const filteredData = resultedParamNames.length > 0
     ? mapData.filter(region => resultedParamNames.includes(region.icon))
     : mapData;
-    console.log('map filtered data', filteredData)
+
   const zoomPropperties = {
     doubleClickZoom: true,
     closePopupOnClick: true,
@@ -299,7 +304,7 @@ const DataMap3 = ({ width, height }) => {
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-20`}
+        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10`}
       >
         <SetBounds />
         {

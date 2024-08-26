@@ -47,7 +47,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           weeklyHighlightsTags.map((tag) => {
-            console.log(tag.to)
+
             return (
               <Route
                 path={tag.to}
@@ -64,7 +64,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           publicationTags.map((tag) => {
-            console.log(tag.to)
             return (
               <Route
                 path={tag.to}
@@ -97,7 +96,6 @@ const router = createBrowserRouter(createRoutesFromElements(
       >
         {
           advocacyTags.map((tag) => {
-            console.log(tag.to)
             return (
               <Route
                 path={tag.to}
@@ -120,7 +118,7 @@ function App() {
     <SearchContextProvider>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       </QueryClientProvider>
     </SearchContextProvider>
   )

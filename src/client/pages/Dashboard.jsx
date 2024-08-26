@@ -4,7 +4,7 @@ import TextSectionCard from "../components/DashboardPageComponents/TextSectionCa
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 // Icons
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
 import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
@@ -67,6 +67,10 @@ const Dashboard = () => {
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
     const [isFullWidth, setIsFullWidth] = useState(false);  
     const [isDefaultLayout, setIsDefaultLayout] = useState(true);  
+	const [isModalOpen, setIsModalOpen] = useState(false);  
+	const [clineChartActive, setClineChartActive] = useState(false);
+	const [cLineChartStackedActive, setClineChartStackedActive] = useState(false);
+	const [CStackedBarChartActive, setCStackedBarChartActive] = useState(false);
 
     // Chart Sizes  
     const [ipadChartWidth, setIpadChartWidth] = useState(235);  
@@ -136,10 +140,8 @@ const Dashboard = () => {
             setDataResult(filteredData);  
         }  
     }; 
-
 	// if(isLoading && newIsLoading) return <Loading />
-
-	 return (
+	return (
 			<section className="bg-[#dedede] p-[20px] w-full h-auto">
 				{/*Mobile Phone Size */}
 				<div className="md:hidden mt-[25px] bg-white">
@@ -187,7 +189,7 @@ const Dashboard = () => {
 					<div className="max-md:hidden py-[10px]  w-full flex flex-col justify-center items-center">
 						{/* Top Container */}
 						<div
-							className={`relative bg-white w-full h-[260px] rounded-md flex justify-center items-center gap-[10px] py-[20px] mb-[10px]`}
+							className={`bg-white w-full h-[260px] rounded-md flex justify-center items-center gap-[10px] py-[20px] mb-[10px]`}
 						>
 							{!isFullWidth && (
 								<>
@@ -311,7 +313,7 @@ const Dashboard = () => {
 												<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
-												newDataResult={newData}
+													newDataResult={newData}
 												    dataResult={dataResult}
 													width={ipadChartWidthTwo}
 													height={fullChartHeight}
@@ -528,7 +530,7 @@ const Dashboard = () => {
 							<div className=" w-[735px]">
 								{/*Top Right Container */}
 								<div
-									className={`relative p-[5px] bg-white w-full h-[240px] rounded-md flex justify-center items-center  mb-[10px]`}
+									className={` p-[5px] bg-white w-full h-[240px] rounded-md flex justify-center items-center  mb-[10px]`}
 								>
 									{!isFullWidth && (
 										<>
@@ -543,14 +545,14 @@ const Dashboard = () => {
 													fontSize={chartFontSize2}
 													isFullWidth={false}
 												/> */}
-											<Suspense fallback={<Loading />}>
-												<CLineChart 
-												newDataResult={dataResult}
-												labels={labels}
-												dataResult={dataResult}
-												width={ipadChartWidth}
-												height = {ipadChartHeight}
-												/>
+												<Suspense fallback={<Loading />}>
+													<CLineChart 
+														newDataResult={dataResult}
+														labels={labels}
+														dataResult={dataResult}
+														width={ipadChartWidth}
+														height = {ipadChartHeight}
+													/>
 												</Suspense>
 											</div>
 											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
@@ -645,7 +647,7 @@ const Dashboard = () => {
 													<Suspense fallback={<Loading />}>
 														<CLineChartStacked 
 															paramResult={resultedParamNames}
-														newDataResult={newData}
+															newDataResult={newData}
 														    dataResult={dataResult}
 															width={ipadChartWidthTwo}
 															height={mediumChartHeight}
@@ -745,7 +747,7 @@ const Dashboard = () => {
 										</div>
 
 										{/* Vertical Dashed Line */}
-										<div className="relative w-[1px] h-full bg-gray-300">
+										<div className=" w-[1px] h-full bg-gray-300">
 											<div className="absolute  h-full border-dashed border-gray-300"></div>
 										</div>
 
@@ -779,7 +781,7 @@ const Dashboard = () => {
 												}
 
 											{/* Horizontal Dashed Line */}
-											<div className="relative h-[1px] mt-[10px] bg-gray-300">
+											<div className=" h-[1px] mt-[10px] bg-gray-300">
 												<div className="absolute w-full h-[1px] border-dashed border-gray-300"></div>
 											</div>
 
@@ -804,7 +806,7 @@ const Dashboard = () => {
 							<div className="max-w-[1133px] flex flex-col justify-center items-center">
 								{/* Top Container */}
 								<div
-									className={`relative bg-white w-full h-[232px] rounded-md flex justify-center items-center gap-[5px] p-[5px] mb-[10px]`}
+									className={` bg-white w-full h-[232px] rounded-md flex justify-center items-center gap-[5px] p-[5px] mb-[10px]`}
 								>
 									{!isFullWidth && (
 										<>
@@ -820,11 +822,11 @@ const Dashboard = () => {
 											/> */}
 											<Suspense fallback={<Loading />}>
 												<CLineChart 
-												newDataResult={dataResult}
-												labels={labels}
-												dataResult={dataResult}
-												width={smallChartWidthTwo}
-												height = {smallChartHeightTwo}
+													newDataResult={dataResult}
+													labels={labels}
+													dataResult={dataResult}
+													width={smallChartWidthTwo}
+													height = {smallChartHeightTwo}
 												/>
 											</Suspense>
 											</div>
@@ -843,10 +845,10 @@ const Dashboard = () => {
 											<Suspense fallback={<Loading />}>
 											<CLineChartStacked 
 												paramResult={resultedParamNames}
-											newDataResult={newData}
+												newDataResult={newData}
 											    dataResult={dataResult}
-											width={smallChartWidthTwo}
-											height= {smallChartHeightTwo}
+												width={smallChartWidthTwo}
+												height= {smallChartHeightTwo}
 											/>
 											</Suspense>
 											</div>
@@ -1109,12 +1111,12 @@ const Dashboard = () => {
 									animate={{ opacity: 1 }} 
 									transition={{ ease: "easeOut", duration: 1 }}
 									className="w-[30%] h-full rounded-md"
-									>
+								>
 									<div className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>						
-										</div>
+									</div>
 
 									<div className="bg-white max-2xl:hidden w-full h-[1200px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
@@ -1126,7 +1128,7 @@ const Dashboard = () => {
 								<div className=" w-[70%] xl:h-[640px] 2xl:h-[1200px] flex flex-col gap-y-[14px] ">
 									{/*Top Right Container */}
 									<div
-										className={`relative p-[5px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
+										className={`p-[5px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
 									>
 										{!isFullWidth && (
 											<>
@@ -1135,8 +1137,16 @@ const Dashboard = () => {
 													initial={{ opacity: 0 }} 
 													animate={{ opacity: 1 }} 
 													transition={{ ease: "easeOut", duration: 1 }}
-													className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
-													onClick={() => handleChartClick(0)}
+													// className="top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed"
+													className={
+														// hoverClick === 0 ? 
+														// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+														"w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
+													}
+													// className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
+													onClick={() => {
+														handleChartClick(0)
+													}}
 												>
 													<Suspense fallback={<Loading />}>
 													<CLineChart
@@ -1157,10 +1167,9 @@ const Dashboard = () => {
 													className="w-1/3  h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(1)}
 												>
-													
 													<CLineChartStacked 
 														paramResult={resultedParamNames}
-													newDataResult={newData}
+														newDataResult={newData}
 													    dataResult={dataResult}
 														width={smallChartWidth}
 														height={smallChartHeight}
@@ -1176,14 +1185,14 @@ const Dashboard = () => {
 													onClick={() => handleChartClick(2)}
 												>
 													{isSuccess && 
-												<Suspense fallback={<Loading />}>
-													<CStackedBarChart
-														datasets={dataResult}
-														labels={labels}
-														width={smallChartWidth}
-														height={smallChartHeight}
-													/>
-												</Suspense>
+														<Suspense fallback={<Loading />}>
+															<CStackedBarChart
+																datasets={dataResult}
+																labels={labels}
+																width={smallChartWidth}
+																height={smallChartHeight}
+															/>
+														</Suspense>
 													}
 												</motion.div>
 											</>
@@ -1192,17 +1201,19 @@ const Dashboard = () => {
 											<>
 												<div className="w-full  xl:h-[256px] 2xl:h-[450px] flex justify-center items-center py-[15px]">
 													{/* Left Navigate button */}
-													<button
-														className=" mr-[10px] text-[30px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
-														onClick={() =>
-															setActiveChart((activeChart - 1 + 3) % 3)
-														}
-													>
-														&lt;
-													</button>
+													<button  
+														className="fixed left-0 top-1/2 transform -translate-y-1/2 mr-[10px] text-[30px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none z-30"  
+														onClick={() => setActiveChart((activeChart - 1 + 3) % 3)}  
+													>  
+														&lt;  
+													</button> 
 													<div className="w-full xl:h-[256px] 2xl:h-[470px]  flex justify-center items-center">
-														<div className=" ">
+														<div>
 															{activeChart === 0 && (
+															<div
+																// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+																className="fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+															>
 															<Suspense fallback={<Loading />}>
 																<CLineChart
 																	newDataResult={dataResult}
@@ -1212,25 +1223,45 @@ const Dashboard = () => {
 																	height={mediumChartHeight}
 																/>
 															</Suspense>
+															<button
+																className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
+																onClick={() => setIsFullWidth(!isFullWidth)}
+															>
+																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
+															</button>
+															</div>
 															)}
 														</div>
-
-														<div className=" ">
+														<div>
 															{activeChart === 1 && (
-																<Suspense fallback={<Loading />}>
-																<CLineChartStacked 
-																	paramResult={resultedParamNames}
-																newDataResult={newData}
-																    dataResult={dataResult}
-																	width={mediumChartWidth}
-																	height={mediumChartHeight}
-																/>
-																</Suspense>
+																<div
+																// "top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+																className="fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+																>
+																	<Suspense fallback={<Loading />}>
+																		<CLineChartStacked 
+																			paramResult={resultedParamNames}
+																			newDataResult={newData}
+																			dataResult={dataResult}
+																			width={mediumChartWidth}
+																			height={mediumChartHeight}
+																		/>
+																	</Suspense>
+																	<button
+																		className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
+																		onClick={() => setIsFullWidth(!isFullWidth)}
+																	>
+																		<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
+																	</button>
+																</div>
 															)}
 														</div>
-
-														<div className=" ">
+														<div>
 															{isSuccess && activeChart === 2 && (
+															<div
+																// "top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+																className="fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+															>
 																<Suspense fallback={<Loading />}>
 																<CStackedBarChart
 																datasets={dataResult}
@@ -1239,12 +1270,19 @@ const Dashboard = () => {
 																	height={mediumChartHeight}
 																/>
 																</Suspense>
+																<button
+																	className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
+																	onClick={() => setIsFullWidth(!isFullWidth)}
+																>
+																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
+																</button>
+															</div>
 															)}
 														</div>
 													</div>
 													{/* Right Navigate Button */}
 													<button
-														className=" ml-[10px]  text-[30px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
+														className="fixed right-0 top-1/2 transform -translate-y-1/2 mr-[10px] text-[30px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none z-30"  
 														onClick={() => setActiveChart((activeChart + 1) % 3)}
 													>
 														&gt;
@@ -1252,16 +1290,16 @@ const Dashboard = () => {
 												</div>
 											</>
 										)}
-										<button
-											className="absolute bottom-0  right-[2px] w-[50px] h-[50px]  font-bold py-2 px-4 rounded"
+										{/* <button
+											className={`absolute bottom-0 right-[2px] w-[50px] h-[50px]  font-bold py-2 px-4 rounded`}
 											onClick={() => setIsFullWidth(!isFullWidth)}
 										>
-											{isFullWidth ? (
-												<img src={Min} className="w-[25px] h-[25px]" />
+											{!isFullWidth ? (
+												<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
 											) : (
 												<img src={Max} className="w-[25px] h-[25px]" />
 											)}
-										</button>
+										</button> */}
 									</div>
 
 									{/*Under Right Container  */}
@@ -1471,8 +1509,8 @@ const Dashboard = () => {
 														{isSuccess && activeChart === 2 && (
 															<Suspense fallback={<Loading />}>
 															 <CStackedBarChart
-															 datasets={dataResult}
-															 labels={labels}
+															 	datasets={dataResult}
+															 	labels={labels}
 																width={fullChartWidth}
 																height={fullChartHeight}
 															/>
@@ -1485,7 +1523,6 @@ const Dashboard = () => {
 													className=" text-[40px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
 													onClick={() => setActiveChart((activeChart + 1) % 3)}
 												>
-													{/* &#8594; */}
 													&gt;
 												</button>
 											</div>
@@ -1683,7 +1720,6 @@ const Dashboard = () => {
 				</div>
 			</section>
 	);
-	return null;
 };
 
 export default Dashboard;
