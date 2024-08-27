@@ -52,11 +52,12 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
   console.log('stackedBarChart datasets',datasets);
   const result_death = datasets.map(d => {
-    return { ...d, stack: 'death', label: d.label+'.death' };  
+
+    return { ...d, stack: 'death', label: d.label+'.death', backgroundColor: 'rgba(50, 50, 50, 0.8)'  };  
   })
   
   const result_injury = _.sampleSize(datasets,datasets.length).map(d => {
-     return { ...d, stack: 'injury', label: d.label+'.injury' };  
+     return { ...d, stack: 'injury', label: d.label+'.injury' ,backgroundColor: 'rgba(255, 0, 0, 0.8)'};  
 
   })
   const merge = [...result_death, ...result_injury]
