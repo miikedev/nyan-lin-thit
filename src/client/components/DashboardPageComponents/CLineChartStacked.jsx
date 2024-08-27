@@ -1,7 +1,7 @@
 import { CategoryScale, Chart as ChartJS, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-
+import _ from 'lodash';
 import { useDashboardFilterContext } from '../../context/DashboardFilterContext';
 
 ChartJS.register(
@@ -125,7 +125,7 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
   const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
 
   if (newDataResult === undefined) return null;
-
+  console.log('region data: ', newDataResult.regionData);
   const { labels, datasets: regionDataDatasets } = newDataResult.regionData;
 
   const filteredData = resultedParamNames.length > 0
@@ -137,12 +137,24 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
     return {
       label: region.label,
       data: region.data,
-      backgroundColor: colors.backgroundColor,
+      backgroundColor:colors.backgroundColor,
       borderColor: colors.borderColor,
       fill: true,
     };
   });
-
+  const result_2 = _.sampleSize(result, result.length).map(item => {  
+    // Create a deep copy of the item to avoid mutating the original  
+    const newItem = { ...item };  
+    // Check if stack is 'death' and replace it with 'injury'  
+    if (newItem.stack === 'death') {  
+        newItem.stack = 'injury'; 
+        newItem.backgroundColor = 'rgba(255, 0, 0, 0.4)';  // Adjust the color for 'death' stack
+    } 
+    return newItem;  
+});  
+const merge_result = [...result, ...result_2]
+console.log('merge', merge_result); 
+console.log('result_2:', result_2);
   const data = {
     labels: labels,
     datasets: result,
