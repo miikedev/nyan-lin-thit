@@ -52,11 +52,11 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
   console.log('stackedBarChart datasets',datasets);
   const result_death = datasets.map(d => {
-    return { ...d, stack: 'death' };  
+    return { ...d, stack: 'death', label: d.label+'.death' };  
   })
   
   const result_injury = _.sampleSize(datasets,datasets.length).map(d => {
-     return { ...d, stack: 'injury' };  
+     return { ...d, stack: 'injury', label: d.label+'.injury' };  
 
   })
   const merge = [...result_death, ...result_injury]
