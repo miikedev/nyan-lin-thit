@@ -1,7 +1,7 @@
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-
+import _ from 'lodash';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const options = {
     scales: {
@@ -50,9 +50,20 @@ const options = {
 
 export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
+  console.log('stackedBarChart datasets',datasets);
+  const result_death = datasets.map(d => {
+    return { ...d, stack: 'death' };  
+  })
+  
+  const result_injury = _.sampleSize(datasets,datasets.length).map(d => {
+     return { ...d, stack: 'injury' };  
+
+  })
+  const merge = [...result_death, ...result_injury]
+  console.log('stackbar merged: ',merge)
   const data = {
     labels: labels,
-    datasets: datasets
+    datasets: merge
   };
   return <Bar options={options} data={data} width={width} height={height}/>;
 }
