@@ -30,31 +30,40 @@ export const fetchResources = async (type, page, category, search) => {
   }  
 };  
 
-export const fetchDashboards = async (startDate, endDate) => {  
+// Fetch dashboards from the API  
+export const fetchDashboards = async () => {  
+  const url = constructUrl(`/dashboard`);  
+  
   try {  
-    const { data } = await axios(constructUrl(`/dashboard`));  
-    return data.dashboards[0];  
+    const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);  
+    return response.data.dashboards[0];  
   } catch (error) {  
-    console.log(`Error fetching dashboards:`, error);  
+    console.error(`Error fetching dashboards:`, error);  
   }  
 };  
 
+// Fetch dashboard chart data from the API  
 export const fetchDashboardChart = async (startDate, endDate) => {  
   const paramString = (startDate !== 'Invalid Date' && endDate !== 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';  
+  const url = constructUrl(`/dashboard/chart${paramString}`);  
+  
   try {  
-    const { data } = await axios(constructUrl(`/dashboard/chart${paramString}`));  
-    return data;  
+    const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);  
+    return response.data;  
   } catch (error) {  
-    console.log(`Error fetching dashboard chart:`, error);  
+    console.error(`Error fetching dashboard chart:`, error);  
   }  
 };  
 
+// Fetch dashboard map data from the API  
 export const fetchDashboardMap = async (startDate, endDate) => {  
   const paramString = (startDate !== 'Invalid Date' && endDate !== 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';  
+  const url = constructUrl(`/dashboard/map${paramString}`);  
+  
   try {  
-    const { data } = await axios(constructUrl(`/dashboard/map/${paramString}`));  
-    return data;  
+    const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);  
+    return response.data;  
   } catch (error) {  
-    console.log(`Error fetching dashboard map:`, error);  
+    console.error(`Error fetching dashboard map:`, error);  
   }  
-};
+};  
