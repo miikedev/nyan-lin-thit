@@ -219,7 +219,7 @@ const Dashboard = () => {
 									}
 									
 									</div>
-									<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+									<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 									{/*2 container */}
 									<div
 										className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -555,7 +555,7 @@ const Dashboard = () => {
 													/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 											{/*2 container */}
 											<div
 												className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -577,7 +577,7 @@ const Dashboard = () => {
 												/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 											{/* 3 container */}
 											<div
 												className="w-1/3  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -830,7 +830,7 @@ const Dashboard = () => {
 												/>
 											</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 											{/*2 container */}
 											<div
 												className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -1158,7 +1158,7 @@ const Dashboard = () => {
 													/>
 													</Suspense>
 												</motion.div>
-												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+												<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 												{/*2 container */}
 												<motion.div
 													initial={{ opacity: 0 }} 
@@ -1175,7 +1175,7 @@ const Dashboard = () => {
 														height={smallChartHeight}
 													/>
 												</motion.div>
-												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+												<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 												{/* 3 container */}
 												<motion.div
 													initial={{ opacity: 0 }} 
@@ -1361,9 +1361,11 @@ const Dashboard = () => {
 											</div>
 
 											{/* Vertical Dashed Line */}
-											<div className="relative w-[1px] h-[550px] bg-gray-300">
+											{/* <div className="relative w-[1px] h-[550px] bg-gray-300">
 												<div className="absolute  h-full border-dashed border-gray-300"></div>
-											</div>
+											</div> */}
+											<div className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1"></div>
+
 
 											{/* Inner Right Container */}
 											<div className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col  py-[10px]  px-[20px] 3xl:py-[20px] 2xl:gap-y-[20px] 3xl:gap-y-[30px] 3xl:px-[30px]">
@@ -1417,7 +1419,7 @@ const Dashboard = () => {
 												/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 											{/*2 container */}
 											<div
 												className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -1433,7 +1435,7 @@ const Dashboard = () => {
 												/>
 											</Suspense>
 											</div>
-											<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px]  h-[90%] bg-[#4d5eb2] border-1 border-dashed"></div>
 											{/* 3 container */}
 											<div
 												className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
