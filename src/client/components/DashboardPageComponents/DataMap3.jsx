@@ -229,31 +229,31 @@ const SetBounds = () => {
 const iconMapping = {
   airstrikeIconObject: L.icon({
     iconUrl: icon1,
-    iconSize: [13, 13],
+    iconSize: [8, 8],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),
   armed_clashesIconObject: L.icon({
     iconUrl: icon2,
-    iconSize: [13, 13],
+    iconSize: [8, 8],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),
   massacreIconObject: L.icon({
     iconUrl: icon3,
-    iconSize: [13, 13],
+    iconSize: [8, 8],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),
   casualtiesIconObject: L.icon({
     iconUrl: icon4,
-    iconSize: [13, 13],
+    iconSize: [8, 8],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),
   arrestsIconObject: L.icon({
     iconUrl: icon5,
-    iconSize: [13, 13],
+    iconSize: [8, 8],
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   }),

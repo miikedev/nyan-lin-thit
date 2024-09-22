@@ -55,7 +55,7 @@ const TextSectionCard = ({height, data}) => {
   return (
     <div>
       <div
-        className={`text-black border-[1px] border-[#e6e6e6] hover:bg-[#2c4766] hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
+        className={`text-black border-[1px] border-[#e6e6e6] hover:bg-[#3b82f680] transition-colors duration-300 hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
         onClick={handleCardClick}
       >
         {/* <div className="flex space-x-2 "> </div> */}
@@ -71,18 +71,18 @@ const TextSectionCard = ({height, data}) => {
             </button>
            
          
-        <div className="flex flex-col justify-between items-center gap-[10px]">
+        <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">
           <div>
-          <p className="font-[700] text-[14px]">{titles[currentIndex]}</p>
+          <p className="font-[700] md:font-semibold text-[20px] md:text-[16px]">{titles[currentIndex]}</p>
           </div>
           <div>
-          <p className="text-[11px]">{contents[currentIndex]}</p>
+          <p className="text-[16px] font-kanit font-[400] md:text-[10px]">{contents[currentIndex]}</p>
           </div>
         </div>
       
         
         <button
-              className="text-[20px] font-bold hover:text-[#0f2947] focus:outline-none"
+              className="text-[20px] font-bold hover:text-[#768ba28a] focus:outline-none"
               onClick={(e) => {
                 e.stopPropagation();
                 handleNextClick();
