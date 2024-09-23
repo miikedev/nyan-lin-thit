@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Kanit-400";
+    src: url("../public/fonts/Kanit/Kanit-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Poppins-700";
+    src: url("../public/fonts/Poppins/Poppins-Bold.ttf");
+}
+@font-face {
+    font-family: "Poppins-400";
+    src: url("../public/fonts/Poppins/Poppins-Regular.ttf");
+}

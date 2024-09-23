@@ -37,12 +37,10 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
   console.log('end date: ' + endDate);
   return (
     <div className=" w-full px-[30px] flex justify-center gap-[40px] 2xl:justify-evenly items-center">
-      
       <div className="mb-[10px] w-[100px] ">
         <div className={`mb-[10px] text-[${fontSize}] text-black `}>Start Date</div>
         <div className="w-full flex gap-[15px] justify-between items-center">
           <img src={CalendarIcon} className="w-[20px] h-[20px] text-white" />
-
           <DatePicker
              renderCustomHeader={({
               date,
@@ -102,12 +100,11 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
           />
         </div>
       </div>
-              {/* <div className="w-[1px] h-full bg-white "></div> */}
+      {/* <div className="w-[1px] h-full bg-white "></div> */}
       <div className="mb-[10px] w-[100px]">
         <h3 className={`mb-[10px] text-[${fontSize}] text-black`} >End Date</h3>
         <div className="w-full flex gap-[15px] justify-between items-center">
           <img src={CalendarIcon} className="w-[20px] h-[20px]" />
-
           <DatePicker
              renderCustomHeader={({
               date,

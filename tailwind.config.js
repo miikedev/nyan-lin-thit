@@ -10,6 +10,10 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    fontFamily: {
+      poppins: ["Poppins", "sans-serif"],
+      kanit: ["Kanit", "sans-serif"],
+    },
     extend: { 
       screens: {
         'lg':'1133px',
@@ -24,6 +28,11 @@ export default {
       themes: {
         light: {
           // ...
+          fontFamily: {
+            'poppins-700': ["Poppins-700", "sans-serif"],
+            'poppins-400': ["Poppins-400", "sans-serif"],
+            'kanit-400': ["Kanit-400", "sans"],
+          },
           colors: {
             background: "#ffffff", // or DEFAULT
             foreground: "#dfdfdf", // or 50 to 900 DEFAULT
@@ -38,6 +47,7 @@ export default {
             },
             // ... rest of the colors
           },
+          
         },
         dark: {
           // ...

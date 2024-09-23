@@ -1,5 +1,5 @@
-import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
-
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { Box } from "@mantine/core";
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
@@ -47,13 +47,11 @@ import Loading from '../pages/Loading';
 }
 const Dashboard = () => {
 	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
-	const { setFilteredData, filterParams } = useDashboardFilterContext();  
+	const { filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
 
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
-
-    const paramString = resultedParamNames.join(",");   
 
     const [labels, setLabels] = useState([]);   
 
@@ -219,7 +217,7 @@ const Dashboard = () => {
 									}
 									
 									</div>
-									<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+									<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 									{/*2 container */}
 									<div
 										className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -555,7 +553,7 @@ const Dashboard = () => {
 													/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 											{/*2 container */}
 											<div
 												className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -577,7 +575,7 @@ const Dashboard = () => {
 												/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]">---</div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1">---</div>
 											{/* 3 container */}
 											<div
 												className="w-1/3  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -701,15 +699,13 @@ const Dashboard = () => {
 											<div className="flex items-center justify-between mr-1">
 												<h2 className="text-black font-bold">Myanmar</h2>
 												<div className=" flex justify-end gap-[12px] p-0">
-													<button
-													
-													>
-															<img src={L1} 	className={`   ${
-																isDefaultLayout
-																	? "bg-blue-500 "
-																	: "bg-white"
-															} w-[25px] h-[25px] p-1 rounded`}
-															onClick={() => setIsDefaultLayout(true)}/>
+													<button>
+														<img src={L1} 	className={`${
+															isDefaultLayout
+																? "bg-blue-500 "
+																: "bg-white"
+														} w-[25px] h-[25px] p-1 rounded`}
+														onClick={() => setIsDefaultLayout(true)}/>
 													</button>
 													<button
 													
@@ -830,7 +826,7 @@ const Dashboard = () => {
 												/>
 											</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 											{/*2 container */}
 											<div
 												className="w-1/3   p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
@@ -1128,7 +1124,7 @@ const Dashboard = () => {
 								<div className=" w-[70%] xl:h-[640px] 2xl:h-[1200px] flex flex-col gap-y-[14px] ">
 									{/*Top Right Container */}
 									<div
-										className={`p-[5px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
+										className={`p-[20px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
 									>
 										{!isFullWidth && (
 											<>
@@ -1141,9 +1137,9 @@ const Dashboard = () => {
 													className={
 														// hoverClick === 0 ? 
 														// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
-														"w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
+														"w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center items-center"
 													}
-													// className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center items-center"
+													// className="w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center items-center"
 													onClick={() => {
 														handleChartClick(0)
 													}}
@@ -1158,13 +1154,13 @@ const Dashboard = () => {
 													/>
 													</Suspense>
 												</motion.div>
-												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+												<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 												{/*2 container */}
 												<motion.div
 													initial={{ opacity: 0 }} 
 													animate={{ opacity: 1 }} 
 													transition={{ ease: "easeOut", duration: 1 }}
-													className="w-1/3  h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
+													className="w-1/3  h-full p-[5px]  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(1)}
 												>
 													<CLineChartStacked 
@@ -1175,13 +1171,13 @@ const Dashboard = () => {
 														height={smallChartHeight}
 													/>
 												</motion.div>
-												<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+												<div className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></div>
 												{/* 3 container */}
 												<motion.div
 													initial={{ opacity: 0 }} 
 													animate={{ opacity: 1 }} 
 													transition={{ ease: "easeOut", duration: 1 }}
-													className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center items-center"
+													className="w-1/3 h-full p-[5px]  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-center"
 													onClick={() => handleChartClick(2)}
 												>
 													{isSuccess && 
@@ -1264,8 +1260,8 @@ const Dashboard = () => {
 															>
 																<Suspense fallback={<Loading />}>
 																<CStackedBarChart
-																datasets={dataResult}
-																labels={labels}
+																	datasets={dataResult}
+																	labels={labels}
 																	width={mediumChartWidth}
 																	height={mediumChartHeight}
 																/>
@@ -1301,18 +1297,16 @@ const Dashboard = () => {
 											)}
 										</button> */}
 									</div>
-
 									{/*Under Right Container  */}
 									<div className="bg-white w-full xl:h-[384px] 2xl:h-[720px] flex items-center rounded-md p-[20px]">
-										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center p-[10px] ">
+										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center">
 											{/* Inner Left Container */}
-											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] p-[14px]">
+											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] pl-[20px]">
 												<div className="flex items-center justify-between mr-1">
 													<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+
 													<div className=" flex justify-end gap-[12px] p-0">
-														<button
-														
-														>
+														<button>
 															<img src={L1} 	className={`   ${
 																isDefaultLayout
 																	? "bg-blue-500 "
@@ -1332,22 +1326,22 @@ const Dashboard = () => {
 														</button>
 													</div>
 												</div>
-												<div className="mb-[7px] bg-[#ffff] w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
+												<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
 													<img
 														src={Cicon}
 														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 													/>
-													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
+													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px] font-poppins">
 														{ timeSpan }
 													</p>
-												</div>
+												</Box>
 
-												<div className="flex items-center mb-[7px]">
+												<div className="flex items-center mb-[7px] xl:pl-[5px]">
 													<img
 														src={M}
 														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 													/>
-													<p className="text-black text-[11px] 2xl:text-[16px] ml-[10px]">
+													<p className="text-black text-[11px] 2xl:text-[14px] font-[500] ml-[10px]">
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
@@ -1361,27 +1355,24 @@ const Dashboard = () => {
 											</div>
 
 											{/* Vertical Dashed Line */}
-											<div className="relative w-[1px] h-[550px] bg-gray-300">
+											{/* <div className="relative w-[1px] h-[550px] bg-gray-300">
 												<div className="absolute  h-full border-dashed border-gray-300"></div>
-											</div>
+											</div> */}
+											<div className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1 mx-[20px]"></div>
+
 
 											{/* Inner Right Container */}
-											<div className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col  py-[10px]  px-[20px] 3xl:py-[20px] 2xl:gap-y-[20px] 3xl:gap-y-[30px] 3xl:px-[30px]">
+											<div className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col items-center py-[10px] pr-[20px] 3xl:py-[20px] 2xl:gap-y-[10px] 3xl:gap-y-[30px] 3xl:px-[30px]">
 												{/* top */}
 												
 												{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 
-												{/* Horizontal Dashed Line */}
-												<div className="relative h-[1px] mt-[10px] bg-gray-300">
-													<div className="absolute w-full h-[1px] border-dashed border-gray-300"></div>
-												</div>
-
 												{/* bottom  */}
-												<div className="relative w-full flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
-													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white flex items-center  rounded-md">
+												<div className="relative w-full flex justify-between items-center mt-[10px] 3xl:mt-[100px] gap-[60px] xl:gap-[10px]">
+													<div className="w-2/3 h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
-													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-[330px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+													<div className="w-1/3 h-[220px] 2xl:w-[40%] 3xl:w-[40%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
@@ -1394,17 +1385,16 @@ const Dashboard = () => {
 					) : (
 						<>
 							{/* Parent Container */}
-							<div className="w-full h-auto  flex flex-col justify-center items-center">
+							<div className="w-full h-auto flex flex-col justify-center items-center">
 								{/* Top Container */}
-
 								<div
-									className={`relative bg-white w-full h-[250px] xl:h-[256px] 2xl:h-[380px]  rounded-md flex justify-center items-center gap-[10px] p-[5px] mb-[10px]`}
+									className={`relative bg-white w-full h-[250px] xl:h-[256px] 2xl:h-[380px]  rounded-md flex justify-center items-center gap-[10px] p-[18px] mb-[20px]`}
 								>
 									{!isFullWidth && (
 										<>
 											{/*1 container */}
 											<div
-												className="w-1/3 h-full p-[5px] hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer  flex justify-center"
+												className="w-1/3 h-full hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center"
 												onClick={() => handleChartClick(0)}
 											>
 												<Suspense fallback={<Loading />}>
@@ -1417,26 +1407,26 @@ const Dashboard = () => {
 												/>
 												</Suspense>
 											</div>
-											<div className="w-[1px] h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1"></div>
 											{/*2 container */}
 											<div
-												className="w-1/3 h-full  p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
+												className="w-1/3 h-full   hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(1)}
 											>
 											<Suspense fallback={<Loading />}>
 												<CLineChartStacked 
 													paramResult={resultedParamNames}
-												newDataResult={newData}
+													newDataResult={newData}
 												    dataResult={dataResult}
 													width={smallChartWidthTwo}
 													height={smallChartHeightTwo}
 												/>
 											</Suspense>
 											</div>
-											<div className="w-[1px]  h-full bg-[#4d5eb2]"></div>
+											<div className="w-[1px] h-[90%] bg-[#4d5eb2] border-1 border-dashed"></div>
 											{/* 3 container */}
 											<div
-												className="w-1/3 h-full p-[5px]  hover:bg-[#233141] hover:bg-opacity-50 rounded cursor-pointer flex justify-center"
+												className="w-1/3 h-full z-10  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
 												onClick={() => handleChartClick(2)}
 											>
 												{isSuccess && 
@@ -1548,57 +1538,41 @@ const Dashboard = () => {
 										</>
 									)}
 									<button
-										className="absolute bottom-0  right-4 w-[50px] h-[50px]  font-bold py-2 px-4 rounded"
+										className="absolute bottom-0  right-0 w-[50px] h-[50px] z-20 bg-white font-bold py-2 px-4 rounded"
 										onClick={() => setIsFullWidth(!isFullWidth)}
 									>
 										{isFullWidth ? (
-											<img src={Min} className="w-[25px] h-[25px]" />
+											<img src={Min} className="w-[20px] h-[20px]" />
 										) : (
-											<img src={Max} className="w-[25px] h-[25px]" />
+											<img src={Max} className="w-[20px] h-[20px]" />
 										)}
 									</button>
 								</div>
-
 								{/* Bottom Parent Container */}
-								<div className="w-full  h-auto flex justify-between rounded-md">
-									{/*Bottom Left Container */}
-									{/* <div className="bg-[#161616] w-[30%] h-[720px] mr-[16px]">
-										<DataMap3 width={"full"} height={"720px"} />
-									</div> */}
-									{/* <div className="bg-white w-[30%] 2xl:hidden  h-[640px] mr-[16px] rounded-md">
-										<Suspense fallback={<Loading width={"100%"} height={"640px"}/>}>
-											<DataMap3 width={"full"} height={"640px"} />
-										</Suspense>
-									</div> */}
-
-									<div className="bg-white w-[30%] max-2xl:hidden  h-[800px] mr-[16px] rounded-md">
+								<div className="w-full h-auto flex justify-between rounded-md">
+									<div className="bg-white w-[30%] md:h-[640px] lg:h-[800px] mr-[16px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"800px"} />}>
 											<DataMap3 width={"full"} height={"800px"} />
 										</Suspense>
 									</div>
-
 									{/*Bottom Right Container  */}
-									<div className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex justify-center items-center rounded-md  p-[20px]">
-										<div className="w-full h-full bg-[#e6e6e6] rounded flex justify-between items-center p-[10px]">
+									<div className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex rounded-md p-[20px]">
+										<div className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
 											{/* Inner Left Container */}
-											<div className="w-1/2  h-full  justify-center  xl:gap-[30px]  mx-[10px] flex flex-col gap-[16px]">
+											<div className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
 												<div className="flex items-center justify-between mr-1 ">
 													<h2 className="text-black font-bold xl:text-[20px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]">Myanmar</h2>
 													<div className="flex justify-end gap-[12px] p-0">
-														<button
-															
-														>
-															<img src={L1} className={`p-1 rounded w-[30px] h-[30px]  ${
+														<button>
+															<img src={L1} className={`p-1 rounded-md w-[30px] h-[30px]  ${
 																isDefaultLayout
 																	? "bg-blue-500 "
 																	: "bg-white"
 															}`}
 															onClick={() => setIsDefaultLayout(true)}/>
 														</button>
-														<button
-														
-														>
-															<img src={L2} className={`p-1 rounded w-[30px] h-[30px]  ${
+														<button>
+															<img src={L2} className={`p-1 rounded-md w-[30px] h-[30px]  ${
 																isDefaultLayout
 																	? "bg-white "
 																	: "bg-blue-500"
@@ -1607,112 +1581,52 @@ const Dashboard = () => {
 														</button>
 													</div>
 												</div>
-												<div className="mb-[7px] bg-white w-[210px] h-[35px] 2xl:w-[300px] 2xl:h-[50px] border rounded-3xl px-3 flex items-center">
+												<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
 													<img
 														src={Cicon}
-														className="w-[15px] h-[15px] xl:w-[20px] xl:h-[20px] 2xl:w-[25px] 2xl:h-[25px] text-black"
+														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
 													/>
-													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px]">
+													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px] font-poppins">
 														{ timeSpan }
 													</p>
-												</div>
-
-												<div className="flex items-center mb-[7px]">
+												</Box>
+												<div className="flex items-center mb-[7px] xl:pl-[5px]">
 													<img
 														src={M}
-														className="w-[15px] h-[15px] xl:w-[18px] xl:h-[18px] 2xl:w-[25px] 2xl:h-[25px] text-white"
+														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
 													/>
-													<p className="text-black text-[11px] xl:text-[14px] 2xl:text-[16px] 3xl:text-[18px] 4xl:text-[20px] ml-[10px]">
+													<p className="text-black text-[11px] 2xl:text-[14px] font-[500] ml-[10px]">
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
-
-												{/* <div className="text-[#7EADE3] w-[379px] h-[321px] bg-[#303d4c] px-[40px] py-[20px]">
-													<p className="font-[700] mb-[7px] text-[20px]">
-													The massacre of the military group
-													</p>
-													<p className="text-[14px]">
-													Between September and December 2023, the military
-													group committed at least (37) mass killings in which
-													five (5) or more people were killed, and a total of
-													(283) civilians were killed.2021 From February 2023 As
-													of December, the military group has committed at least
-													(210) Between September and December 2023, the
-													military group committed at least (37) mass killings
-													in which five (5) or more people were killed, and a
-													total of (283){" "}
-													</p>
-												</div> */}
-
-												{/* <div className="max-2xl:hidden w-full h-[350px]">
-													<TextSectionCard2 height={'350px'}/>
-												</div> */}
-
-												
-
 												<div className="w-full 3xl:hidden max-h-[350px] ">
-													
 													<TextSectionCard2 height={"350px"} />
-													
 												</div>
 												<div className="w-full max-3xl:hidden h-[400px]">
 													<TextSectionCard2  height={"400px"}/>
 												</div>
 											</div>
 											{/* Vertical Dashed Line */}
-											<div className="mx-[10px] relative w-[1px] h-full bg-gray-300">
+											<div className="mx-[20px] h-[90%] relative w-[1px] bg-[#4d5eb2] border-1 border-dashed">
 												<div className="absolute  h-full border-dashed border-gray-300"></div>
 											</div>
 											{/* Inner Right Container */}
-											<div className="w-1/2  h-full xl:justify-center xl:items-center flex flex-col justify-center 2xl:gap-y-[40px]  px-[20px] ">
+											<div className="w-1/2 h-full xl:justify-center xl:items-start flex flex-col 2xl:gap-y-[20px]">
 												{/* top */}
-												{/* <div className="w-[369px] h-[20%] 2xl:w-full border-[1px] border-[#1e1835] bg-[#000408] rounded-md grid grid-cols-3 justify-center items-center pl-[25px]">
-													<div className="flex flex-col ">
-														<p className="text-[12px] text-[#A6A1C0]">Price</p>
-														<p className="text-[13px] text-white">$9,542.39</p>
-													</div>
-													<div className="flex flex-col ">
-														<p className="text-[12px] text-[#A6A1C0]">Price</p>
-														<p className="text-[13px] text-white">$9,542.39</p>
-													</div>
-													<div className="flex flex-col ">
-														<p className="text-[12px] text-[#A6A1C0]">Price</p>
-														<p className="text-[13px] text-white">$9,542.39</p>
-													</div>
-													<div className="flex flex-col ">
-														<p className="text-[12px] text-[#A6A1C0]">Price</p>
-														<p className="text-[13px] text-white">$9,542.39</p>
-													</div>
-													<div className="flex flex-col ">
-														<p className="text-[12px] text-[#A6A1C0]">Price</p>
-														<p className="text-[13px] text-white">$9,542.39</p>
-													</div>
-												</div> */}
 												{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
-
 												{/* bottom  */}
-												<div className="relative 4xl:hidden w-full flex flex-col items-center mt-[10px] 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
-													<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white   rounded-md">
+												<div className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
+													<div className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 													</div>
-													
-													<div className="w-full  h-[100px] border-[1px] border-[#e6e6e6] bg-white   rounded-md flex justify-center items-center">
+													<div className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 														<Dates startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
-													</div>
-												</div>
-
-												{/* bottom  */}
-												<div className="relative max-4xl:hidden w-full h-[55%]  flex justify-between  items-center mt-[10px] 3xl:mt-[15px] gap-[10px] xl:gap-[25px]">
-													<div className="w-[264px] h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  flex items-center  rounded-md">
-														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
-													</div>
-													<div className="w-[170px] h-[220px] 2xl:w-[200px] 3xl:w-[30%] 2xl:h-full border-[1px] border-[#e6e6e6] bg-white  rounded-md flex justify-center items-center">
-															<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
+									
 								</div>
 							</div>
 						</>
