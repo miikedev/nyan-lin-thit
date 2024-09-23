@@ -43,7 +43,7 @@ const Data2 = ({details}) => {
   return (
     <>
       {/* Datas */}
-      <div className=" w-full h-full px-[10px] py-[15px] gap-[5px]">
+      <div className=" w-full h-full flex flex-col items-start px-[10px] py-[15px] gap-[5px]">
         <div className="w-full flex justify-between text-[11px] px-[5px]">
           <div className=" text-black text-left">Filter By</div>
           <div>
