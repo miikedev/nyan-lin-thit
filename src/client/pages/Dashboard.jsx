@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Box } from "@mantine/core";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
-
+import { states } from "../../utils/sampleData";
 import { motion } from 'framer-motion';
 // Icons
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
@@ -45,6 +46,10 @@ import Loading from '../pages/Loading';
     4: 'casualties',
     5: 'arrests',
 }
+
+import { Menu, rem, Button } from '@mantine/core';
+import { ChevronDown } from "../icons/ChevronDown";
+import { capitalizeFirstLetter } from "../../utils/utils";
 const Dashboard = () => {
 	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 	const { filterParams } = useDashboardFilterContext();  
@@ -177,8 +182,8 @@ const Dashboard = () => {
 					</div>
 					{/* Bottom Section */}
 					<div className=" md:hidden bg-white  mt-[30px] px-[5px] mx-auto w-full  h-[420px] rounded-md">
-						<Suspense fallback={<Loading width={"100%"} height={"420px"} />}>
-							<DataMap3 width={"full"} height={"420px"} />
+						<Suspense fallback={<Loading width={"100%"} height={"800px"} />}>
+							<DataMap3 width={"full"} height={"800px"} />
 						</Suspense>
 					</div>
 				</div>
@@ -402,7 +407,21 @@ const Dashboard = () => {
 									{/* Inner Left Container */}
 									<div className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
 										<div className="flex items-center justify-between mr-1">
-											<h2 className="text-black font-bold">Myanmar</h2>
+												<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													<Menu.Target trigger="hover">
+														<Button variant="transparent">
+															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+															<ChevronDown fill="black" strokeWidth="2"/>
+														</Button>
+													</Menu.Target>
+													<Menu.Dropdown trigger="hover">
+													{
+														states.map(state=>{
+															<Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+														})
+													}
+													</Menu.Dropdown>
+												</Menu>
 											{/* <div className=" flex justify-end p-0">
 												<button
 												className={`p-1 rounded mr-2 ${
@@ -697,7 +716,21 @@ const Dashboard = () => {
 										{/* Inner Left Container */}
 										<div className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
 											<div className="flex items-center justify-between mr-1">
-												<h2 className="text-black font-bold">Myanmar</h2>
+												<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													<Menu.Target trigger="hover">
+														<Button variant="transparent">
+															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+															<ChevronDown fill="black" strokeWidth="2"/>
+														</Button>
+													</Menu.Target>
+													<Menu.Dropdown trigger="hover">
+													{
+														states.map(state=>{
+															return <Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+														})
+													}
+													</Menu.Dropdown>
+												</Menu>
 												<div className=" flex justify-end gap-[12px] p-0">
 													<button>
 														<img src={L1} 	className={`${
@@ -1006,7 +1039,21 @@ const Dashboard = () => {
 											{/* Inner Left Container */}
 											<div className="w-1/2 flex flex-col gap-[10px]    ">
 												<div className="flex items-center justify-between mr-1">
-													<h2 className="text-black font-bold">Myanmar</h2>
+												<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													<Menu.Target trigger="hover">
+														<Button variant="transparent">
+															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+															<ChevronDown fill="black" strokeWidth="2"/>
+														</Button>
+													</Menu.Target>
+													<Menu.Dropdown trigger="hover">
+													{
+														states.map(state=>{
+															<Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+														})
+													}
+													</Menu.Dropdown>
+													</Menu>
 													<div className="flex justify-end gap-[12px] p-0">
 														<button>
 														<img src={L1} 	className={`   ${
@@ -1113,7 +1160,6 @@ const Dashboard = () => {
 											<DataMap3 width={"full"} height={"640px"} />
 										</Suspense>						
 									</div>
-
 									<div className="bg-white max-2xl:hidden w-full h-[1200px] rounded-md">
 										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
 											<DataMap3 width={"full"} height={"1200px"} />
@@ -1303,8 +1349,23 @@ const Dashboard = () => {
 											{/* Inner Left Container */}
 											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] pl-[20px]">
 												<div className="flex items-center justify-between mr-1">
-													<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
-
+													<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													<Menu.Target trigger="hover">
+														<Button
+															variant="transparent"
+															radius="sm">
+															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+															<ChevronDown fill="black" strokeWidth="2"/>
+														</Button>
+													</Menu.Target>
+													<Menu.Dropdown trigger="hover">
+													{
+														states.map(state=>{
+															return <Menu.Item key={state.name} isFullWidth={true}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+														})
+													}
+													</Menu.Dropdown>
+													</Menu>
 													<div className=" flex justify-end gap-[12px] p-0">
 														<button>
 															<img src={L1} 	className={`   ${
@@ -1345,7 +1406,6 @@ const Dashboard = () => {
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</div>
-
 												<div className="2xl:hidden w-full h-[170px]  ">
 													{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
 												</div>
@@ -1355,9 +1415,6 @@ const Dashboard = () => {
 											</div>
 
 											{/* Vertical Dashed Line */}
-											{/* <div className="relative w-[1px] h-[550px] bg-gray-300">
-												<div className="absolute  h-full border-dashed border-gray-300"></div>
-											</div> */}
 											<div className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1 mx-[20px]"></div>
 
 
@@ -1455,7 +1512,6 @@ const Dashboard = () => {
 													{/* &#8592; */}
 													&lt;
 												</button>
-
 												<div className="w-full xl:h-[256px] 2xl:h-[380px]  flex justify-center items-center">
 													<div
 														className={`chart-transition ${
@@ -1549,19 +1605,64 @@ const Dashboard = () => {
 									</button>
 								</div>
 								{/* Bottom Parent Container */}
-								<div className="w-full h-auto flex justify-between rounded-md">
-									<div className="bg-white w-[30%] md:h-[640px] lg:h-[800px] mr-[16px] rounded-md">
-										<Suspense fallback={<Loading width={"370px"} height={"800px"} />}>
-											<DataMap3 width={"full"} height={"800px"} />
+								{/* <motion.div 
+									initial={{ opacity: 0 }} 
+									animate={{ opacity: 1 }} 
+									transition={{ ease: "easeOut", duration: 1 }}
+									className="w-[30%] h-full rounded-md"
+								>
+									<div className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
+										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+											<DataMap3 width={"full"} height={"640px"} />
+										</Suspense>						
+									</div>
+									<div className="bg-white max-2xl:hidden w-full h-[1200px] rounded-md">
+										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
+											<DataMap3 width={"full"} height={"1200px"} />
 										</Suspense>
 									</div>
+								</motion.div> */}
+								<div className="w-full h-auto flex justify-between rounded-md">
+
+									<motion.div 
+										initial={{ opacity: 0 }} 
+										animate={{ opacity: 1 }} 
+										transition={{ ease: "easeOut", duration: 1 }}
+										className="w-[30%] h-full rounded-md mr-[20px]"
+									>
+										{/* <div className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
+											<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
+												<DataMap3 width={"full"} height={"640px"} />
+											</Suspense>						
+										</div> */}
+										<div className="bg-white w-full h-[800px] rounded-md mr-[20px]">
+											<Suspense fallback={<Loading width={"370px"} height={"800px"} />}>
+												<DataMap3 width={"120%"} height={"800px"} scale="120" />
+											</Suspense>
+										</div>
+									</motion.div>
 									{/*Bottom Right Container  */}
 									<div className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex rounded-md p-[20px]">
 										<div className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
 											{/* Inner Left Container */}
 											<div className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
 												<div className="flex items-center justify-between mr-1 ">
-													<h2 className="text-black font-bold xl:text-[20px] 2xl:text-[24px] 3xl:text-[26px] 4xl:text-[28px]">Myanmar</h2>
+													<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													<Menu.Target trigger="hover">
+														<Button
+															variant="transparent" radius="sm">
+															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+															<ChevronDown fill="black" strokeWidth="2"/>
+														</Button>
+													</Menu.Target>
+													<Menu.Dropdown trigger="hover">
+													{
+														states.map(state=>{
+															return <Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+														})
+													}
+													</Menu.Dropdown>
+													</Menu>
 													<div className="flex justify-end gap-[12px] p-0">
 														<button>
 															<img src={L1} className={`p-1 rounded-md w-[30px] h-[30px]  ${
@@ -1626,7 +1727,7 @@ const Dashboard = () => {
 											</div>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 						</>

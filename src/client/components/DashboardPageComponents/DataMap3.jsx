@@ -259,7 +259,7 @@ const iconMapping = {
   }),
 };
 
-const DataMap3 = ({ width, height }) => {
+const DataMap3 = ({ width, height, scale=100 }) => {
 	const caseName = {
     1: "airstrikeIconObject",
     2: "armed_clashesIconObject",
@@ -304,7 +304,7 @@ const DataMap3 = ({ width, height }) => {
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10`}
+        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10 scale-${scale}`}
       >
         <SetBounds />
         {
@@ -316,7 +316,6 @@ const DataMap3 = ({ width, height }) => {
         }
       </MapContainer>
   );
-  return null;
 };
 
 export default DataMap3;

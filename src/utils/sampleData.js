@@ -1,3 +1,19 @@
+export const states = [  
+    { name: 'kachin', location: { sw: { lat: 25.0, lng: 97.0 }, ne: { lat: 28.0, lng: 99.0 } } },  
+    { name: 'kayar', location: { sw: { lat: 18.0, lng: 96.0 }, ne: { lat: 20.5, lng: 97.5 } } },  
+    { name: 'kayin', location: { sw: { lat: 15.0, lng: 97.0 }, ne: { lat: 18.0, lng: 98.5 } } },  
+    { name: 'chin', location: { sw: { lat: 21.0, lng: 92.0 }, ne: { lat: 23.5, lng: 94.5 } } },  
+    { name: 'mon', location: { sw: { lat: 15.0, lng: 97.5 }, ne: { lat: 17.5, lng: 99.5 } } },  
+    { name: 'rakhine', location: { sw: { lat: 16.5, lng: 92.0 }, ne: { lat: 20.0, lng: 95.0 } } },  
+    { name: 'shan', location: { sw: { lat: 19.0, lng: 96.0 }, ne: { lat: 24.0, lng: 99.0 } } },  
+    { name: 'yangon', location: { sw: { lat: 16.5, lng: 96.1 }, ne: { lat: 17.5, lng: 96.5 } } },  
+    { name: 'tanintharyi', location: { sw: { lat: 10.0, lng: 98.0 }, ne: { lat: 12.5, lng: 101.0 } } },  
+    { name: 'sagaing', location: { sw: { lat: 21.0, lng: 94.5 }, ne: { lat: 24.0, lng: 97.5 } } },  
+    { name: 'magway', location: { sw: { lat: 18.0, lng: 94.0 }, ne: { lat: 20.5, lng: 96.5 } } },  
+    { name: 'bago', location: { sw: { lat: 17.0, lng: 95.0 }, ne: { lat: 19.0, lng: 97.0 } } },  
+    { name: 'ayeyarwady', location: { sw: { lat: 15.0, lng: 94.5 }, ne: { lat: 18.0, lng: 97.5 } } },  
+    { name: 'mandalay', location: { sw: { lat: 20.0, lng: 96.0 }, ne: { lat: 22.0, lng: 97.5 } } },  
+];
 export const townships = [
     {
     "name": "ဘားအံ",

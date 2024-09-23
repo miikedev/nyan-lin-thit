@@ -55,7 +55,7 @@ const TextSectionCard = ({height, data}) => {
   return (
     <div>
       <div
-        className={`text-black border-[1px] border-[#e6e6e6] hover:bg-[#3b82f680] transition-colors duration-300 hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
+        className={`text-black border-[1px] border-[#e6e6e6] hover:bg-[#3b82f680] transition-all duration-300 ease-in-out hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
         onClick={handleCardClick}
       >
         {/* <div className="flex space-x-2 "> </div> */}
