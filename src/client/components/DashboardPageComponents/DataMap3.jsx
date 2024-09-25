@@ -143,7 +143,7 @@ const SetBounds = () => {
             layer.bindTooltip(feature.properties.DT, {
               permanent: true,
               direction: "center",
-              className: "text-black bg-transparent",
+              className: "text-red-800",
             });
           })
           
