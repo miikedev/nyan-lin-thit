@@ -138,11 +138,12 @@ const SetBounds = () => {
           //   direction: "center",
           //   className: "map-label",
           // });
+          
           layer.addEventListener('mouseenter', function() {
             layer.bindTooltip(feature.properties.DT, {
               permanent: true,
               direction: "center",
-              className: "text-black bg-transparent",
+              className: "text-red-800",
             });
           })
           
