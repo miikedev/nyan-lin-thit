@@ -23,8 +23,6 @@ import Dates2 from "../components/DashboardPageComponents/Dates2";
 
 import Detail from "../components/DashboardPageComponents/Detail";
 import TextSectionCard2 from "../components/DashboardPageComponents/TextSectionCard2";
-
-
 // Tab Section
 import CLineChart from "../components/DashboardPageComponents/CLineChart";
 import CLineChartStacked from "../components/DashboardPageComponents/CLineChartStacked";
@@ -50,6 +48,7 @@ import Loading from '../pages/Loading';
 import { Menu, rem, Button } from '@mantine/core';
 import { ChevronDown } from "../icons/ChevronDown";
 import { capitalizeFirstLetter } from "../../utils/utils";
+import MapFilterSelect from "../components/DashboardPageComponents/MapFilterSelect";
 const Dashboard = () => {
 	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 	const { filterParams } = useDashboardFilterContext();  
@@ -1349,7 +1348,7 @@ const Dashboard = () => {
 											{/* Inner Left Container */}
 											<div className="w-2/5  h-full flex flex-col justify-center  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] pl-[20px]">
 												<div className="flex items-center justify-between mr-1">
-													<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+													{/* <Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
 													<Menu.Target trigger="hover">
 														<Button
 															variant="transparent"
@@ -1365,7 +1364,8 @@ const Dashboard = () => {
 														})
 													}
 													</Menu.Dropdown>
-													</Menu>
+													</Menu> */}
+													<MapFilterSelect />
 													<div className=" flex justify-end gap-[12px] p-0">
 														<button>
 															<img src={L1} 	className={`   ${
@@ -1647,22 +1647,8 @@ const Dashboard = () => {
 											{/* Inner Left Container */}
 											<div className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
 												<div className="flex items-center justify-between mr-1 ">
-													<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
-													<Menu.Target trigger="hover">
-														<Button
-															variant="transparent" radius="sm">
-															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
-															<ChevronDown fill="black" strokeWidth="2"/>
-														</Button>
-													</Menu.Target>
-													<Menu.Dropdown trigger="hover">
-													{
-														states.map(state=>{
-															return <Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
-														})
-													}
-													</Menu.Dropdown>
-													</Menu>
+													<MapFilterSelect />
+
 													<div className="flex justify-end gap-[12px] p-0">
 														<button>
 															<img src={L1} className={`p-1 rounded-md w-[30px] h-[30px]  ${

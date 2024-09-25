@@ -1,11 +1,14 @@
+import { booleanPointInPolygon, point } from "@turf/turf";
 import L from "leaflet";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
+import { useSearchParams } from "react-router-dom";
 
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
+import myanmarGeoJSONNew from "../DashboardPageComponents/assets2/myanmar_geo.json";
 import myanmarGeoJSON from "../DashboardPageComponents/assets2/state_region.json";
 import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
 import icon1 from './assets2/airStrike.svg';
@@ -13,24 +16,71 @@ import icon2 from './assets2/armed.svg';
 import icon5 from './assets2/arrest.svg';
 import icon4 from './assets2/casualty.svg';
 import icon3 from './assets2/massacre.svg';
-
+import { districts } from "../../../utils/sampleData";
 import "../DashboardPageComponents/DataMap.css";
 import "leaflet/dist/leaflet.css";
 
+// Define icon mapping outside the component
+const iconMapping = {
+  airstrikeIconObject: L.icon({
+    iconUrl: icon1,
+    iconSize: [9, 9],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  armed_clashesIconObject: L.icon({
+    iconUrl: icon2,
+    iconSize: [9, 9],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  massacreIconObject: L.icon({
+    iconUrl: icon3,
+    iconSize: [9, 9],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  casualtiesIconObject: L.icon({
+    iconUrl: icon4,
+    iconSize: [9, 9],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+  arrestsIconObject: L.icon({
+    iconUrl: icon5,
+    iconSize: [9, 9],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32],
+  }),
+};
+
+const caseName = {
+  1: "airstrikeIconObject",
+  2: "armed_clashesIconObject",
+  3: 'massacreIconObject',
+  4: 'casualtiesIconObject',
+  5: 'arrestsIconObject',
+};
+
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
+  const [searchParams] = useSearchParams();
+  const filter_map = searchParams.get('filter_map');  
+  console.log('filter_map', filter_map);
   const map = useMap();
+  
   const defaultStyle = {
-    fillColor: "#3551a4",
+    // fillColor: "#3551a4",
+    fillColor: "#3551a440",
     fillOpacity: "1",
     color: "#83b4d4",
-    weight: "1",
+    weight: ".75",
   };
   const highlightedStyle = {
-    color: "#ff0000",
-    weight: "3",
+    color: "#0000ff50",
+    backgroundColor: "transparent",
+    weight: "2",
   };
-
   const resetZoom = () => {
     map.fitBounds(initialBounds);
   };
@@ -42,9 +92,10 @@ const SetBounds = () => {
     const townshipLayerGroup = L.layerGroup(); // Not added to map initially
 
     // Define state layer with onEachFeature logic
-    const stateLayer = new L.GeoJSON(myanmarGeoJSON, {
+    const stateLayer = new L.GeoJSON(myanmarGeoJSONNew, {
       onEachFeature: (feature, layer) => {
-        if (feature.properties && feature.properties.ST) {
+        if (feature.properties && feature.properties.DT) {
+        layer.addTo(stateLayerGroup);
           layer.on({
             mouseover: () => {
               layer.setStyle(highlightedStyle);
@@ -53,42 +104,62 @@ const SetBounds = () => {
               layer.setStyle(defaultStyle);
             },
             click: () => {
-              
-              map.fitBounds(layer.getBounds());
+              map.fitBounds(layer.bindTooltip(feature.properties.DT,{
+                className: "click-part"
+              }).getBounds());
             },
           });
-
+            // L.tooltip({
+            //   permanent: true,
+            //   direction: "center",
+            //   className: "map-label",
+            // })
+            //   .setLatLng(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
+            //   .setContent(feature.properties.DT)
+            //   .addTo(map);
           // Attach tooltips or any interactions here
-          if (feature.properties.ST === "Tanintharyi") {
-            L.tooltip({
+          // districts.forEach(d => {
+          //   console.log(d.DT)
+          //   if(feature.properties.DT === d.DT) {
+              // L.tooltip({
+              //   permanent: true,
+              //   direction: "center",
+              //   className: "map-label",
+              // })
+              //   .setLatLng(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
+              //   .setContent(feature.geometry.DT)
+              //   .addTo(map)
+          //   }
+          // })
+          // layer
+          // .marker(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
+          // .bindTooltip(feature.properties.DT, {
+          //   permanent: true,
+          //   direction: "center",
+          //   className: "map-label",
+          // });
+          layer.addEventListener('mouseenter', function() {
+            layer.bindTooltip(feature.properties.DT, {
               permanent: true,
               direction: "center",
-              className: "map-label",
-            })
-              .setLatLng([12.0825, 98.6586])
-              .setContent("Tanintharyi")
-              .addTo(map);
-          } else if (feature.properties.ST === "Yangon") {
-            L.tooltip({
-              permanent: true,
-              direction: "center",
-              className: "map-label",
-            })
-              .setLatLng([16.8661, 96.1951])
-              .setContent("Yangon")
-              .addTo(map);
-          } else {
-            layer.bindTooltip(feature.properties.ST, {
-              permanent: true,
-              direction: "center",
-              className: "map-label",
+              className: "text-black bg-transparent",
             });
-            // .openTooltip();
-          }
-          layer.addTo(stateLayerGroup); // Add each layer to the state layer group
+          })
+          
+          // if (layer.bindTooltip === "Kokang Self-Administered Zone") {
+          //   }
+          
+          // }
+          // L.tooltip({
+          //   permanent: true,
+          //   direction: "center",
+          //   className: "map-label",
+          // })
+          // .setLatLng([])
+          // .setContent(feature.properties.DT)
+          // .addTo(map);
         }
-      },
-    });
+    }});
 
     // Define city layer with onEachFeature logic
     const cityLayer = new L.GeoJSON(cityGeoJSON, {
@@ -226,58 +297,23 @@ const SetBounds = () => {
   );
 };
 
-const iconMapping = {
-  airstrikeIconObject: L.icon({
-    iconUrl: icon1,
-    iconSize: [8, 8],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  }),
-  armed_clashesIconObject: L.icon({
-    iconUrl: icon2,
-    iconSize: [8, 8],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  }),
-  massacreIconObject: L.icon({
-    iconUrl: icon3,
-    iconSize: [8, 8],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  }),
-  casualtiesIconObject: L.icon({
-    iconUrl: icon4,
-    iconSize: [8, 8],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  }),
-  arrestsIconObject: L.icon({
-    iconUrl: icon5,
-    iconSize: [8, 8],
-    iconAnchor: [16, 32],
-    popupAnchor: [0, -32],
-  }),
-};
+const DataMap3 = ({ width, height }) => {
+	const [searchParams] = useSearchParams();
+  const selectedState = searchParams.get('filter_map');  
 
-const DataMap3 = ({ width, height, scale=100 }) => {
-	const caseName = {
-    1: "airstrikeIconObject",
-    2: "armed_clashesIconObject",
-    3: 'massacreIconObject',
-    4: 'casualtiesIconObject',
-    5: 'arrestsIconObject',
-  };
-	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
+	const { startDate, setStartDate, endDate, setEndDate } = useDashboardDateContext();
 
   const { filterParams } = useDashboardFilterContext();
   const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
 
   const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
 
+  //fetching with react query
 	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData(
     new Date(startDate).toLocaleDateString('en-CA'), 
 		new Date(endDate).toLocaleDateString('en-CA')
   )
+  //filtering cases
   const filteredData = resultedParamNames.length > 0
     ? mapData.filter(region => resultedParamNames.includes(region.icon))
     : mapData;
@@ -294,17 +330,17 @@ const DataMap3 = ({ width, height, scale=100 }) => {
     scrollWheelZoom: false,
   };
 
+  // Further filter by selected parameters (e.g., incident type)
   const displayedResult = filteredData?.map(data => ({
-    ...data, 
+    ...data,
     icon: iconMapping[data?.icon]
-  })
-  )
+  }));
 
   return (
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10 scale-${scale}`}
+        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10`}
       >
         <SetBounds />
         {

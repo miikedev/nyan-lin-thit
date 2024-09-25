@@ -50,7 +50,7 @@ const options = {
 
 export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
-  console.log('stackedBarChart datasets',datasets);
+
   const result_death = datasets.map(d => {
 
     return { ...d, stack: 'death', label: d.label+'.death', backgroundColor: 'rgba(50, 50, 50, 0.8)'  };  
@@ -61,7 +61,7 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
 
   })
   const merge = [...result_death, ...result_injury]
-  console.log('stackbar merged: ',merge)
+
   const data = {
     labels: labels,
     datasets: merge

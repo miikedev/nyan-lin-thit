@@ -125,7 +125,6 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
   const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
 
   if (newDataResult === undefined) return null;
-  console.log('region data: ', newDataResult.regionData);
   const { labels, datasets: regionDataDatasets } = newDataResult.regionData;
 
   const filteredData = resultedParamNames.length > 0
@@ -153,8 +152,7 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
     return newItem;  
 });  
 const merge_result = [...result, ...result_2]
-console.log('merge', merge_result); 
-console.log('result_2:', result_2);
+
   const data = {
     labels: labels,
     datasets: result,
