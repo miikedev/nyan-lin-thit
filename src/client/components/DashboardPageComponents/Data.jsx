@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import L1 from '../DashboardPageComponents/assets2/airStrike.svg';
@@ -6,7 +6,7 @@ import L2 from "../DashboardPageComponents/assets2/armed.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
 import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L3 from "../DashboardPageComponents/assets2/massacre.svg";
-
+import { Stack, Box, Text, Button } from "@mantine/core";
 const Data = ({details, dataAll, dataResult, setDataResult}) => {
   const data = [
     { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , param : 'airstrike'},
@@ -40,47 +40,50 @@ const Data = ({details, dataAll, dataResult, setDataResult}) => {
   );
 
   return (
-    <>
-      {/* Datas */}
-      <div className="w-full flex flex-col px-[10px] py-[15px] gap-[5px]">
-        <div className="w-full flex justify-between text-[14px] px-[7px]">
-          <div className="text-black 2xl:text-[14px] text-left">Filter Byy</div>
-          <div className="2xl:text-[14px]">
-            {isAllSelected ? (
+    <Box className="p-[20px] w-full">
+      <Stack className="w-full" align="stretch" bg="transparent">
+        <Box className="flex justify-between text-[14px] w-full">
+          <Text className="">filter by</Text>
+          <Box className="text-[14px]">
+            {isAllSelected && (
               <button
                 className="text-black hover:text-blue-500"
                 onClick={handleClearAll}
               >
-                clear all
+                <Text>clear all</Text>
               </button>
-            ) : (
-              <button
-                className="text-black hover:text-blue-500"
-                onClick={handleSelectAll}
-              >
-                select all
-              </button>
-            )}
-          </div>
-        </div>
+            ) 
+            // : (
+            //   <button
+            //     className="text-black hover:text-blue-500"
+            //     onClick={handleSelectAll}
+            //   >
+            //     select all
+            //   </button>
+            // )
+            }
+          </Box>
+        </Box>
+        <Stack>
         {data.map(({ id, name, number, logo }) => (
-          <div
+          <Button
+            bg={filterParams.some((d) => d.id === id) ? "#A2CBFE" : "#e6e6e6"}
             key={id}
-            className={`w-full cursor-pointer border-[1px] border-[#e6e6e6] flex justify-between items-center py-[5px] px-[7px] rounded-md ${
-              filterParams.some((d) => d.id === id) ? "bg-[#0f007b] text-white " : "bg-[#e6e6e6] text-black"
-            }`}
+            className={`w-full cursor-pointer`}
             onClick={() => handleDataClick({ id, name, number, logo })}
           >
-            <div>
-              <img src={logo} alt="logo" className="w-[15px] h-[15px] 2xl:w-[13px] 2xl:h-[18px]" />
+            <div className="flex w-full justify-between text-[#212121]">
+              <Box className="flex">
+                <img src={logo} alt="logo" className="w-[15px] h-[15px]" />
+                <Text className="text-[13px] 2xl:text-[12px]" size="xs">{name.toLowerCase()}</Text>
+              </Box>
+              <Text className="text-[13px] 2xl:text-[12px]" size="xs">{number} {number>1 ? 'cases': 'case'}</Text>
             </div>
-            <div className="text-[13px] 2xl:text-[12px] text-left font-poppins">{name}</div>
-            <div className="text-[13px] 2xl:text-[12px] text-left font-poppins">{number} Cases</div>
-          </div>
+          </Button>
         ))}
-      </div>
-    </>
-    
+        </Stack>
+      </Stack>
+    </Box>
   );
 };
 

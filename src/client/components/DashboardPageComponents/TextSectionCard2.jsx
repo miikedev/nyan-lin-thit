@@ -45,38 +45,36 @@ const TextSectionCard2 = ({height}) => {
   return (
     <div>
       <div
-        className={`text-black  border-[1px] border-[#e6e6e6] w-full h-[${height}]  hover:bg-[#3b82f680] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-between items-center cursor-pointer gap-x-[20px]`}
+        className={`text-black  border-[1px] border-[#e6e6e6] hover:text-[#001F3F] w-full h-[${height}]  hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-between items-center cursor-pointer gap-x-[20px]`}
         onClick={handleCardClick}
       >
         {/* <div className="flex space-x-2 "> </div> */}
-            <button
+            {/* <button
               className="text-[35px] font-bold hover:text-[#0f2947]"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePrevClick();
               }}
             >
-              {/* &#8592; */}
               &lt;
-            </button>
+            </button> */}
             <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">
               <div>
               <p className="font-[700] text-[20px]">{titles[currentIndex]}</p>
               </div>
               <div>
-              <p className="text-[16px] font-kanit font-[400]">{contents[currentIndex]}</p>
+              <p className="text-[14px] font-kanit font-[400] ">{contents[currentIndex]}</p>
               </div>
             </div>
-        <button
+            {/* <button
               className="text-[35px] font-bold hover:text-[#0f2947] focus:outline-none"
               onClick={(e) => {
                 e.stopPropagation();
                 handleNextClick();
               }}
             >
-              {/* &#8594; */}
               &gt;
-            </button>
+            </button> */}
       </div>
 
       <Modal
