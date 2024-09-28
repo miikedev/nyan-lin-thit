@@ -1,5 +1,6 @@
 import { Box, Grid, Space, Stack } from "@mantine/core";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+
 import calendar from '../../assets/ic_date.svg'
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
@@ -405,77 +406,79 @@ const Dashboard = () => {
 							<Box className="bg-white w-full h-[393px] flex items-center rounded-md px-[20px] py-[10px]">
 								<Box className="w-full h-[360px] bg-[#e6e6e6] rounded flex justify-between items-center py-[20px] ">
 									{/* Inner Left Container */}
-									<Box className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
-										<Box className="flex items-center justify-between mr-1">
-												<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
-													<Menu.Target trigger="hover">
-														<Button variant="transparent">
-															<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
-															<ChevronDown fill="black" strokeWidth="2"/>
-														</Button>
-													</Menu.Target>
-													<Menu.Dropdown trigger="hover">
-													{
-														states.map(state=>{
-															<Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
-														})
-													}
-													</Menu.Dropdown>
-												</Menu>
-											{/* <Box className=" flex justify-end p-0">
-												<button
-												className={`p-1 rounded mr-2 ${
-													isDefaultLayout
-													? "bg-blue-500 text-white"
-													: "bg-gray-300"
-												}`}
-												onClick={() => setIsDefaultLayout(true)}
-												>
-												L1
-												</button>
-												<button
-												className={`p-1 rounded ${
-													isDefaultLayout
-													? "bg-gray-300"
-													: "bg-blue-500 text-white"
-												}`}
-												onClick={() => setIsDefaultLayout(false)}
-												>
-												L2
-												</button>
-											</Box> */}
-										</Box>
-										<Box className="mb-[7px] bg-white w-[210px] h-[35px] border rounded-3xl px-3 flex items-center">
-											<img src={Cicon} className="w-[15px] h-[15px] text-white" />
-											<p className="text-black text-[12px] ml-[16px]">
-												{ timeSpan }
-											</p>
-										</Box>
+									<Stack className="w-2/5  h-full  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] mt-[50px]">
+													<Box className="flex items-center justify-between mr-1">
+														{/* <Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
+														<Menu.Target trigger="hover">
+															<Button
+																variant="transparent"
+																radius="sm">
+																<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
+																<ChevronDown fill="black" strokeWidth="2"/>
+															</Button>
+														</Menu.Target>
+														<Menu.Dropdown trigger="hover">
+														{
+															states.map(state=>{
+																return <Menu.Item key={state.name} isFullWidth={true}>{capitalizeFirstLetter(state.name)}</Menu.Item>
+															})
+														}
+														</Menu.Dropdown>
+														</Menu> */}
+														<MapFilterSelect />
+														<Box className=" flex justify-end gap-[12px] p-0">
+															{/* <button>
+																<img src={L1} 	className={`${
+																	isDefaultLayout
+																		? "bg-[#1B59F8] "
+																		: "bg-[#1B59F842]"
+																} w-[30px] h-[30px] p-1 rounded`}
+																onClick={() => setIsDefaultLayout(true)}/>
+															</button>
+															<button
+																
+															>
+																<img src={L2} className={` ${
+																	isDefaultLayout
+																		? "bg-[#1B59F842]"
+																		: "bg-[#1B59F8]"
+																} w-[30px] h-[30px] p-1 rounded`}
+																onClick={() => setIsDefaultLayout(false)}/>
+															</button> */}
+															<button onClick={()=>setIsDefaultLayout(true)}>
+																<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'}/>
+															</button>
+															<button onClick={()=>setIsDefaultLayout(false)}>
+																<SecondLayout color={!isDefaultLayout? '#1B59F8' : '#1B59F842'}/>
+															</button>
+														</Box>
+													</Box>
+													<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
+														<img
+															src={calendar}
+															className="w-[12px] h-[12px] 2xl:w-[20px] 2xl:h-[20px] text-white"
+														/>
+														<p className="text-black text-[12px] 2xl:text-[12px] ml-[16px] font-poppins-400">
+															{ timeSpan }
+														</p>
+													</Box>
 
-										<Box className="flex items-center mb-[7px]">
-											<img src={M} className="w-[15px] h-[15px] text-black" />
-											<p className="text-black text-[11px] ml-[10px]">
-												{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
-											</p>
-										</Box>
-
-										{/* <Box className="text-[#7EADE3] w-[274px] h-[183px] bg-[#303d4c] px-[20px] py-[7px]">
-										<p className="font-[700] mb-[7px]">
-											The massacre of the military group
-										</p>
-										<p className="text-[11px]">
-											Between September and December 2023, the military group
-											committed at least (37) mass killings in which five (5)
-											or more people were killed, and a total of (283)
-											civilians were killed.2021 From February 2023 As of
-											December, the military group has committed at least
-											(210){" "}
-										</p>
-										</Box> */}
-										<Box>
-											{<TextSectionCard data={news} />}
-										</Box>
-									</Box>
+													<Box className="flex items-center mb-[7px] xl:pl-[5px]">
+														<img
+															src={M}
+															className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
+														/>
+														<p className="text-black text-[11px] 2xl:text-[12px] font-[500] ml-[10px]">
+															{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
+														</p>
+													</Box>
+													<Box className="2xl:hidden w-full h-[170px]  ">
+														{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
+													</Box>
+													<Box className="max-2xl:hidden w-full h-[350px]">
+														<TextSectionCard2 height={'350px'}/>
+													</Box>
+												</Stack>
 
 									{/* Vertical Dashed Line */}
 									<Box className="relative w-[1px] h-full bg-gray-300">
@@ -1157,8 +1160,8 @@ const Dashboard = () => {
 										transition={{ ease: "easeOut", duration: 1 }}
 									>
 										{/* <Box className="bg-white 2xl:hidden w-full h-[640px] rounded-md"> */}
-										<Box bg={{base: '#A2CBFE'}} h={{lg: "1140px"}} className="rounded-md">
-											<Suspense fallback={<Loading width={"35vw"} height={"100%"} />}>
+										<Box bg={{base: '#A2CBFE'}} className="rounded-md">
+											<Suspense fallback={<Loading width={"35vw"} />}>
 												<DataMap3 height={"1140px"}/>
 											</Suspense>					
 										</Box>	
@@ -1429,7 +1432,7 @@ const Dashboard = () => {
 												{/* Vertical Dashed Line */}
 												<Box className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1 mx-[20px]"></Box>
 												{/* Inner Right Container */}
-												<Box className="w-3/5  h-full 2xl:justify-center 2xl:items-center flex flex-col items-center py-[10px] pr-[20px] 3xl:py-[20px] 2xl:gap-y-[10px] 3xl:gap-y-[30px] 3xl:px-[30px]">
+												<Box className="">
 													{/* top */}
 													{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 													{/* bottom  */}
@@ -1645,8 +1648,8 @@ const Dashboard = () => {
 											</Suspense>						
 										</Box> */}
 										<Box className="w-full h-[800px] rounded-md mr-[20px]" bg={{base: '#A2CBFE'}}>
-											<Suspense fallback={<Loading width={"100%"} height={"full"} />}>
-												<DataMap3 height={"800px"} />
+											<Suspense fallback={<Loading />}>
+												{!isFullWidth &&<DataMap3 height={"800px"} />}
 											</Suspense>
 										</Box>
 									</motion.div>
@@ -1654,7 +1657,7 @@ const Dashboard = () => {
 									<Box className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex rounded-md p-[20px]">
 										<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
 											{/* Inner Left Container */}
-											<Box className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
+											{/* <Box className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
 												<Box className="flex items-center justify-between mr-1 ">
 													<MapFilterSelect />
 
@@ -1691,25 +1694,60 @@ const Dashboard = () => {
 												<Box className="w-full max-3xl:hidden h-[400px]">
 													<TextSectionCard2  height={"400px"}/>
 												</Box>
-											</Box>
+											</Box> */}
+											<Stack className="w-[50%] h-[80%]">
+												<Box className="flex items-center justify-between mr-1">
+													<MapFilterSelect />
+													<Box className=" flex justify-end gap-[12px] p-0">
+														<button onClick={()=>setIsDefaultLayout(true)}>
+															<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'}/>
+														</button>
+														<button onClick={()=>setIsDefaultLayout(false)}>
+															<SecondLayout color={!isDefaultLayout? '#1B59F8' : '#1B59F842'}/>
+														</button>
+													</Box>
+												</Box>
+												<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
+														<img
+															src={calendar}
+															className="w-[12px] h-[12px] 2xl:w-[20px] 2xl:h-[20px] text-white"
+														/>
+														<p className="text-black text-[12px] 2xl:text-[12px] ml-[16px] font-poppins-400">
+															{ timeSpan }
+														</p>
+												</Box>
+												<Box className="flex items-center mb-[7px] xl:pl-[5px]">
+													<img
+														src={M}
+														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
+													/>
+													<p className="text-black text-[11px] 2xl:text-[12px] font-[500] ml-[10px]">
+														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
+													</p>
+												</Box>
+												<Box className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white pt-2 rounded-md flex items-center">
+													<Dates fontSize={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
+												</Box>
+												<Box className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
+													<Box className="w-full border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
+														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
+													</Box>
+												</Box>
+											</Stack>
 											{/* Vertical Dashed Line */}
 											<Box className="mx-[20px] h-[90%] relative w-[1px] bg-[#4d5eb2] border-1 border-dashed">
 												<Box className="absolute  h-full border-dashed border-gray-300"></Box>
 											</Box>
 											{/* Inner Right Container */}
-											<Box className="w-1/2 h-full xl:justify-center xl:items-start flex flex-col 2xl:gap-y-[20px]">
+											<Stack className="w-[50%] h-[80%]">
 												{/* top */}
 												{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 												{/* bottom  */}
-												<Box className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
-													<Box className="w-full h-[227px] border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
-														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
-													</Box>
-													<Box className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-														<Dates startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
-													</Box>
+												
+												<Box className="max-2xl:hidden w-full">
+													{isSuccess && data && <TextSectionCard2 data={news} height={"200px"} />}
 												</Box>
-											</Box>
+											</Stack>
 										</Box>
 									</Box>
 

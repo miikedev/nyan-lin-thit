@@ -37,9 +37,9 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
   console.log('end date: ' + endDate);
   return (
     <div className=" w-full px-[30px] flex justify-center gap-[40px] 2xl:justify-evenly items-center">
-      <div className="mb-[10px] w-[100px] ">
-        <div className={`mb-[10px] text-[${fontSize}] text-black `}>Start Date</div>
-        <div className="w-full flex gap-[15px] justify-between items-center">
+      <div className="mb-[10px] w-[50%] rounded-md">
+        <h3 className={`mb-[10px] text-[${fontSize}] text-black  font-poppins`}>Start Date</h3>
+        <div className="w-full flex gap-[15px] justify-start items-center">
           <img src={CalendarIcon} className="w-[20px] h-[20px] text-white" />
           <DatePicker
              renderCustomHeader={({
@@ -95,15 +95,15 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
             startDate={startDate}
             endDate={endDate}
             dateFormat="dd/MM/yyyy"
-            className="custom-input"
-            placeholderText="Add dates"
+            className="custom-input placeholder:font-medium"
+            placeholderText="add date"
           />
         </div>
       </div>
       {/* <div className="w-[1px] h-full bg-white "></div> */}
-      <div className="mb-[10px] w-[100px]">
-        <h3 className={`mb-[10px] text-[${fontSize}] text-black`} >End Date</h3>
-        <div className="w-full flex gap-[15px] justify-between items-center">
+      <div className="mb-[10px] w-[50%]  rounded-md">
+        <h3 className={`mb-[10px] text-[${fontSize}] text-black font-poppins`} >End Date</h3>
+        <div className="w-full flex gap-[15px] justify-start items-center">
           <img src={CalendarIcon} className="w-[20px] h-[20px]" />
           <DatePicker
              renderCustomHeader={({
@@ -159,8 +159,8 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
             minDate={startDate}
             selected={endDate}
             onChange={(date) => setEndDate(date)}
-            className="custom-input"
-            placeholderText="Add dates"
+            className="custom-input placeholder:font-medium"
+            placeholderText="add dates"
           />
         </div>
       </div>

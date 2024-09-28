@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
 
+import { ToolTipForStates } from "../../../utils/tooltipForStates";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
@@ -15,7 +16,6 @@ import icon2 from './assets2/armed.svg';
 import icon5 from './assets2/arrest.svg';
 import icon4 from './assets2/casualty.svg';
 import icon3 from './assets2/massacre.svg';
-import { ToolTipForStates } from "../../../utils/tooltipForStates";
 
 import "../DashboardPageComponents/DataMap.css";
 import "leaflet/dist/leaflet.css";
@@ -270,7 +270,7 @@ const SetBounds = () => {
   );
 };
 
-const DataMap3 = ({ width, height }) => {
+const DataMap3 = ({ height }) => {
 	const [searchParams] = useSearchParams();
   const selectedState = searchParams.get('filter_map');  
 
@@ -314,7 +314,7 @@ const DataMap3 = ({ width, height }) => {
         id="leaflet-container"
         {...zoomPropperties}
         // className={`border-none z-10`}
-        className={`border-none shadow-sm rounded-md h-[${height}] flex justify-center items-center z-10 text-black`}
+        className={`border-none shadow-sm rounded-md w-[100%] h-[${height}] flex justify-center items-center z-10 text-black`}
         // style={{width: width, height: height}}
       >
         <SetBounds />
