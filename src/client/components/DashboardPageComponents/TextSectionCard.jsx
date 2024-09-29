@@ -68,7 +68,7 @@ const TextSectionCard = ({height, data}) => {
             >
               &lt;
             </button> */}
-           
+           hi
          
         <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">
           <div>
@@ -91,12 +91,12 @@ const TextSectionCard = ({height, data}) => {
             </button> */}
       </div>
 
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onClose={handleModalClose}
         title={modalTitle}
         content={modalContent}
-      />
+      /> */}
     </div>
   );
 };
