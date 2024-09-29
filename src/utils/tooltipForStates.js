@@ -91,6 +91,15 @@ export function ToolTipForStates(feature, map, L,layer) {
           .setLatLng([20.1544, 94.9321])
           .setContent("Magway")
           .addTo(map);
+      }else if (feature.properties.ST === "Bago (East)") {
+        L.tooltip({
+          permanent: true,
+          direction: "center",
+          className: "map-label",
+        })
+          .setLatLng([18.0750, 96.4404])
+          .setContent("Bago")
+          .addTo(map);
       } else if (feature.properties.ST === "Mandalay") {
         L.tooltip({
           permanent: true,

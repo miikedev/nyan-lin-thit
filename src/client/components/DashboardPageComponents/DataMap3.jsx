@@ -314,7 +314,7 @@ const DataMap3 = ({ height }) => {
         id="leaflet-container"
         {...zoomPropperties}
         // className={`border-none z-10`}
-        className={`border-none shadow-sm rounded-md w-[100%] h-[${height}] flex justify-center items-center z-10 text-black`}
+        className={`border-none shadow-sm rounded-md w-[100%] xl:h-[1140px] lg:h-[1140px] md:h-[800px] flex justify-center items-center z-10 text-black`}
         // style={{width: width, height: height}}
       >
         <SetBounds />

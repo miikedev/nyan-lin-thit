@@ -8,6 +8,7 @@ const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3
 import { states } from "../../utils/sampleData";
 import { motion } from 'framer-motion';
 // Icons
+import DisplayFilteredDate from "../components/DashboardPageComponents/DisplayFilteredDate";
 import L1 from '../components/DashboardPageComponents/assets2/1st-layout.svg';
 import L2 from '../components/DashboardPageComponents/assets2/2nd-layout.svg';
 import Cicon from "../components/DashboardPageComponents/assets2/calendar.svg";
@@ -52,17 +53,19 @@ import { capitalizeFirstLetter } from "../../utils/utils";
 import MapFilterSelect from "../components/DashboardPageComponents/MapFilterSelect";
 import FirstLayout from "../icons/FirstLayout";
 import SecondLayout from "../icons/SecondLayout";
+import DataMap4 from "../components/DashboardPageComponents/DataMap4";
 const Dashboard = () => {
 	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 	const { filterParams } = useDashboardFilterContext();  
     const { dataResult, setDataResult } = useDashboardDataContext();  
-
     const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);  
     const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);  
-
+	
     const [labels, setLabels] = useState([]);   
-
+	
     const { data, isLoading, isSuccess, isError } = useDashboardData();  
+	const [timeSpan, setTimeSpan] = useState('');
+
     const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(
 		new Date(startDate).toLocaleDateString('en-CA'), 
 		new Date(endDate).toLocaleDateString('en-CA')
@@ -105,10 +108,15 @@ const Dashboard = () => {
 			setDataResult(newData.datasets)
 			setLabels(newData.labels)
 		}
+		// setTimeSpan(new Date(startDate).toLocaleDateString('en-CA') + ' - ' + new Date(endDate).toLocaleDateString('en-CA'))
     }, [newIsSuccess, newData, resultedParamNames]);  
 
-    const timeSpan = new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA');  
-    
+	useEffect(() => setTimeSpan(new Date(data?.earliestDate).toLocaleDateString('en-CA') + ' - ' + new Date(data?.latestDate).toLocaleDateString('en-CA')),[data, isSuccess])	
+	// useEffect(()=> {
+	// 	console.log('startDate: ' + new Date(startDate).toLocaleDateString('en-CA'))
+	// 	console.log('endDate: ' + new Date(endDate).toLocaleDateString('en-CA'))
+
+	// }, [startDate, endDate])
 	const handleChartClick = (chartIndex) => {  
         setActiveChart(chartIndex);  
         setIsFullWidth(!isFullWidth);  
@@ -1649,7 +1657,7 @@ const Dashboard = () => {
 										</Box> */}
 										<Box className="w-full h-[800px] rounded-md mr-[20px]" bg={{base: '#A2CBFE'}}>
 											<Suspense fallback={<Loading />}>
-												{!isFullWidth &&<DataMap3 height={"800px"} />}
+												{!isFullWidth &&<DataMap4 height={"800px"} />}
 											</Suspense>
 										</Box>
 									</motion.div>
@@ -1725,9 +1733,9 @@ const Dashboard = () => {
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</Box>
-												<Box className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white pt-2 rounded-md flex items-center">
+												{/* <Box className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white pt-2 rounded-md relative"> */}
 													<Dates fontSize={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
-												</Box>
+												{/* </Box> */}
 												<Box className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
 													<Box className="w-full border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
