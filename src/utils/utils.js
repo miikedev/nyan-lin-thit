@@ -55,6 +55,14 @@ export function getDateOfSpan(dates, numColumns) {
   return spans;
 } 
 
+export function formatReadableText(text) {
+  if(text==null) return null;
+  return text
+    .split('_')  // Split the text by underscores
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize the first letter of each word
+    .join(' ');  // Join the words with spaces
+}
+
 export function refinedDataForClineChart(dataResult, colorMapping) {
   return dataResult.reduce((acc, item) => {
     const caseTypeName = item.name;

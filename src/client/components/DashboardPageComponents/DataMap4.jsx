@@ -266,7 +266,7 @@ const SetBounds = () => {
       >
         Reset Zoom
       </button>
-      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[20px]">{description}</Text>
+      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[20px]" style={{zIndex: 1000}}>{description}</Text>
     </div>
   );
 };

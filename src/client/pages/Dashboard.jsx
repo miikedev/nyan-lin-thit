@@ -1,4 +1,4 @@
-import { Box, Grid, Space, Stack } from "@mantine/core";
+import { Box, Divider, Grid, Group, Space, Stack } from "@mantine/core";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import calendar from '../../assets/ic_date.svg'
@@ -1219,7 +1219,8 @@ const Dashboard = () => {
 														/>
 														</Suspense>
 													</motion.Box>
-													<Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box>
+													{/* <Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box> */}
+													<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
 													{/*2 container */}
 													<motion.Box
 														initial={{ opacity: 0 }} 
@@ -1236,7 +1237,8 @@ const Dashboard = () => {
 															height={smallChartHeight}
 														/>
 													</motion.Box>
-													<Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box>
+													<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
+													{/* <Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box> */}
 													{/* 3 container */}
 													<motion.Box
 														initial={{ opacity: 0 }} 
@@ -1355,7 +1357,7 @@ const Dashboard = () => {
 										<Space h={"md"}/>
 										{/*Under Right Container filterings and infos display */}
 										<Box className="bg-white w-full h-[644px] flex items-center rounded-md p-[20px]">
-											<Box className="w-full h-auto bg-[#e6e6e6] flex justify-between items-center p-[20px]">
+											<Group className="w-full h-auto bg-[#e6e6e6] p-[20px]">
 												{/* Inner Left Container */}
 												<Stack className="w-2/5  h-auto  gap-[16px] mt-[0px]">
 													<Box className="flex items-center justify-between mr-1">
@@ -1379,9 +1381,9 @@ const Dashboard = () => {
 													</Box>
 												</Stack>
 												{/* Vertical Dashed Line */}
-												<Box className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1 mx-[20px]"></Box>
+												<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
 												{/* Inner Right Container */}
-												<Box className="relative w-3/5">
+												<Box className="relative">
 													{/* top */}
 													{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 													{/* bottom  */}
@@ -1394,7 +1396,7 @@ const Dashboard = () => {
 														</Box>
 													</Box>
 												</Box>
-											</Box>
+											</Group>
 										</Box>
 									</Box>
 								</Grid.Col>
@@ -1426,7 +1428,7 @@ const Dashboard = () => {
 												/>
 												</Suspense>
 											</Box>
-											<Box className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1"></Box>
+												<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
 											{/*2 container */}
 											<Box
 												className="w-1/3 h-full transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
@@ -1442,7 +1444,7 @@ const Dashboard = () => {
 												/>
 											</Suspense>
 											</Box>
-											<Box className="w-[1px] h-[90%] bg-[#4d5eb2] border-1 border-dashed"></Box>
+												<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
 											{/* 3 container */}
 											<Box
 												className="w-1/3 h-full z-10 transition-all duration-300 ease-in-out hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
@@ -1619,9 +1621,7 @@ const Dashboard = () => {
 												</Box>
 											</Stack>
 											{/* Vertical Dashed Line */}
-											<Box className="mx-[20px] h-[90%] relative w-[1px] bg-[#4d5eb2] border-1 border-dashed">
-												<Box className="absolute  h-full border-dashed border-gray-300"></Box>
-											</Box>
+											<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" className="mx-[20px]"/>
 											{/* Inner Right Container */}
 											<Stack className="w-[50%] h-[80%]">
 												{/* top */}

@@ -64,7 +64,7 @@ const Dates2 = ({ startDate, setStartDate, setEndDate, endDate, fontSize }) => {
       </div> 
       <div className="mb-[10px] w-[100px] flex flex-col justify-center items-center mt-[3rem]">  
         <div className="mb-[10px] rounded-md">
-          <h3 className={`mb-[10px] text-[${fontSize}] text-black font-poppins`}>Start Date</h3>
+          <h3 className={`mb-[10px] text-[${fontSize}] text-black font-poppins font-[500]`}>Start Date</h3>
           <div className="w-full flex gap-[15px] justify-start items-center">
             <img src={CalendarIcon} className="w-[20px] h-[20px] text-white"/>
             <DatePicker
@@ -130,7 +130,7 @@ const Dates2 = ({ startDate, setStartDate, setEndDate, endDate, fontSize }) => {
       <div className="w-full h-[1px] bg-white "></div>  
       <div className="mb-[10px] w-[100px] flex flex-col justify-center items-center mt-[3rem]">  
         <div className="mb-[10px] rounded-md">
-          <h3 className={`mb-[10px] text-[${fontSize}] text-black font-poppins`} >End Date</h3>
+          <h3 className={`mb-[10px] text-[${fontSize}] text-black font-poppins font-[500]`} >End Date</h3>
           <div className="w-full flex gap-[15px] justify-start items-center">
             <img src={CalendarIcon} className="w-[20px] h-[20px]" />
             <DatePicker

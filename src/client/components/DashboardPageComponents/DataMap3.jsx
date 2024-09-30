@@ -5,6 +5,7 @@ import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
 
 import { ToolTipForStates } from "../../../utils/tooltipForStates";
+import { formatReadableText } from "../../../utils/utils";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
@@ -67,7 +68,7 @@ const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
   const filter_map = searchParams.get('filter_map');  
-  const description = searchParams.get('description')
+  const description = formatReadableText(searchParams.get('description'));
   const map = useMap();
   
   const defaultStyle = {
@@ -268,32 +269,53 @@ const SetBounds = () => {
       >
         Reset Zoom
       </button>
-      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[12px]">{description}</Text>
+      <Text size="12px" fw="600" style={{zIndex:1000}} className="text-black absolute top-[50px] right-[12px] capitalize">
+        {
+          description
+        }
+      </Text>
     </div>
   );
 };
 
 const DataMap3 = ({ height }) => {
-	const [searchParams,setSearchParams] = useSearchParams();
-  const selectedState = searchParams.get('filter_map');  
+  const [caseCount, setCaseCount] = useState({});
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedState = searchParams.get('filter_map');
 
-	const { startDate, setStartDate, endDate, setEndDate } = useDashboardDateContext();
-
+  const { startDate, endDate } = useDashboardDateContext();
   const { filterParams } = useDashboardFilterContext();
-  const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
 
+  const resultedParamId = useMemo(() => filterParams.map(param => param.id), [filterParams]);
   const resultedParamNames = useMemo(() => resultedParamId.map(id => caseName[id] || ""), [resultedParamId]);
 
-  //fetching with react query
-	const { data:mapData, isLoading:isMapLoading, isSuccess:isMapSuccess, isError:isMapError } = useDashboardMapData(
-    new Date(startDate).toLocaleDateString('en-CA'), 
-		new Date(endDate).toLocaleDateString('en-CA')
-  )
-  //filtering cases
-  const filteredData = resultedParamNames.length > 0
-    ? mapData.filter(region => resultedParamNames.includes(region.icon))
-    : mapData;
+  // Fetching with React Query
+  const { data: mapData, isLoading: isMapLoading, isError: isMapError } = useDashboardMapData(
+      new Date(startDate).toLocaleDateString('en-CA'), 
+      new Date(endDate).toLocaleDateString('en-CA')
+  );
 
+  // Handle loading and error states
+  if (isMapLoading) return <div>Loading...</div>;
+  if (isMapError) return <div>Error fetching data</div>;
+
+  // Filtering cases
+  const filteredData = resultedParamNames.length > 0
+      ? mapData?.filter(region => resultedParamNames.includes(region.icon))
+      : mapData;
+
+  const displayedResult = filteredData?.map(data => ({
+      ...data,
+      icon: iconMapping[data?.icon]
+  })) || []; // Ensure displayedResult is always an array
+
+  // Handle marker click
+  const handleMarkerClick = (position) => {
+      console.log(position);
+      setSearchParams({ lat: position.position[0], lng: position.position[1], description: position.description });
+  };
+
+  console.log('case count', caseCount);
   const zoomPropperties = {
     doubleClickZoom: true,
     closePopupOnClick: true,
@@ -305,18 +327,6 @@ const DataMap3 = ({ height }) => {
     zoomControl: true,
     scrollWheelZoom: false,
   };
-
-  // Further filter by selected parameters (e.g., incident type)
-  const displayedResult = filteredData?.map(data => ({
-    ...data,
-    icon: iconMapping[data?.icon]
-  }));
-  // Function to handle marker click
-  const handleMarkerClick = (position) => {
-    console.log(position)
-    setSearchParams({lat: position.position[0],lng: position.position[1], description: position.description}); // You can save the position in the state
-  };
-  
   return (
       <MapContainer
         id="leaflet-container"
