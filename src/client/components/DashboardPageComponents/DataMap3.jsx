@@ -316,6 +316,7 @@ const DataMap3 = ({ height }) => {
     console.log(position)
     setSearchParams({lat: position.position[0],lng: position.position[1], description: position.description}); // You can save the position in the state
   };
+  
   return (
       <MapContainer
         id="leaflet-container"

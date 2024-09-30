@@ -68,10 +68,13 @@ const Dashboard = () => {
     const { data, isLoading, isSuccess, isError } = useDashboardData();  
 	const [timeSpan, setTimeSpan] = useState('');
 
-    const { data:newData, isLoading:newIsLoading, isSuccess:newIsSuccess, isError:newIsError } = useDashboardChartData(
-		new Date(startDate).toLocaleDateString('en-CA'), 
-		new Date(endDate).toLocaleDateString('en-CA')
-	);  
+    const defaultStartDate = new Date().toLocaleDateString('en-CA');
+  	const defaultEndDate = new Date().toLocaleDateString('en-CA');
+
+  const { data: newData, isLoading: newIsLoading, isSuccess: newIsSuccess, isError: newIsError } = useDashboardChartData(
+    startDate ? new Date(startDate).toLocaleDateString('en-CA') : '', // Use startDate if available, otherwise default
+    endDate ? new Date(endDate).toLocaleDateString('en-CA') : ''        // Use endDate if available, otherwise default
+  );  
 	console.log('chart data', data);
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
@@ -1351,10 +1354,10 @@ const Dashboard = () => {
 										</Box>
 										<Space h={"md"}/>
 										{/*Under Right Container filterings and infos display */}
-										<Box className="bg-white w-full xl:h-[384px] 2xl:h-[640px] flex items-center rounded-md p-[20px]">
-											<Box className="w-full h-full bg-[#e6e6e6] flex justify-between items-center p-[20px]">
+										<Box className="bg-white w-full h-[644px] flex items-center rounded-md p-[20px]">
+											<Box className="w-full h-auto bg-[#e6e6e6] flex justify-between items-center p-[20px]">
 												{/* Inner Left Container */}
-												<Stack className="w-2/5  h-full  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] mt-[50px]">
+												<Stack className="w-2/5  h-auto  gap-[16px] mt-[0px]">
 													<Box className="flex items-center justify-between mr-1">
 														<MapFilterSelect />
 														<Box className=" flex justify-end gap-[12px] p-0">
@@ -1372,7 +1375,7 @@ const Dashboard = () => {
 														{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
 													</Box>
 													<Box className="max-2xl:hidden w-full h-[350px]">
-														<TextSectionCard2 height={'350px'}/>
+														<TextSectionCard2 height={'334px'}/>
 													</Box>
 												</Stack>
 												{/* Vertical Dashed Line */}
@@ -1382,11 +1385,11 @@ const Dashboard = () => {
 													{/* top */}
 													{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 													{/* bottom  */}
-													<Box className="relative w-full flex justify-between items-center mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
-														<Box className="w-2/3 h-[220px] 2xl:w-[60%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
+													<Box className="relative w-full flex justify-between items-start mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
+														<Box className="w-2/3 h-[220px] 2xl:w-[60%] 2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
 															{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 														</Box>
-														<Box className="w-1/3 h-[220px] 2xl:w-[40%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+														<Box className="w-1/3 h-[220px] 2xl:w-[40%] 2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 															<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 														</Box>
 													</Box>
@@ -1583,7 +1586,7 @@ const Dashboard = () => {
 										</Box>
 									</motion.div>
 									{/*Bottom Right Container  */}
-									<Box className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex rounded-md p-[20px]">
+									<Box className="bg-white w-[70%] 2xl:h-[800px] flex rounded-md p-[20px]">
 										<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
 											{/* Inner Left Container */}
 											<Stack className="w-[50%] h-[80%]">
