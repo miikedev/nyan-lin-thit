@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
 import Slider from "react-slick";
-
-import Modal from './Modal';
 
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -12,25 +9,15 @@ function CustomSlide(props) {
     <div {...otherProps}>
       <div
           className={`text-black  border-[1px] border-[#e6e6e6] hover:text-[#001F3F] w-full h-[${height}]  hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-between items-center cursor-pointer gap-x-[20px]`}
-          // onClick={handleCardClick}
         >
           <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">
             <div>
-            <p className="font-[700] text-[20px]">{title}</p>
+            <p className="font-[600] text-[20px]">{title}</p>
             </div>
             <div>
             <p className="text-[14px] font-kanit font-[400] ">{description}</p>
             </div>
           </div>
-              {/* <button
-                className="text-[35px] font-bold hover:text-[#0f2947] focus:outline-none"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNextClick();
-                }}
-              >
-                &gt;
-              </button> */}
         </div>
     </div>
   );
@@ -74,6 +61,9 @@ const TextSectionCard2 = ({height}) => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    cssEase: "linear"
   };
   return (
     <div className='slide-container'>

@@ -13,7 +13,7 @@ const MapFilterSelect = () => {
             placeholder="Myanmar"
             defaultSelectedKeys={[""]}
             withScrollArea={true}
-            className="w-[200px] font-poppins font-[700] placeholder:font-bold rounded-sm"
+            className="w-[200px] font-poppins_bold font-[700] placeholder:font-bold rounded-sm"
             classnames={{
               wrapper: 'font-bold rounded-md',
               input: 'rounded-md'

@@ -9,9 +9,10 @@ export const DashboardDateProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  useEffect(()=>{
-    setSearchParams({startDate: startDate, endDate: endDate});
-  },[searchParams])
+
+  // useEffect(()=>{
+  //   setSearchParams({startDate: startDate, endDate: endDate});
+  // },[searchParams])
   return (
     <DashboardDateContext.Provider value={{ startDate, endDate, setStartDate, setEndDate }}>
       {children}

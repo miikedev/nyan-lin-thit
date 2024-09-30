@@ -11,8 +11,10 @@ export default {
   ],
   theme: {
     fontFamily: {
-      poppins: ["Poppins", "sans-serif"],
-      kanit: ["Kanit", "sans-serif"],
+      poppins: ["Poppins-400", "sans-serif"],
+      poppins_bold: ["Poppins-700", "sans-serif"],
+      kanit: ["Kanit-400", "sans-serif"],
+      openSans: ["OpenSans-400", "sans-serif"],
     },
     screens: {
       'sm': '640px',

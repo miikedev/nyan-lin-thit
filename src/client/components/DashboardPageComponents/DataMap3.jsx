@@ -1,3 +1,4 @@
+import { Text } from "@mantine/core";
 import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
@@ -66,6 +67,7 @@ const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
   const filter_map = searchParams.get('filter_map');  
+  const description = searchParams.get('description')
   const map = useMap();
   
   const defaultStyle = {
@@ -266,12 +268,13 @@ const SetBounds = () => {
       >
         Reset Zoom
       </button>
+      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[12px]">{description}</Text>
     </div>
   );
 };
 
 const DataMap3 = ({ height }) => {
-	const [searchParams] = useSearchParams();
+	const [searchParams,setSearchParams] = useSearchParams();
   const selectedState = searchParams.get('filter_map');  
 
 	const { startDate, setStartDate, endDate, setEndDate } = useDashboardDateContext();
@@ -308,7 +311,11 @@ const DataMap3 = ({ height }) => {
     ...data,
     icon: iconMapping[data?.icon]
   }));
-
+  // Function to handle marker click
+  const handleMarkerClick = (position) => {
+    console.log(position)
+    setSearchParams({lat: position.position[0],lng: position.position[1], description: position.description}); // You can save the position in the state
+  };
   return (
       <MapContainer
         id="leaflet-container"
@@ -316,11 +323,19 @@ const DataMap3 = ({ height }) => {
         // className={`border-none z-10`}
         className={`border-none shadow-sm rounded-md w-[100%] xl:h-[1140px] lg:h-[1140px] md:h-[800px] flex justify-center items-center z-10 text-black`}
         // style={{width: width, height: height}}
+        
       >
         <SetBounds />
         {
           displayedResult?.map((marker, index) => (
-            <Marker key={index} position={marker.position} icon={marker.icon}>
+            <Marker 
+              key={index} 
+              position={marker.position} 
+              icon={marker.icon} 
+              eventHandlers={{  
+                click: () => handleMarkerClick({position: marker.position,description: marker.popupText}), // Capture the click event and get the position  
+              }}
+            >
               <Popup>{marker.popupText}</Popup>
             </Marker>
           ))

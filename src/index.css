@@ -15,3 +15,8 @@
     font-family: "Poppins-400";
     src: url("../public/fonts/Poppins/Poppins-Regular.ttf");
 }
+
+@font-face {
+    font-family: "OpenSans-400";
+    src: url("../public/fonts/Open_Sans/static/OpenSans-Regular.ttf");
+}

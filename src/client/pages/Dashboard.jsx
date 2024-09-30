@@ -54,6 +54,8 @@ import MapFilterSelect from "../components/DashboardPageComponents/MapFilterSele
 import FirstLayout from "../icons/FirstLayout";
 import SecondLayout from "../icons/SecondLayout";
 import DataMap4 from "../components/DashboardPageComponents/DataMap4";
+import DisplayDate1 from "../components/DashboardPageComponents/DisplayDate1";
+import DisplayLatlng from "../components/DashboardPageComponents/DisplayLatlng";
 const Dashboard = () => {
 	const { startDate, setStartDate, setEndDate, endDate } = useDashboardDateContext();
 	const { filterParams } = useDashboardFilterContext();  
@@ -70,7 +72,7 @@ const Dashboard = () => {
 		new Date(startDate).toLocaleDateString('en-CA'), 
 		new Date(endDate).toLocaleDateString('en-CA')
 	);  
-
+	console.log('chart data', data);
     const [activeTab, setActiveTab] = useState("chart");  
     const [activeChart, setActiveChart] = useState(0); // 0, 1, or 2 for the three charts  
     const [isFullWidth, setIsFullWidth] = useState(false);  
@@ -1155,10 +1157,9 @@ const Dashboard = () => {
 					)}
 				</Box>
 				{/* Laptop and Desktop Size */}
-				{/* <Box className="max-xl:hidden w-full h-auto flex justify-center items-center gap-[20px]"> */}
 					{isDefaultLayout ? (
+						// first layout 
 						<>
-							{/* <Box className="w-full xl:h-[640px] 2xl:h-[1200px] flex justify-center items-center gap-x-[20px]"> */}
 							<Grid>
 								{/* Left Container */}
 								<Grid.Col span={4}>
@@ -1182,9 +1183,8 @@ const Dashboard = () => {
 								</Grid.Col>
 								{/* Parent Right Container */}
 								<Grid.Col span={8}>
-									{/* <Box className=" w-[70%] xl:h-[640px] 2xl:h-[1200px] flex flex-col gap-y-[14px] "> */}
 									<Box>
-										{/*Top Right Container */}
+										{/*Top Right Container Contain Charts */}
 										<Box
 											className={`p-[20px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
 										>
@@ -1348,61 +1348,16 @@ const Dashboard = () => {
 													</Box>
 												</>
 											)}
-											{/* <button
-												className={`absolute bottom-0 right-[2px] w-[50px] h-[50px]  font-bold py-2 px-4 rounded`}
-												onClick={() => setIsFullWidth(!isFullWidth)}
-											>
-												{!isFullWidth ? (
-													<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
-												) : (
-													<img src={Max} className="w-[25px] h-[25px]" />
-												)}
-											</button> */}
 										</Box>
 										<Space h={"md"}/>
-										{/*Under Right Container  */}
+										{/*Under Right Container filterings and infos display */}
 										<Box className="bg-white w-full xl:h-[384px] 2xl:h-[640px] flex items-center rounded-md p-[20px]">
 											<Box className="w-full h-full bg-[#e6e6e6] flex justify-between items-center p-[20px]">
 												{/* Inner Left Container */}
 												<Stack className="w-2/5  h-full  gap-[16px] xl:gap-[14px] 2xl:gap-[25px] mt-[50px]">
 													<Box className="flex items-center justify-between mr-1">
-														{/* <Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
-														<Menu.Target trigger="hover">
-															<Button
-																variant="transparent"
-																radius="sm">
-																<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
-																<ChevronDown fill="black" strokeWidth="2"/>
-															</Button>
-														</Menu.Target>
-														<Menu.Dropdown trigger="hover">
-														{
-															states.map(state=>{
-																return <Menu.Item key={state.name} isFullWidth={true}>{capitalizeFirstLetter(state.name)}</Menu.Item>
-															})
-														}
-														</Menu.Dropdown>
-														</Menu> */}
 														<MapFilterSelect />
 														<Box className=" flex justify-end gap-[12px] p-0">
-															{/* <button>
-																<img src={L1} 	className={`${
-																	isDefaultLayout
-																		? "bg-[#1B59F8] "
-																		: "bg-[#1B59F842]"
-																} w-[30px] h-[30px] p-1 rounded`}
-																onClick={() => setIsDefaultLayout(true)}/>
-															</button>
-															<button
-																
-															>
-																<img src={L2} className={` ${
-																	isDefaultLayout
-																		? "bg-[#1B59F842]"
-																		: "bg-[#1B59F8]"
-																} w-[30px] h-[30px] p-1 rounded`}
-																onClick={() => setIsDefaultLayout(false)}/>
-															</button> */}
 															<button onClick={()=>setIsDefaultLayout(true)}>
 																<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'}/>
 															</button>
@@ -1411,25 +1366,8 @@ const Dashboard = () => {
 															</button>
 														</Box>
 													</Box>
-													<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
-														<img
-															src={calendar}
-															className="w-[12px] h-[12px] 2xl:w-[20px] 2xl:h-[20px] text-white"
-														/>
-														<p className="text-black text-[12px] 2xl:text-[12px] ml-[16px] font-poppins-400">
-															{ timeSpan }
-														</p>
-													</Box>
-
-													<Box className="flex items-center mb-[7px] xl:pl-[5px]">
-														<img
-															src={M}
-															className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
-														/>
-														<p className="text-black text-[11px] 2xl:text-[12px] font-[500] ml-[10px]">
-															{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
-														</p>
-													</Box>
+													<DisplayDate1 timeSpan={timeSpan}/>
+													<DisplayLatlng lat={data?.myanmar_lat} lng={data?.myanmar_long}/>
 													<Box className="2xl:hidden w-full h-[170px]  ">
 														{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
 													</Box>
@@ -1440,15 +1378,15 @@ const Dashboard = () => {
 												{/* Vertical Dashed Line */}
 												<Box className="w-[1px] h-[90%] bg-[#4d5eb2] border-dashed border-1 mx-[20px]"></Box>
 												{/* Inner Right Container */}
-												<Box className="">
+												<Box className="relative w-3/5">
 													{/* top */}
 													{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 													{/* bottom  */}
-													<Box className="relative w-full flex justify-between items-center mt-[10px] 3xl:mt-[100px] gap-[60px] xl:gap-[10px]">
-														<Box className="w-2/3 h-[220px] 3xl:w-[60%] 2xl:w-[350px] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
+													<Box className="relative w-full flex justify-between items-center mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
+														<Box className="w-2/3 h-[220px] 2xl:w-[60%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
 															{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 														</Box>
-														<Box className="w-1/3 h-[220px] 2xl:w-[40%] 3xl:w-[40%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+														<Box className="w-1/3 h-[220px] 2xl:w-[40%] 2xl:h-[355px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 															<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 														</Box>
 													</Box>
@@ -1458,9 +1396,9 @@ const Dashboard = () => {
 									</Box>
 								</Grid.Col>
 							</Grid>
-							{/* </Box> */}
 						</>
 					) : (
+						// second layout
 						<>
 							{/* Parent Container */}
 							<Box className="w-full h-auto flex flex-col justify-center items-center">
@@ -1626,23 +1564,6 @@ const Dashboard = () => {
 									</button>
 								</Box>
 								{/* Bottom Parent Container */}
-								{/* <motion.Box 
-									initial={{ opacity: 0 }} 
-									animate={{ opacity: 1 }} 
-									transition={{ ease: "easeOut", duration: 1 }}
-									className="w-[30%] h-full rounded-md"
-								>
-									<Box className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
-										<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
-											<DataMap3 width={"full"} height={"640px"} />
-										</Suspense>						
-									</Box>
-									<Box className="bg-white max-2xl:hidden w-full h-[1200px] rounded-md">
-										<Suspense fallback={<Loading width={"370px"} height={"1200px"} />}>
-											<DataMap3 width={"full"} height={"1200px"} />
-										</Suspense>
-									</Box>
-								</motion.Box> */}
 								<Box className="w-full h-auto flex justify-between rounded-md">
 									<motion.div 
 										initial={{ opacity: 0 }} 
@@ -1665,44 +1586,6 @@ const Dashboard = () => {
 									<Box className="bg-white w-[70%] h-[640px] 2xl:h-[800px] flex rounded-md p-[20px]">
 										<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
 											{/* Inner Left Container */}
-											{/* <Box className="w-1/2 h-full justify-center xl:gap-[20px] flex flex-col gap-[25px]">
-												<Box className="flex items-center justify-between mr-1 ">
-													<MapFilterSelect />
-
-													<Box className="flex justify-end gap-[12px] p-0">
-														<button onClick={()=>setIsDefaultLayout(true)}>
-															<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'}/>
-														</button>
-														<button onClick={()=>setIsDefaultLayout(false)}>
-															<SecondLayout color={!isDefaultLayout? '#1B59F8' : '#1B59F842'}/>
-														</button>
-													</Box>
-												</Box>
-												<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
-													<img
-														src={Cicon}
-														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-white"
-													/>
-													<p className="text-black text-[12px] 2xl:text-[16px] ml-[16px] font-poppins">
-														{ timeSpan }
-													</p>
-												</Box>
-												<Box className="flex items-center mb-[7px] xl:pl-[5px]">
-													<img
-														src={M}
-														className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
-													/>
-													<p className="text-black text-[11px] 2xl:text-[14px] font-[500] ml-[10px]">
-														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
-													</p>
-												</Box>
-												<Box className="w-full 3xl:hidden max-h-[350px] ">
-													<TextSectionCard2 height={"350px"} />
-												</Box>
-												<Box className="w-full max-3xl:hidden h-[400px]">
-													<TextSectionCard2  height={"400px"}/>
-												</Box>
-											</Box> */}
 											<Stack className="w-[50%] h-[80%]">
 												<Box className="flex items-center justify-between mr-1">
 													<MapFilterSelect />
@@ -1715,15 +1598,7 @@ const Dashboard = () => {
 														</button>
 													</Box>
 												</Box>
-												<Box className="mb-[7px] bg-[#ffff] border w-auto py-3 lg:w-72 rounded-md px-3 flex items-center">
-														<img
-															src={calendar}
-															className="w-[12px] h-[12px] 2xl:w-[20px] 2xl:h-[20px] text-white"
-														/>
-														<p className="text-black text-[12px] 2xl:text-[12px] ml-[16px] font-poppins-400">
-															{ timeSpan }
-														</p>
-												</Box>
+												<DisplayDate1 timeSpan={timeSpan} />
 												<Box className="flex items-center mb-[7px] xl:pl-[5px]">
 													<img
 														src={M}
@@ -1733,9 +1608,7 @@ const Dashboard = () => {
 														{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 													</p>
 												</Box>
-												{/* <Box className="w-full h-[100px] border-[1px] border-[#e6e6e6] bg-white pt-2 rounded-md relative"> */}
-													<Dates fontSize={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
-												{/* </Box> */}
+												<Dates fontSize={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 												<Box className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
 													<Box className="w-full border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
 														{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
@@ -1751,7 +1624,6 @@ const Dashboard = () => {
 												{/* top */}
 												{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 												{/* bottom  */}
-												
 												<Box className="max-2xl:hidden w-full">
 													{isSuccess && data && <TextSectionCard2 data={news} height={"200px"} />}
 												</Box>
