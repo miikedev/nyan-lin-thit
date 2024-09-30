@@ -1,3 +1,4 @@
+import { Text } from "@mantine/core";
 import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
@@ -65,6 +66,7 @@ const caseName = {
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
+  const description = searchParams.get('description')
   const filter_map = searchParams.get('filter_map');  
   const map = useMap();
   
@@ -266,6 +268,7 @@ const SetBounds = () => {
       >
         Reset Zoom
       </button>
+      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[12px]">{description}</Text>
     </div>
   );
 };
