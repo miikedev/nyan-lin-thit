@@ -1,22 +1,23 @@
-import { booleanPointInPolygon, point } from "@turf/turf";
+import { Text } from "@mantine/core";
 import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
 
+import { ToolTipForStates } from "../../../utils/tooltipForStates";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
 import myanmarGeoJSONNew from "../DashboardPageComponents/assets2/myanmar_geo.json";
-import myanmarGeoJSON from "../DashboardPageComponents/assets2/state_region.json";
+import stateGeoJson from '../DashboardPageComponents/assets2/state_region.json'
 import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
 import icon1 from './assets2/airStrike.svg';
 import icon2 from './assets2/armed.svg';
 import icon5 from './assets2/arrest.svg';
 import icon4 from './assets2/casualty.svg';
 import icon3 from './assets2/massacre.svg';
-import { districts } from "../../../utils/sampleData";
+
 import "../DashboardPageComponents/DataMap.css";
 import "leaflet/dist/leaflet.css";
 
@@ -66,14 +67,14 @@ const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
   const filter_map = searchParams.get('filter_map');  
-  console.log('filter_map', filter_map);
+  const description = searchParams.get('description')
   const map = useMap();
   
   const defaultStyle = {
     // fillColor: "#3551a4",
-    fillColor: "#3551a440",
+    fillColor: "#fcfdfd",
     fillOpacity: "1",
-    color: "#83b4d4",
+    color: "#767574",
     weight: ".75",
   };
   const highlightedStyle = {
@@ -87,15 +88,14 @@ const SetBounds = () => {
 
   useEffect(() => {
     // Create layer groups for states and townships
-    const stateLayerGroup = L.layerGroup().addTo(map); // Initially added to map
+    const districtLayerGroup = L.layerGroup().addTo(map); // Initially added to map
     const cityLayerGroup = L.layerGroup();
     const townshipLayerGroup = L.layerGroup(); // Not added to map initially
-
     // Define state layer with onEachFeature logic
-    const stateLayer = new L.GeoJSON(myanmarGeoJSONNew, {
+    const districtLayer = new L.GeoJSON(myanmarGeoJSONNew, {
       onEachFeature: (feature, layer) => {
         if (feature.properties && feature.properties.DT) {
-        layer.addTo(stateLayerGroup);
+        layer.addTo(districtLayerGroup);
           layer.on({
             mouseover: () => {
               layer.setStyle(highlightedStyle);
@@ -109,86 +109,65 @@ const SetBounds = () => {
               }).getBounds());
             },
           });
-            // L.tooltip({
-            //   permanent: true,
-            //   direction: "center",
-            //   className: "map-label",
-            // })
-            //   .setLatLng(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
-            //   .setContent(feature.properties.DT)
-            //   .addTo(map);
-          // Attach tooltips or any interactions here
-          // districts.forEach(d => {
-          //   console.log(d.DT)
-          //   if(feature.properties.DT === d.DT) {
-              // L.tooltip({
-              //   permanent: true,
-              //   direction: "center",
-              //   className: "map-label",
-              // })
-              //   .setLatLng(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
-              //   .setContent(feature.geometry.DT)
-              //   .addTo(map)
-          //   }
-          // })
-          // layer
-          // .marker(feature.geometry.coordinates[0][0][Math.floor((feature.geometry.coordinates[0][0].length)/2)])
-          // .bindTooltip(feature.properties.DT, {
-          //   permanent: true,
-          //   direction: "center",
-          //   className: "map-label",
-          // });
           
           layer.addEventListener('mouseenter', function() {
-            layer.bindTooltip(feature.properties.DT, {
+            layer.bindTooltip(feature.properties.DT_MMR, {
               permanent: true,
               direction: "center",
-              className: "text-red-800",
             });
           })
-          
-          // if (layer.bindTooltip === "Kokang Self-Administered Zone") {
-          //   }
-          
-          // }
-          // L.tooltip({
-          //   permanent: true,
-          //   direction: "center",
-          //   className: "map-label",
-          // })
-          // .setLatLng([])
-          // .setContent(feature.properties.DT)
-          // .addTo(map);
+          // Attach tooltips or any interactions here
+          ToolTipForStates(feature,map,L,layer)
+          layer.addTo(map);
         }
     }});
+    // const stateLayer = new L.GeoJSON(stateGeoJson, {
+    //   onEachFeature: (feature, layer) => {
+    //     if (feature.properties && feature.properties.ST) {
+    //       layer.on({
+    //         mouseover: () => {
+    //           layer.setStyle(highlightedStyle);
+    //         },
+    //         mouseout: () => {
+    //           layer.setStyle(defaultStyle);
+    //         },
+    //         click: () => {
+              
+    //           map.fitBounds(layer.getBounds());
+    //         },
+    //       });
 
-    // Define city layer with onEachFeature logic
-    const cityLayer = new L.GeoJSON(cityGeoJSON, {
-      onEachFeature: (feature, layer) => {
-        // Attach tooltips or any interactions here
-        layer.bindTooltip(feature.properties.NAME, {
-          permanent: true,
-          direction: "center",
-          className: "my-custom-tooltip",
-          
-        });
-       
-        layer.addTo(cityLayerGroup); // Add each layer to the township layer group
-      },
-      pointToLayer: (feature, latlng) => {
-        // Attach tooltips or any interactions here
-        const layer = L.marker(latlng, {
-          icon: L.divIcon({
-            className: 'custom-city-marker', // Apply a custom CSS class
-            iconSize: [0, 0], // Adjust the size as needed
-          }),
-        });
-        return layer;
-      }
-      
-     
-    });
-
+    //       // Attach tooltips or any interactions here
+    //       if (feature.properties.ST === "Tanintharyi") {
+    //         L.tooltip({
+    //           permanent: true,
+    //           direction: "center",
+    //           className: "map-label",
+    //         })
+    //           .setLatLng([12.0825, 98.6586])
+    //           .setContent("Tanintharyi")
+    //           .addTo(map);
+    //       } else if (feature.properties.ST === "Yangon") {
+    //         L.tooltip({
+    //           permanent: true,
+    //           direction: "center",
+    //           className: "map-label",
+    //         })
+    //           .setLatLng([16.8661, 96.1951])
+    //           .setContent("Yangon")
+    //           .addTo(map);
+    //       } else {
+    //         layer.bindTooltip(feature.properties.ST, {
+    //           permanent: true,
+    //           direction: "center",
+    //           className: "map-label",
+    //         });
+    //         // .openTooltip();
+    //       }
+    //       layer.addTo(stateLayerGroup); // Add each layer to the state layer group
+    //     }
+    //   },
+    // });
     // Define township layer with onEachFeatureTownship logic
     const townshipLayer = new L.GeoJSON(townshipGeoJSON, {
       onEachFeature: (feature, layer) => {
@@ -205,36 +184,32 @@ const SetBounds = () => {
               map.fitBounds(layer.getBounds());
             },
           });
-
           // Attach tooltips or any interactions here
-          layer.bindTooltip(feature.properties.ts_eng, {
+          layer.bindTooltip(feature.properties.ST, {
             permanent: true,
             direction: "center",
             className: "my-custom-tooltip",
           });
-
-         
           layer.addTo(townshipLayerGroup); // Add each layer to the township layer group
         }
       },
     });
-
     // Fit map bounds to state layer initially
-    const bounds = stateLayer.getBounds();
+    const bounds = districtLayer.getBounds();
     map.fitBounds(bounds);
     setInitialBounds(bounds);
     map.setMaxZoom(16);
     map.setMinZoom(4);
-    stateLayer.setStyle(defaultStyle);
-    cityLayer.setStyle(defaultStyle);
+    districtLayer.setStyle(defaultStyle);
+    // cityLayer.setStyle(defaultStyle);
     townshipLayer.setStyle(defaultStyle);
+
 
     const handleZoomEnd = () => {
       const currentZoom = map.getZoom();
-
       if (currentZoom < 7) {
-        if (!map.hasLayer(stateLayerGroup)) {
-          map.addLayer(stateLayerGroup);
+        if (!map.hasLayer(districtLayerGroup)) {
+          map.addLayer(districtLayerGroup);
         }
         if (map.hasLayer(cityLayerGroup)) {
           map.removeLayer(cityLayerGroup);
@@ -243,8 +218,8 @@ const SetBounds = () => {
           map.removeLayer(townshipLayerGroup);
         }
       } else if (currentZoom >= 7 && currentZoom < 10) {
-        if (map.hasLayer(stateLayerGroup)) {
-          map.removeLayer(stateLayer);
+        if (map.hasLayer(districtLayerGroup)) {
+          map.removeLayer(districtLayer);
         }
         if (!map.hasLayer(cityLayerGroup)) {
           map.addLayer(cityLayerGroup);
@@ -253,8 +228,8 @@ const SetBounds = () => {
           map.removeLayer(townshipLayerGroup);
         }
       } else {
-        if (map.hasLayer(stateLayerGroup)) {
-          map.removeLayer(stateLayer);
+        if (map.hasLayer(districtLayerGroup)) {
+          map.removeLayer(districtLayer);
         }
         if (map.hasLayer(cityLayerGroup)) {
           map.removeLayer(cityLayerGroup);
@@ -266,11 +241,10 @@ const SetBounds = () => {
     };
 
     map.on("zoomend", handleZoomEnd);
-
     // Clean up on component unmount
     return () => {
       map.off("zoomend", handleZoomEnd);
-      map.removeLayer(stateLayerGroup);
+      map.removeLayer(districtLayerGroup);
       map.removeLayer(cityLayerGroup);
       map.removeLayer(townshipLayerGroup);
     };
@@ -294,12 +268,13 @@ const SetBounds = () => {
       >
         Reset Zoom
       </button>
+      <Text size="12px" className="text-black z-20 absolute top-[50px] right-[12px]">{description}</Text>
     </div>
   );
 };
 
-const DataMap3 = ({ width, height }) => {
-	const [searchParams] = useSearchParams();
+const DataMap3 = ({ height }) => {
+	const [searchParams,setSearchParams] = useSearchParams();
   const selectedState = searchParams.get('filter_map');  
 
 	const { startDate, setStartDate, endDate, setEndDate } = useDashboardDateContext();
@@ -336,17 +311,31 @@ const DataMap3 = ({ width, height }) => {
     ...data,
     icon: iconMapping[data?.icon]
   }));
-
+  // Function to handle marker click
+  const handleMarkerClick = (position) => {
+    console.log(position)
+    setSearchParams({lat: position.position[0],lng: position.position[1], description: position.description}); // You can save the position in the state
+  };
   return (
       <MapContainer
         id="leaflet-container"
         {...zoomPropperties}
-        className={`border-none shadow-sm w-[${width}] h-[${height}] rounded-lg  flex justify-center items-center z-10`}
+        // className={`border-none z-10`}
+        className={`border-none shadow-sm rounded-md w-[100%] xl:h-[1140px] lg:h-[1140px] md:h-[800px] flex justify-center items-center z-10 text-black`}
+        // style={{width: width, height: height}}
+        
       >
         <SetBounds />
         {
           displayedResult?.map((marker, index) => (
-            <Marker key={index} position={marker.position} icon={marker.icon}>
+            <Marker 
+              key={index} 
+              position={marker.position} 
+              icon={marker.icon} 
+              eventHandlers={{  
+                click: () => handleMarkerClick({position: marker.position,description: marker.popupText}), // Capture the click event and get the position  
+              }}
+            >
               <Popup>{marker.popupText}</Popup>
             </Marker>
           ))

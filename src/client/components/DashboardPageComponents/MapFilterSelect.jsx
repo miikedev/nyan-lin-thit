@@ -9,14 +9,14 @@ const MapFilterSelect = () => {
     return (
         <div className="">
         <Select 
-            radius="none"
+            radius="sm"
             placeholder="Myanmar"
             defaultSelectedKeys={[""]}
-            className="w-[200px] bg-white"
-            classNames={{
-                base: 'bg-white',
-                placeholder: 'font-semibold text-3xl',
-                listbox: 'bg-white'
+            withScrollArea={true}
+            className="w-[200px] font-poppins_bold font-[700] placeholder:font-bold rounded-sm"
+            classnames={{
+              wrapper: 'font-bold rounded-md',
+              input: 'rounded-md'
             }}
             listboxProps={{
                 itemClasses: {
@@ -27,7 +27,7 @@ const MapFilterSelect = () => {
                     "data-[hover=true]:text-foreground",
                     "data-[hover=true]:bg-white",
                     "dark:data-[hover=true]:bg-white",
-                    "data-[selectable=true]:focus:bg-white",
+                    "data-[selectable=true]:focus:bg-[#A2CBFE]",
                     "data-[pressed=true]:opacity-40",
                     "data-[focus-visible=true]:ring-default-500",
                   ],
@@ -35,13 +35,13 @@ const MapFilterSelect = () => {
               }}
             popoverProps={{
                 classNames: {
-                  base: "before:bg-white rounded-none",
+                  base: "before:bg-white rounded-md",
                   content: "p-0 border-small border-divider rounded-none",
                 },
               }}
           >
             {states.map((state) => (
-              <SelectItem key={state.key} onClick={()=>setSearchparams({filter_map: state.name})}
+              <SelectItem key={state.key} onClick={()=>setSearchparams({filter_map: state.name})} className="font-poppins"
               >
                 {capitalizeFirstLetter(state.name)}
               </SelectItem>
