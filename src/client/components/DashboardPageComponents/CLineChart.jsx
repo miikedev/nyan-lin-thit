@@ -2,6 +2,8 @@ import { CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, Poin
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 
+import { processDateRanges } from '../../../utils/utils';
+
 ChartJS.register( 
   CategoryScale,
   LinearScale,
@@ -46,6 +48,7 @@ export const options = {
 export default function CLineChart({ width, height, fontSize, isFullWidth, newDataResult, labels }) {
   // Get labels and datasets from dataResult  
   if(newDataResult === undefined) return ;
+  // const refinedLabel = shortenDateRange(labels);
   const data = {
     labels: labels,
     datasets:newDataResult

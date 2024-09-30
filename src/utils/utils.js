@@ -54,6 +54,34 @@ export function getDateOfSpan(dates, numColumns) {
 
   return spans;
 } 
+export function processDateRanges(dateRanges) {
+  // Helper function to format and shorten the date range
+  const shortenDateRange = (dateRange) => {
+    const [start, end] = dateRange.split(' - ');
+
+    const formatDate = (date) => {
+      const [month, year] = date.split(' ');
+      return `${year.slice(2)}${month}`;  // Format as YYMon (e.g., 22Sep)
+    };
+
+    return `${formatDate(start)}-${formatDate(end)}`;
+  };
+
+  // Helper function to sort the date ranges based on the start date
+  const sortDateRanges = (dateRanges) => {
+    return dateRanges.sort((a, b) => {
+      const startDateA = new Date(a.split(' - ')[0] + " 1");
+      const startDateB = new Date(b.split(' - ')[0] + " 1");
+      return startDateA - startDateB;
+    });
+  };
+
+  // Sort and shorten the date ranges
+  const sortedDateRanges = sortDateRanges(dateRanges);
+  return sortedDateRanges.map(shortenDateRange);
+}
+
+
 
 export function formatReadableText(text) {
   if(text==null) return null;

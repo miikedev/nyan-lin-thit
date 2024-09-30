@@ -2,6 +2,7 @@ import { Box, Divider, Grid, Group, Space, Stack } from "@mantine/core";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import calendar from '../../assets/ic_date.svg'
+import { processDateRanges } from "../../utils/utils";
 import TextSectionCard from "../components/DashboardPageComponents/TextSectionCard";
 
 const DataMap3 = lazy(()=>import("../components/DashboardPageComponents/DataMap3"))
@@ -111,7 +112,7 @@ const Dashboard = () => {
 	useEffect(() => {  
         if(newIsSuccess && newData) {
 			setDataResult(newData.datasets)
-			setLabels(newData.labels)
+			setLabels(processDateRanges(newData.labels))
 		}
 		// setTimeSpan(new Date(startDate).toLocaleDateString('en-CA') + ' - ' + new Date(endDate).toLocaleDateString('en-CA'))
     }, [newIsSuccess, newData, resultedParamNames]);  
@@ -1173,7 +1174,7 @@ const Dashboard = () => {
 									>
 										{/* <Box className="bg-white 2xl:hidden w-full h-[640px] rounded-md"> */}
 										<Box bg={{base: '#A2CBFE'}} className="rounded-md">
-											<Suspense fallback={<Loading width={"35vw"} />}>
+											<Suspense fallback={<Loading width={"30vw"} />}>
 												<DataMap3 height={"1140px"}/>
 											</Suspense>					
 										</Box>	

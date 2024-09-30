@@ -41,7 +41,7 @@ const MapFilterSelect = () => {
               }}
           >
             {states.map((state) => (
-              <SelectItem key={state.key} onClick={()=>setSearchparams({filter_map: state.name})} className="font-poppins"
+              <SelectItem key={state.key} onClick={()=>setSearchparams({state: state.name})} className="font-poppins"
               >
                 {capitalizeFirstLetter(state.name)}
               </SelectItem>

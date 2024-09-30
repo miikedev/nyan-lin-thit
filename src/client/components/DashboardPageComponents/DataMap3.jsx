@@ -67,7 +67,7 @@ const caseName = {
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
-  const filter_map = searchParams.get('filter_map');  
+  const filter_map = searchParams.get('state');  
   const description = formatReadableText(searchParams.get('description'));
   const map = useMap();
   
