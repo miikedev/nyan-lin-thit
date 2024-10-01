@@ -91,7 +91,7 @@ const Dashboard = () => {
     const [ipadChartWidthTwo, setIpadChartWidthTwo] = useState(690);  
     const [ipadChartHeightTwo, setIpadChartHeightTwo] = useState(230);  
     const [smallChartWidth, setSmallChartWidth] = useState(300);  
-    const [smallChartHeight, setSmallChartHeight] = useState(220);  
+    const [smallChartHeight, setSmallChartHeight] = useState(300);  
     const [smallChartWidthTwo, setSmallChartWidthTwo] = useState(330);  
     const [smallChartHeightTwo, setSmallChartHeightTwo] = useState(220);  
     const [mediumChartWidth, setMediumChartWidth] = useState(820);  
@@ -1166,7 +1166,7 @@ const Dashboard = () => {
 						<>
 							<Grid>
 								{/* Left Container */}
-								<Grid.Col span={4}>
+								<Grid.Col span={3.5}>
 									<motion.div 
 										initial={{ opacity: 0 }} 
 										animate={{ opacity: 1 }} 
@@ -1186,7 +1186,7 @@ const Dashboard = () => {
 									</motion.div>
 								</Grid.Col>
 								{/* Parent Right Container */}
-								<Grid.Col span={8}>
+								<Grid.Col span={8.5}>
 									<Box>
 										{/*Top Right Container Contain Charts */}
 										<Box
@@ -1360,7 +1360,7 @@ const Dashboard = () => {
 										<Box className="bg-white w-full h-[644px] flex items-center rounded-md p-[20px]">
 											<Group className="w-full h-auto bg-[#e6e6e6] p-[20px]">
 												{/* Inner Left Container */}
-												<Stack className="w-2/5  h-auto  gap-[16px] mt-[0px]">
+												<Stack className="w-[50%] h-auto gap-[16px] mt-[0px]">
 													<Box className="flex items-center justify-between mr-1">
 														<MapFilterSelect />
 														<Box className=" flex justify-end gap-[12px] p-0">
@@ -1382,21 +1382,23 @@ const Dashboard = () => {
 													</Box>
 												</Stack>
 												{/* Vertical Dashed Line */}
+
 												<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed"/>
+
 												{/* Inner Right Container */}
-												<Box className="relative">
+												<Stack className="relative w-[46%]">
 													{/* top */}
 													{ isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details}/>}
 													{/* bottom  */}
-													<Box className="relative w-full flex justify-between items-start mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
-														<Box className="w-2/3 h-[220px] 2xl:w-[60%] 2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
+													<Box className="relative bottom-[6px] w-full flex mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
+														<Box className="w-full h-[220px]  2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
 															{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult}/>}
 														</Box>
-														<Box className="w-1/3 h-[220px] 2xl:w-[40%] 2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+														<Box className="w-full h-[220px]  2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 															<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate}/>
 														</Box>
 													</Box>
-												</Box>
+												</Stack>
 											</Group>
 										</Box>
 									</Box>

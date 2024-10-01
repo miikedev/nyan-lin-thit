@@ -1,9 +1,9 @@
-import { Text } from "@mantine/core";
+import { Text,Box } from "@mantine/core";
 import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
-
+import Error from '../../pages/Error'
 import { ToolTipForStates } from "../../../utils/tooltipForStates";
 import { formatReadableText } from "../../../utils/utils";
 import { useDashboardMapData } from "../../apis/dashboardData";
@@ -21,6 +21,7 @@ import icon3 from './assets2/massacre.svg';
 
 import "../DashboardPageComponents/DataMap.css";
 import "leaflet/dist/leaflet.css";
+import Loading from "../../pages/Loading";
 
 // Define icon mapping outside the component
 const iconMapping = {
@@ -298,8 +299,8 @@ const DataMap3 = ({ height }) => {
   );
 
   // Handle loading and error states
-  if (isMapLoading) return <div>Loading...</div>;
-  if (isMapError) return <div>Error fetching data</div>;
+  if (isMapLoading) return <Loading />;
+  if (isMapError) return <Error height={"1140px"} />;
 
   // Filtering cases
   const filteredData = resultedParamNames.length > 0
