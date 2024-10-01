@@ -284,8 +284,6 @@ const DataMap3 = ({ height }) => {
   const selectedState = searchParams.get('state');
   const [filteredGeoJson, setFilteredGeoJson] = useState([]);
 
-  console.log('filter geo json',filteredGeoJson);
-
   const { startDate, endDate } = useDashboardDateContext();
   const { filterParams } = useDashboardFilterContext();
 
@@ -299,7 +297,7 @@ const DataMap3 = ({ height }) => {
   );
 
   // Handle loading and error states
-  if (isMapLoading) return <Loading />;
+  if (isMapLoading) return <Loading height={"1140px"} />;
   if (isMapError) return <Error height={"1140px"} />;
 
   // Filtering cases

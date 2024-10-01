@@ -15,7 +15,7 @@ const DisplayLatlng = ({lat, lng}) => {
         <Box className="flex items-center mb-[7px] xl:pl-[5px]">
             <img
                 src={M}
-                className="w-[15px] h-[15px] 2xl:w-[25px] 2xl:h-[25px] text-black"
+                className="w-[15px] h-[15px] 2xl:w-[18px] 2xl:h-[18px] text-black"
             />
             <p className="text-black text-[11px] 2xl:text-[12px] font-[500] ml-[10px]">
                 {location}

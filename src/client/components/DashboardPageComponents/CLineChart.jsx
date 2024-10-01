@@ -37,8 +37,8 @@ export const options = {
     legend: {
       position: 'top',
       labels: {
-        boxWidth: 10, // Adjust the width as needed
-        boxHeight: 10, // Adjust the height as needed
+        boxWidth: 3, // Adjust the width as needed
+        boxHeight: 3, // Adjust the height as needed
       },
     },
   },

@@ -3,7 +3,7 @@ import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
-
+import { formatReadableText } from "../../../utils/utils";
 import { ToolTipForStates } from "../../../utils/tooltipForStates";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
@@ -66,7 +66,7 @@ const caseName = {
 const SetBounds = () => {
     const [searchParams,setSearchParams] = useSearchParams();
     const [initialBounds, setInitialBounds] = useState(null);
-    const description = searchParams.get('description')
+    const description = formatReadableText(searchParams.get('description'));
     const filter_map = searchParams.get('filter_map');  
     const map = useMap();
   

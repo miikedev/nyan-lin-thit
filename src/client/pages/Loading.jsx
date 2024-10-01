@@ -1,16 +1,14 @@
 import { Box, Paper, Title } from '@mantine/core'
-import React from 'react'
 
 const Loading = ({height,width}) => {
+  const widthStyle = width ?? 'auto';
+  const heightStyle = height?? 'auto';
   return (
-    <>
-    <Paper className={`z-50 rounded w-[${width}]`}>
-        <Box 
-          className='mt-8 rounded-lg h-[1140px] bg-default-100 flex items-center justify-center z-50'>
+    <Paper>
+        <Box className={`w-[${width}] h-[${height}] rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center`}>
             <Title order={1} className='text-primary text-opacity-40 font-bold'>- Loading... -</Title>
         </Box>
     </Paper>
-    </>
   )
 }
 
