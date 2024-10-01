@@ -67,10 +67,9 @@ const caseName = {
 const SetBounds = () => {
   const [initialBounds, setInitialBounds] = useState(null);
   const [searchParams] = useSearchParams();
-  const filter_map = searchParams.get('state');  
+
   const description = formatReadableText(searchParams.get('description'));
   const map = useMap();
-  
   const defaultStyle = {
     // fillColor: "#3551a4",
     fillColor: "#fcfdfd",
@@ -281,7 +280,10 @@ const SetBounds = () => {
 const DataMap3 = ({ height }) => {
   const [caseCount, setCaseCount] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
-  const selectedState = searchParams.get('filter_map');
+  const selectedState = searchParams.get('state');
+  const [filteredGeoJson, setFilteredGeoJson] = useState([]);
+
+  console.log('filter geo json',filteredGeoJson);
 
   const { startDate, endDate } = useDashboardDateContext();
   const { filterParams } = useDashboardFilterContext();
