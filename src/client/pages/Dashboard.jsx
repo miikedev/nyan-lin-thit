@@ -1218,7 +1218,7 @@ const Dashboard = () => {
 												className={
 													// hoverClick === 0 ? 
 													// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
-													"w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 transition-all duration-300 ease-in-out rounded cursor-pointer  flex justify-center items-center"
+													"w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 transition-all duration-300 ease-in-out rounded cursor-pointer  flex justify-center items-end"
 												}
 												// className="w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center items-center"
 												onClick={() => {
@@ -1242,7 +1242,7 @@ const Dashboard = () => {
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ ease: "easeOut", duration: 1 }}
-												className="w-1/3  h-full p-[5px]  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer transition-all duration-300 ease-in-out flex justify-center items-center"
+												className="w-1/3  h-full p-[5px]  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer transition-all duration-300 ease-in-out flex justify-center items-end"
 												onClick={() => handleChartClick(1)}
 											>
 												<CLineChartStacked
@@ -1260,7 +1260,7 @@ const Dashboard = () => {
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ ease: "easeOut", duration: 1 }}
-												className="w-1/3 h-full p-[5px] transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-center"
+												className="w-1/3 h-full p-[5px] transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-end"
 												onClick={() => handleChartClick(2)}
 											>
 												{isSuccess &&
