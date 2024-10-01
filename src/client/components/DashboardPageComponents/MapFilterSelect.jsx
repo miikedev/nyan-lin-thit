@@ -1,11 +1,37 @@
 import { Select, SelectItem } from "@nextui-org/react";
 import { useSearchParams } from 'react-router-dom';
-
+import { useState } from "react";
 import { states } from '../../../utils/sampleData'
 import { capitalizeFirstLetter } from '../../../utils/utils';
-
+import { useDashboardGeoJsonFilterContext } from "../../context/DashboardGeoJsonContext";
+import myanmarGeoJson from '../DashboardPageComponents/assets2/myanmar_geo.json'
 const MapFilterSelect = () => {
+    const {setFilteredGeoJson} = useDashboardGeoJsonFilterContext();
     const [searchParams, setSearchparams] = useSearchParams()
+    const [value, setValue] = useState(new Set([]));
+    console.log('select value', value)
+    function handleOnChange(event) {
+      console.log(event.target.value)
+      const filteredData = myanmarGeoJson.features.filter(i => i.properties.ST === event.target.value)
+      // const mergedCoordinates = filteredData.map(item => {
+      //   const result = []
+      //   // Flatten the coordinates array and return the merged lat/lng array
+      //   let flat = item.geometry.coordinates.flat(3); // Flatten nested arrays into a single array
+      //   flat.forEach(i => result.append(i[0]))
+      //   return result
+      // });
+      const mergedCoordinates = filteredData.map(item => {
+        const result = [];
+        // Flatten the coordinates array and return the merged lat/lng array
+        let flat = item.geometry.coordinates.flat(3); // Flatten nested arrays into a single array
+        // Push both lat and lng as a pair
+        console.log('flat',flat)
+        flat.forEach(i => result.push(i.toFixed(4)))
+        console.log(result.sort());
+        return [Number(result[0]),Number(result[result.length - 1])]
+      });
+      console.log('merged coordinates', mergedCoordinates)
+    }
     return (
         <div className="">
         <Select 
@@ -13,6 +39,11 @@ const MapFilterSelect = () => {
             placeholder="Myanmar"
             defaultSelectedKeys={[""]}
             withScrollArea={true}
+            selectedKeys={value}
+            onSelectionChange={setValue}
+            onChange={(event)=>{
+              handleOnChange(event)
+            }}
             className="w-[200px] font-poppins_bold font-[700] placeholder:font-bold rounded-sm"
             classnames={{
               wrapper: 'font-bold rounded-md',
@@ -41,8 +72,7 @@ const MapFilterSelect = () => {
               }}
           >
             {states.map((state) => (
-              <SelectItem key={state.key} onClick={()=>setSearchparams({filter_map: state.name})} className="font-poppins"
-              >
+              <SelectItem key={state.name} className="font-poppins">
                 {capitalizeFirstLetter(state.name)}
               </SelectItem>
             ))}

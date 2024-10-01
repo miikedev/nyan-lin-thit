@@ -8,9 +8,9 @@ function CustomSlide(props) {
   return (
     <div {...otherProps}>
       <div
-          className={`text-black  border-[1px] border-[#e6e6e6] hover:text-[#001F3F] w-full h-[${height}]  hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-between items-center cursor-pointer gap-x-[20px]`}
+          className={`text-black  border-[1px] border-[#e6e6e6] hover:text-[#001F3F] w-full h-[${height}]  hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-center items-center cursor-pointer gap-x-[20px]`}
         >
-          <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">
+          <div className="font-poppins flex flex-col justify-center items-center gap-[10px]">
             <div>
             <p className="font-[600] text-[20px]">{title}</p>
             </div>

@@ -1,3 +1,4 @@
+import { Box, Button, Grid, Stack, Text } from "@mantine/core";
 import { useState } from "react";
 
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
@@ -6,7 +7,7 @@ import L2 from "../DashboardPageComponents/assets2/armed.svg";
 import L5 from "../DashboardPageComponents/assets2/arrest.svg";
 import L4 from "../DashboardPageComponents/assets2/casualty.svg";
 import L3 from "../DashboardPageComponents/assets2/massacre.svg";
-import { Stack, Box, Text, Button } from "@mantine/core";
+
 const Data = ({details, dataAll, dataResult, setDataResult}) => {
   const data = [
     { id: 1, logo: L1, name: "Airstrike", number: details.airstrike , param : 'airstrike'},
@@ -72,12 +73,19 @@ const Data = ({details, dataAll, dataResult, setDataResult}) => {
             className={`w-full cursor-pointer`}
             onClick={() => handleDataClick({ id, name, number, logo })}
           >
-            <div className="flex w-full justify-between text-[#212121]">
-              <Box className="flex">
-                <img src={logo} alt="logo" className="w-[15px] h-[15px]" />
-                <Text className="text-[13px] 2xl:text-[12px]" size="xs">{name.toLowerCase()}</Text>
-              </Box>
-              <Text className="text-[13px] 2xl:text-[12px]" size="xs">{number} {number>1 ? 'cases': 'case'}</Text>
+            <div className="w-[230px] text-[#212121]">
+              <Grid>
+                <Grid.Col span={8}>
+                  <div className="flex flex-start gap-1">
+                    <img src={logo} alt="logo" className="w-[15px] h-[15px]" />
+                    <Text className="text-[13px] 2xl:text-[12px]" size="xs">{name.toLowerCase()}</Text>
+                  </div>
+                </Grid.Col>
+                <Grid.Col span={4}>
+                  <Text className="text-[13px] 2xl:text-[12px] w-10" size="xs">{number} {number > 1 ? 'cases': 'case'}</Text>
+                </Grid.Col>
+              </Grid>
+
             </div>
           </Button>
         ))}

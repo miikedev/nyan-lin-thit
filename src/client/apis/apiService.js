@@ -1,4 +1,4 @@
-import axios from 'axios';  
+import axios from 'axios';
 
 // Get the environment variables  
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;  

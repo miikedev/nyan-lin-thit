@@ -30,8 +30,8 @@ const options = {
     legend: {
         position: 'top',
         labels: {
-          boxWidth: 10, // Adjust the width as needed
-          boxHeight: 10, // Adjust the height as needed
+          boxWidth: 5, // Adjust the width as needed
+          boxHeight: 5, // Adjust the height as needed
         },
       },
   },
