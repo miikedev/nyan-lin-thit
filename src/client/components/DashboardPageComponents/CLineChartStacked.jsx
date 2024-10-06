@@ -1,7 +1,8 @@
 import { CategoryScale, Chart as ChartJS, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js';
+import _ from 'lodash';
 import React, { useMemo } from 'react';
 import { Line } from 'react-chartjs-2';
-import _ from 'lodash';
+
 import { useDashboardFilterContext } from '../../context/DashboardFilterContext';
 
 ChartJS.register(
@@ -42,6 +43,8 @@ export const options = {
       },
     },
   },
+  pointStyle: false,
+
 };
 
 
@@ -105,11 +108,11 @@ export const data = {
 
 export default function CLineChartStacked({ width, height, fontSize, isFullWidth, newDataResult, paramResult }) {
   const caseColors = {
-    'airstrike': { backgroundColor: 'rgba(255, 99, 132, 0.5)', borderColor: 'rgb(255, 99, 132)' },
-    'armed_clashes': { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' },
-    'massacre': { backgroundColor: 'rgba(255, 206, 86, 0.5)', borderColor: 'rgb(255, 206, 86)' },
-    'casualties': { backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgb(75, 192, 192)' },
-    'arrests': { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' },
+    'airstrike': { backgroundColor: '#165BAA75', borderColor: 'rgb(255, 99, 132)' },
+    'armed_clashes': { backgroundColor: '#FFA4B675', borderColor: 'rgb(54, 162, 235)' },
+    'massacre': { backgroundColor: '#A155B975', borderColor: 'rgb(255, 206, 86)' },
+    'casualties': { backgroundColor: '#57759075', borderColor: 'rgb(75, 192, 192)' },
+    'arrests': { backgroundColor: '#F765A375', borderColor: 'rgb(153, 102, 255)' },
   };
 
   const caseName = {
@@ -137,8 +140,8 @@ export default function CLineChartStacked({ width, height, fontSize, isFullWidth
       label: region.label,
       data: region.data,
       backgroundColor:colors.backgroundColor,
-      borderColor: colors.borderColor,
       fill: true,
+      tension:.3,
     };
   });
   const result_2 = _.sampleSize(result, result.length).map(item => {  

@@ -3,8 +3,9 @@ import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
-import { formatReadableText } from "../../../utils/utils";
+
 import { ToolTipForStates } from "../../../utils/tooltipForStates";
+import { formatReadableText } from "../../../utils/utils";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
@@ -198,7 +199,7 @@ const SetBounds = () => {
         map.fitBounds(bounds);
         setInitialBounds(bounds);
         map.setMaxZoom(16);
-        map.setMinZoom(4);
+        map.setMinZoom(6);
         districtLayer.setStyle(defaultStyle);
         // cityLayer.setStyle(defaultStyle);
         townshipLayer.setStyle(defaultStyle);

@@ -64,7 +64,7 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
       </div>
       <Grid>
         <Grid.Col span={6}>
-          <div className="mb-[10px] rounded-md">
+          <div className="mb-[25px] rounded-md">
             <h3 className="mb-[10px] text-black font-poppins">Start Date</h3>
             <div className="w-full flex gap-[15px] justify-start items-center">
               <img src={CalendarIcon} className="w-[20px] h-[20px]" alt="calendar icon" />
@@ -99,7 +99,7 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
         </Grid.Col>
 
         <Grid.Col span={6}>
-          <div className="mb-[10px] rounded-md">
+          <div className="mb-[25px] rounded-md">
             <h3 className="mb-[10px] text-black font-poppins">End Date</h3>
             <div className="w-full flex gap-[15px] justify-start items-center">
               <img src={CalendarIcon} className="w-[20px] h-[20px]" alt="calendar icon" />

@@ -1600,14 +1600,14 @@ const Dashboard = () => {
 								transition={{ ease: "easeOut", duration: 1 }}
 								className="rounded-md mr-[20px] w-[30%]"
 							>
-								{/* <Box className="bg-white 2xl:hidden w-full h-[640px] rounded-md">
-											<Suspense fallback={<Loading width={"370px"} height={"640px"} />}>
-												<DataMap3 width={"full"} height={"640px"} />
+								<Box className="w-full h-auto rounded-md mr-[20px]" bg={{ base: '#A2CBFE' }}>
+											<Suspense fallback={<Loading />}>
+												{!isFullWidth &&<DataMap4 />}
 											</Suspense>						
-										</Box> */}
+										</Box>
 								<Box className="w-full h-auto rounded-md mr-[20px]" bg={{ base: '#A2CBFE' }}>
 									<Suspense fallback={<Loading />}>
-										{!isFullWidth && <DataMap4 />}
+										{isFullWidth && <DataMap4 />}
 									</Suspense>
 								</Box>
 							</motion.div>
@@ -1647,12 +1647,12 @@ const Dashboard = () => {
 											{/* top */}
 											{isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 											{/* bottom  */}
-											<Box className="relative w-full flex 2xl:gap-[20px] xl:gap-[20px] 2xl:h-[350px]">
-												<Box className="w-[60%] border-[1px] border-[#e6e6e6] bg-white relative flex items-start rounded-md">
-													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult} />}
+											<Box className="relative w-full flex flex-col 2xl:gap-[20px] xl:gap-[20px] 2xl:h-[350px]">
+												<Box className="w-[100%] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+													<Dates startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
 												</Box>
-												<Box className="2xl:w-[40%] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
-													<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+												<Box className="w-[100%] border-[1px] border-[#e6e6e6] bg-white relative flex items-start rounded-md">
+													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult} />}
 												</Box>
 											</Box>
 									</Stack>

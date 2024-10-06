@@ -12,7 +12,13 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
+const caseColors = {
+  'airstrike': { backgroundColor: '#165BAA75', borderColor: 'rgb(255, 99, 132)' },
+  'armed_clashes': { backgroundColor: '#FFA4B675', borderColor: 'rgb(54, 162, 235)' },
+  'massacre': { backgroundColor: '#A155B975', borderColor: 'rgb(255, 206, 86)' },
+  'casualties': { backgroundColor: '#57759075', borderColor: 'rgb(75, 192, 192)' },
+  'arrests': { backgroundColor: '#F765A375', borderColor: 'rgb(153, 102, 255)' },
+};
 export const options = {
   responsive: true,
   scales: {
@@ -41,6 +47,8 @@ export const options = {
       },
     },
   },
+  borderWidth: 2,
+  pointStyle: false,
 };
 
 
@@ -50,6 +58,7 @@ export default function CLineChart({ width, height, fontSize, isFullWidth, newDa
 
   if(newDataResult === undefined) return <Error />;
   // const refinedLabel = shortenDateRange(labels);
+
   const data = {
     labels: labels,
     datasets:newDataResult
