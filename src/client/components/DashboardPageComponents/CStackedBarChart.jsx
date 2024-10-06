@@ -1,7 +1,8 @@
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
+import _ from 'lodash';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import _ from 'lodash';
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const options = {
     scales: {
@@ -10,14 +11,14 @@ const options = {
             //   color: 'red', // Color for x-axis labels
             },
             grid: {
-              color: 'rgba(255, 255, 255, 0.3)', // Color for x-axis line
+              color: 'rgba(255, 255, 255, .3)', // Color for x-axis line
             },
             stacked: true,
           },
         y: {
          
           grid: {
-            color: 'rgba(255, 255, 255, 0.3)', // Color for y-axis line
+            color: 'rgba(255, 255, 255, .3)', // Color for y-axis line
           },
           stacked: true,
         },
@@ -53,11 +54,11 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
 
   const result_death = datasets.map(d => {
 
-    return { ...d, stack: 'death', label: d.label+'.death', backgroundColor: 'rgba(50, 50, 50, 0.8)'  };  
+    return { ...d, stack: 'death', label: d.label+'.death', backgroundColor: 'rgba(50, 50, 50, 0.6)'  };  
   })
   
   const result_injury = _.sampleSize(datasets,datasets.length).map(d => {
-     return { ...d, stack: 'injury', label: d.label+'.injury' ,backgroundColor: 'rgba(255, 0, 0, 0.8)'};  
+     return { ...d, stack: 'injury', label: d.label+'.injury' ,backgroundColor: 'rgba(255, 0, 0, 0.6)'};  
 
   })
   const merge = [...result_death, ...result_injury]

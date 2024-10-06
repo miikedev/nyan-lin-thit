@@ -45,6 +45,7 @@ export const options = {
         boxWidth: 3, // Adjust the width as needed
         boxHeight: 3, // Adjust the height as needed
       },
+      borderRadius: 3,
     },
   },
   borderWidth: 2,

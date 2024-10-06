@@ -38,19 +38,21 @@ const MapFilterSelect = () => {
         <div className="">
         <Select 
             radius="sm"
+            size="lg"
             placeholder="Myanmar"
             defaultSelectedKeys={[""]}
             withScrollArea={true}
             selectedKeys={value}
+            bg="white"
             onSelectionChange={setValue}
             onChange={(event)=>{
               handleOnChange(event)
             }}
-            className="w-[200px] font-poppins_bold font-[700] placeholder:font-bold rounded-sm"
+            className="w-[200px] font-poppins_bold font-[700] rounded-sm"
             classnames={{
-              wrapper: 'font-bold rounded-md',
-              input: 'rounded-md text-[20px]',
-              base: 'text-[16px]'
+              wrapper: 'font-bold rounded-md bg-white',
+              input: 'rounded-sm',
+              placeholder: 'font-poppins_bold'
             }}
             listboxProps={{
                 itemClasses: {

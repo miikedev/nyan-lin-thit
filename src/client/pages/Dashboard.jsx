@@ -158,6 +158,12 @@ const Dashboard = () => {
 			setDataResult(filteredData);
 		}
 	};
+	const handleFirstLayoutClick = () => {
+		setIsDefaultLayout(!isDefaultLayout)
+	}
+	const handleSecondLayoutClick = () => {
+        setIsDefaultLayout(!isDefaultLayout)
+    }
 	// if(isLoading && newIsLoading) return <Loading />
 	return (
 		<Box className="bg-[#dedede] p-[20px] w-full h-auto">
@@ -395,7 +401,10 @@ const Dashboard = () => {
 						)}
 						<button
 							className="absolute bottom-0  right-0 w-[50px] h-[50px]  font-bold py-2 px-4 rounded"
-							onClick={() => setIsFullWidth(!isFullWidth)}
+							onClick={() => {
+								setIsFullWidth(!isFullWidth)
+								setActiveChart(0)
+							}}
 						>
 							{isFullWidth ? (
 								<img src={Min} className="w-[25px] h-[25px] border-1 border-red-800" />
@@ -467,10 +476,10 @@ const Dashboard = () => {
 																} w-[30px] h-[30px] p-1 rounded`}
 																onClick={() => setIsDefaultLayout(false)}/>
 															</button> */}
-											<button onClick={() => setIsDefaultLayout(true)}>
+											<button onClick={handleFirstLayoutClick}>
 												<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 											</button>
-											<button onClick={() => setIsDefaultLayout(false)}>
+											<button onClick={handleSecondLayoutClick}>
 												<SecondLayout color={!isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 											</button>
 										</Box>
@@ -1123,7 +1132,7 @@ const Dashboard = () => {
 												</p>
 											</Box>
 											<Box>
-												{isSuccess && data != undefined && <TextSectionCard data={data.news} />}
+												{isSuccess && data != undefined && <TextSectionCard data={data.news} height={'350px '} />}
 											</Box>
 										</Box>
 
@@ -1288,7 +1297,6 @@ const Dashboard = () => {
 													<Box>
 														{activeChart === 0 && (
 															<Box
-																// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
 																className="transition-all duration-300 ease-in-out fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
 															>
 																<Suspense fallback={<Loading />}>
@@ -1302,7 +1310,7 @@ const Dashboard = () => {
 																</Suspense>
 																<button
 																	className={`transition-all duration-300 ease-in-out fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
-																	onClick={() => setIsFullWidth(!isFullWidth)}
+																	onClick={handleChartClick}
 																>
 																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
 																</button>
@@ -1326,7 +1334,7 @@ const Dashboard = () => {
 																</Suspense>
 																<button
 																	className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
-																	onClick={() => setIsFullWidth(!isFullWidth)}
+																	onClick={handleChartClick}
 																>
 																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
 																</button>
@@ -1349,7 +1357,7 @@ const Dashboard = () => {
 																</Suspense>
 																<button
 																	className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
-																	onClick={() => setIsFullWidth(!isFullWidth)}
+																	onClick={handleChartClick}
 																>
 																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
 																</button>
@@ -1380,10 +1388,10 @@ const Dashboard = () => {
 											<Box className="flex items-start justify-between mr-1">
 												<MapFilterSelect />
 												<Box className=" flex justify-end gap-[12px] p-0 mt-[10px]">
-													<button onClick={() => setIsDefaultLayout(true)}>
+													<button onClick={handleFirstLayoutClick}>
 														<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 													</button>
-													<button onClick={() => setIsDefaultLayout(false)}>
+													<button onClick={handleSecondLayoutClick}>
 														<SecondLayout color={!isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 													</button>
 												</Box>
@@ -1573,9 +1581,9 @@ const Dashboard = () => {
 											className="slide-nav-arrow right"
 										>
 											{/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-</svg>
- */}
+												<path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+												</svg>
+											*/}
 											<img src={R} className="w-[25px] h-[25px]" />
 										</button>
 									</Box>
@@ -1583,7 +1591,7 @@ const Dashboard = () => {
 							)}
 							<button
 								className="absolute bottom-0  right-0 w-[50px] h-[50px] z-20 bg-white font-bold py-2 px-4 rounded"
-								onClick={() => setIsFullWidth(!isFullWidth)}
+								onClick={handleChartClick}
 							>
 								{isFullWidth ? (
 									<img src={Min} className="w-[20px] h-[20px]" />
@@ -1619,10 +1627,10 @@ const Dashboard = () => {
 										<Box className="flex items-center justify-between mr-1">
 											<MapFilterSelect />
 											<Box className=" flex justify-end gap-[12px] p-0">
-												<button onClick={() => setIsDefaultLayout(true)}>
+												<button onClick={handleFirstLayoutClick}>
 													<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 												</button>
-												<button onClick={() => setIsDefaultLayout(false)}>
+												<button onClick={handleSecondLayoutClick}>
 													<SecondLayout color={!isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 												</button>
 											</Box>
