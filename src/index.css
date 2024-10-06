@@ -4,19 +4,19 @@
 
 @font-face {
     font-family: "Kanit-400";
-    src: url("../public/fonts/Kanit/Kanit-Regular.ttf");
+    src: url("/fonts/Kanit/Kanit-Regular.ttf");
 }
 
 @font-face {
     font-family: "Poppins-700";
-    src: url("../public/fonts/Poppins/Poppins-Bold.ttf");
+    src: url("/fonts/Poppins/Poppins-Bold.ttf");
 }
 @font-face {
     font-family: "Poppins-400";
-    src: url("../public/fonts/Poppins/Poppins-Regular.ttf");
+    src: url("/fonts/Poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
     font-family: "OpenSans-400";
-    src: url("../public/fonts/Open_Sans/static/OpenSans-Regular.ttf");
+    src: url("/fonts/Open_Sans/static/OpenSans-Regular.ttf");
 }

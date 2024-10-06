@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Group, Space, Stack } from "@mantine/core";
+import { Box, Divider, Grid, Group, Paper, Space, Stack } from "@mantine/core";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import calendar from '../../assets/ic_date.svg'
@@ -99,8 +99,8 @@ const Dashboard = () => {
 	const [fullChartWidth, setFullChartWidth] = useState(1200);
 	const [fullChartHeight, setFullChartHeight] = useState(250);
 
-	const detailNameForLarge = '14px';
-	const detailNumberForLarge = '13px';
+	const detailNameForLarge = '16px';
+	const detailNumberForLarge = '16px';
 	const detailNameForMedium = '12px';
 	const detailNumberForMedium = '12px';
 	const detailNameForSmall = '11px';
@@ -1189,23 +1189,18 @@ const Dashboard = () => {
 							>
 								{/* <Box className="bg-white 2xl:hidden w-full h-[640px] rounded-md"> */}
 								<Box bg={{ base: '#A2CBFE' }} className="rounded-md">
-									<Suspense fallback={<Loading width={"30vw"} />}>
-										<DataMap3 height={"1140px"} />
+									<Suspense fallback={<Loading width={"1000px"} />}>
+										<DataMap3 />
 									</Suspense>
 								</Box>
-								{/* <Box className="bg-white rounded-md">
-											<Suspense fallback={<Loading />}>
-												<DataMap3 width={"640px"} height={"1200px"}/>
-											</Suspense>
-										</Box> */}
 							</motion.div>
 						</Grid.Col>
 						{/* Parent Right Container */}
 						<Grid.Col span={8.5}>
-							<Box>
+							<Box className="2xl:h-[850px] xl:h[1000px]">
 								{/*Top Right Container Contain Charts */}
-								<Box
-									className={`p-[20px] bg-white w-full xl:h-[256px] 2xl:h-[480px] rounded-md flex justify-center items-center `}
+								<Box	
+									className={`p-[20px] bg-white w-full xl:h-[346.5px] 2xl:h-[385px] rounded-md flex justify-center items-center `}
 								>
 									{!isFullWidth && (
 										<>
@@ -1376,15 +1371,15 @@ const Dashboard = () => {
 										</>
 									)}
 								</Box>
-								<Space h={"md"} />
+								<div className="2xl:h-[1.5%]"></div>
 								{/*Under Right Container filterings and infos display */}
-								<Box className="bg-white w-full h-[644px] flex items-center rounded-md p-[20px]">
-									<Group className="w-full h-auto bg-[#e6e6e6] p-[20px]">
+								<Box className="bg-white w-[100%] 2xl:h-[600px] xl:h-[540px] flex rounded-md p-[20px] xl:mt-[1.5%] 2xl:mt-0">
+									<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-start p-[20px]">
 										{/* Inner Left Container */}
-										<Stack className="w-[50%] h-auto gap-[16px] mt-[0px]">
-											<Box className="flex items-center justify-between mr-1">
+										<Stack className="w-[40%] h-[80%]">
+											<Box className="flex items-start justify-between mr-1">
 												<MapFilterSelect />
-												<Box className=" flex justify-end gap-[12px] p-0">
+												<Box className=" flex justify-end gap-[12px] p-0 mt-[10px]">
 													<button onClick={() => setIsDefaultLayout(true)}>
 														<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 													</button>
@@ -1395,32 +1390,30 @@ const Dashboard = () => {
 											</Box>
 											<DisplayDate1 timeSpan={timeSpan} />
 											<DisplayLatlng lat={data?.myanmar_lat} lng={data?.myanmar_long} />
-											<Box className="2xl:hidden w-full h-[170px]  ">
-												{isSuccess && data && <TextSectionCard data={news} height={"170px"} />}
+											<Box className="2xl:hidden w-full h-[300px]  ">
+												{isSuccess && data && <TextSectionCard2 height={"200px"} />}
 											</Box>
-											<Box className="max-2xl:hidden w-full h-[350px]">
-												<TextSectionCard2 height={'334px'} />
+											<Box className="max-2xl:hidden 	w-full h-[350px]">
+												<TextSectionCard2 height={'384px'} />
 											</Box>
 										</Stack>
 										{/* Vertical Dashed Line */}
-
-										<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
-
+										<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" className="mx-[20px]"/>
 										{/* Inner Right Container */}
-										<Stack className="relative w-[46%]">
+										<Stack className="w-[60%] h-[80%]">
 											{/* top */}
 											{isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
 											{/* bottom  */}
-											<Box className="relative bottom-[6px] w-full flex mt-[10px] 3xl:mt-[100px] gap-[20px] xl:gap-[10px]">
-												<Box className="w-full h-[220px]  2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white pt-5 relative flex items-start rounded-md">
+											<Box className="relative w-full flex 2xl:gap-[20px] xl:gap-[20px] 2xl:h-[350px]">
+												<Box className="w-[60%] border-[1px] border-[#e6e6e6] bg-white relative flex items-start rounded-md">
 													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult} />}
 												</Box>
-												<Box className="w-full h-[220px]  2xl:h-[334px] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+												<Box className="2xl:w-[40%] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
 													<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
 												</Box>
 											</Box>
 										</Stack>
-									</Group>
+									</Box>
 								</Box>
 							</Box>
 						</Grid.Col>
@@ -1489,7 +1482,7 @@ const Dashboard = () => {
 							)}
 							{isFullWidth && (
 								<>
-									<Box className="w-full xl:h-[256px] 2xl:h-[380px]  flex justify-between items-center p-[10px]">
+									<Box className="w-full xl:h-[240px] 2xl:h-[380px]  flex justify-between items-center p-[10px]">
 										{/* Left Navigate button */}
 										<button
 											className=" text-[40px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
@@ -1600,7 +1593,7 @@ const Dashboard = () => {
 							</button>
 						</Box>
 						{/* Bottom Parent Container */}
-						<Box className="w-full h-auto flex justify-between rounded-md">
+						<Box className="w-full h-[800px] flex justify-between rounded-md">
 							<motion.div
 								initial={{ opacity: 0 }}
 								animate={{ opacity: 1 }}
@@ -1612,15 +1605,15 @@ const Dashboard = () => {
 												<DataMap3 width={"full"} height={"640px"} />
 											</Suspense>						
 										</Box> */}
-								<Box className="w-full h-[800px] rounded-md mr-[20px]" bg={{ base: '#A2CBFE' }}>
+								<Box className="w-full h-auto rounded-md mr-[20px]" bg={{ base: '#A2CBFE' }}>
 									<Suspense fallback={<Loading />}>
-										{!isFullWidth && <DataMap4 height={"800px"} />}
+										{!isFullWidth && <DataMap4 />}
 									</Suspense>
 								</Box>
 							</motion.div>
 							{/*Bottom Right Container  */}
-							<Box className="bg-white w-[70%] 2xl:h-[800px] flex rounded-md p-[20px]">
-								<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-center p-[20px]">
+							<Box className="bg-white w-[70%] 2xl:h-[800px] xl:h-[800px] flex rounded-md p-[26px]">
+								<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-start p-[26px]">
 									{/* Inner Left Container */}
 									<Stack className="w-[50%] h-[80%]">
 										<Box className="flex items-center justify-between mr-1">
@@ -1644,23 +1637,24 @@ const Dashboard = () => {
 												{isSuccess && data.myanmar_lat + ',' + data.myanmar_long}
 											</p>
 										</Box>
-										<Dates fontSize={"14px"} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-										<Box className="relative 4xl:hidden w-full flex flex-col items-center 2xl:mt-0 2xl:gap-[40px] gap-[10px]">
-											<Box className="w-full border-[1px] border-[#e6e6e6] bg-white rounded-md relative top-2">
-												{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult} />}
-											</Box>
-										</Box>
-									</Stack>
-									{/* Vertical Dashed Line */}
-									<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" className="mx-[20px]" />
-									{/* Inner Right Container */}
-									<Stack className="w-[50%] h-[80%]">
-										{/* top */}
-										{isSuccess && <Detail layout={false} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
-										{/* bottom  */}
-										<Box className="max-2xl:hidden w-full">
+										<Box className=" w-full">
 											{isSuccess && data && <TextSectionCard2 data={news} height={"200px"} />}
 										</Box>
+									</Stack>
+									<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" className="mx-[20px]" />
+									{/* Inner Right Container */}
+									<Stack className="w-[60%] h-[80%]">
+											{/* top */}
+											{isSuccess && <Detail layout={true} name={detailNameForLarge} number={detailNumberForLarge} data={details} />}
+											{/* bottom  */}
+											<Box className="relative w-full flex 2xl:gap-[20px] xl:gap-[20px] 2xl:h-[350px]">
+												<Box className="w-[60%] border-[1px] border-[#e6e6e6] bg-white relative flex items-start rounded-md">
+													{isSuccess && <Data details={details} dataAll={data} setDataResult={setDataResult} dataResult={dataResult} />}
+												</Box>
+												<Box className="2xl:w-[40%] border-[1px] border-[#e6e6e6] bg-white rounded-md flex justify-center items-center">
+													<Dates2 startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+												</Box>
+											</Box>
 									</Stack>
 								</Box>
 							</Box>

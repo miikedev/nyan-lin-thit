@@ -1,5 +1,4 @@
 import { Grid } from "@mantine/core";
-import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useSearchParams } from "react-router-dom";
 
@@ -126,7 +125,7 @@ const Dates = ({fontSize, startDate, setStartDate, setEndDate, endDate}) => {
                 endDate={endDate}
                 minDate={startDate}
                 selected={endDate}
-                onChange={(date)=>handleEndDateChange(date)}
+                onChange={(date)=>handleEndDateChange(date  )}
                 dateFormat="dd/MM/yyyy"
                 className="custom-input relative"
                 placeholderText="Add Date"

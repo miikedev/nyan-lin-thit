@@ -17,7 +17,7 @@ const DisplayLatlng = ({lat, lng}) => {
                 src={M}
                 className="w-[15px] h-[15px] 2xl:w-[18px] 2xl:h-[18px] text-black"
             />
-            <p className="text-black text-[11px] 2xl:text-[12px] font-[500] ml-[10px]">
+            <p className="text-black text-[14px] font-[500] ml-[10px]">
                 {location}
             </p>
         </Box>
