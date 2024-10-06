@@ -1,10 +1,12 @@
 import { Select, SelectItem } from "@nextui-org/react";
-import { useSearchParams } from 'react-router-dom';
 import { useState } from "react";
+import { useSearchParams } from 'react-router-dom';
+
 import { states } from '../../../utils/sampleData'
 import { capitalizeFirstLetter } from '../../../utils/utils';
 import { useDashboardGeoJsonFilterContext } from "../../context/DashboardGeoJsonContext";
 import myanmarGeoJson from '../DashboardPageComponents/assets2/myanmar_geo.json'
+
 const MapFilterSelect = () => {
     const {setFilteredGeoJson} = useDashboardGeoJsonFilterContext();
     const [searchParams, setSearchparams] = useSearchParams()
@@ -47,7 +49,8 @@ const MapFilterSelect = () => {
             className="w-[200px] font-poppins_bold font-[700] placeholder:font-bold rounded-sm"
             classnames={{
               wrapper: 'font-bold rounded-md',
-              input: 'rounded-md'
+              input: 'rounded-md text-[20px]',
+              base: 'text-[16px]'
             }}
             listboxProps={{
                 itemClasses: {

@@ -1,6 +1,4 @@
-
 import * as d3 from 'd3';
-
 
 export const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -86,8 +84,11 @@ export function processDateRanges(dateRanges) {
 
 
 export function formatReadableText(text) {
-  if(text==null) return null;
-  return text
+  // Check if the text is null or undefined
+  if (text === null || text === undefined) return '';
+
+  // Ensure the text is a string before processing it
+  return String(text)
     .split('_')  // Split the text by underscores
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))  // Capitalize the first letter of each word
     .join(' ');  // Join the words with spaces

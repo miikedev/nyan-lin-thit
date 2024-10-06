@@ -6,7 +6,7 @@ const Error = ({width,height}) => {
   const heightStyle = height?? 'auto';
   return (
     <Paper>
-        <Box className={`w-[${width}] h-[${height}] rounded-lg min-h-[400px] bg-default-100 flex items-center justify-center`}>
+        <Box className={`w-[${width}] h-[${height}] rounded-lg min-h-[1000px] bg-default-100 flex items-center justify-center`}>
             <Title order={1} className='text-primary text-opacity-40 font-bold'>- Something Went Wrong -</Title>
         </Box>
     </Paper>

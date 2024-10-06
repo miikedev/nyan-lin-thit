@@ -1,17 +1,17 @@
-import { Text,Box } from "@mantine/core";
+import { Text } from "@mantine/core";
 import L from "leaflet";
 import { useEffect, useMemo, useState } from "react";
 import { MapContainer, Marker, Popup, useMap } from "react-leaflet";
 import { useSearchParams } from "react-router-dom";
-import Error from '../../pages/Error'
+
 import { ToolTipForStates } from "../../../utils/tooltipForStates";
 import { formatReadableText } from "../../../utils/utils";
 import { useDashboardMapData } from "../../apis/dashboardData";
 import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
-import cityGeoJSON from "../DashboardPageComponents/assets2/cities.json";
+import Error from '../../pages/Error'
+import Loading from "../../pages/Loading";
 import myanmarGeoJSONNew from "../DashboardPageComponents/assets2/myanmar_geo.json";
-import stateGeoJson from '../DashboardPageComponents/assets2/state_region.json'
 import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
 import icon1 from './assets2/airStrike.svg';
 import icon2 from './assets2/armed.svg';
@@ -21,7 +21,6 @@ import icon3 from './assets2/massacre.svg';
 
 import "../DashboardPageComponents/DataMap.css";
 import "leaflet/dist/leaflet.css";
-import Loading from "../../pages/Loading";
 
 // Define icon mapping outside the component
 const iconMapping = {
@@ -333,9 +332,7 @@ const DataMap3 = ({ height }) => {
         id="leaflet-container"
         {...zoomPropperties}
         // className={`border-none z-10`}
-        className={`border-none shadow-sm rounded-md w-[100%] xl:h-[1140px] lg:h-[1140px] md:h-[800px] flex justify-center items-center z-10 text-black`}
-        // style={{width: width, height: height}}
-        
+        className={`border-none shadow-sm rounded-md w-[100%] 2xl:h-[1000px] xl:h-[1000px] flex justify-center items-center z-10 text-black`}
       >
         <SetBounds />
         {

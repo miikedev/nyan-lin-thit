@@ -18,7 +18,7 @@ const DisplayDate1 = ({timeSpan: defaultTimeSpan}) => {
         className="w-[12px] h-[12px] 2xl:w-[20px] 2xl:h-[20px] text-white"
         alt="calendar"
       />
-      <p className="text-black text-[12px] 2xl:text-[12px] ml-[16px] openSans-400 font-semibold">
+      <p className="text-black text-[16px] ml-[16px] openSans-400 font-semibold">
         {timeSpan}
       </p>
     </Box>

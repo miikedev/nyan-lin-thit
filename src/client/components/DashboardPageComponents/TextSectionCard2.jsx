@@ -8,14 +8,14 @@ function CustomSlide(props) {
   return (
     <div {...otherProps}>
       <div
-          className={`text-black  border-[1px] border-[#e6e6e6] hover:text-[#001F3F] w-full h-[${height}]  hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white bg-white px-[20px] py-[20px] rounded-lg flex justify-center items-center cursor-pointer gap-x-[20px]`}
+          className={`text-[#848484]  border-[1px] border-[#e6e6e6]  w-full h-[${height}]  hover:bg-[#f8f8f8] transition-all duration-300 ease-in-out bg-white px-[20px] py-[20px] rounded-lg flex justify-start items-start cursor-pointer gap-x-[20px]`}
         >
-          <div className="font-poppins flex flex-col justify-center items-center gap-[10px]">
+          <div className="font-poppins flex flex-col gap-[10px]">
             <div>
-            <p className="font-[600] text-[20px]">{title}</p>
+            <p className="text-black font-[600] text-[20px]">{title}</p>
             </div>
             <div>
-            <p className="text-[14px] font-kanit font-[400] ">{description}</p>
+            <p className="text-[16px] font-kanit font-[400] ">{description}</p>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@ const TextSectionCard2 = ({height}) => {
 
   const contents = [
     {title: 'The massacre of the military group12',description: 'The massacre of the military group12'},
-    {title: 'Mass Killings in September 2023',description: 'In September 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (71) civilians were killed.'},
+    {title: 'Mass Killings in September 2023',description: 'In September 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (71) civilians were killed.In September 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (71) civilians were killed.'},
     {title: 'Mass Killings in October 2023',description: 'In October 2023, the military group committed at least (8) mass killings in which five (5) or more people were killed, and a total of (62) civilians were killed.'},
     {title: 'Mass Killings in November 2023',description: 'In November 2023, the military group committed at least (9) mass killings in which five (5) or more people were killed, and a total of (78) civilians were killed.'},
     {title: 'Mass Killings in December 2023',description: 'In December 2023, the military group committed at least (10) mass killings in which five (5) or more people were killed, and a total of (72) civilians were killed.'},
