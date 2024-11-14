@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchDashboardChart, fetchDashboardMap, fetchDashboards } from "./apiService";
 
 export const useDashboardData = () => {
-
   return useQuery({
     queryKey: ['dashboard'],
     queryFn: () => fetchDashboards(),

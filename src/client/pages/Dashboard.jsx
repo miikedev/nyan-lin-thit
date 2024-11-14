@@ -1620,16 +1620,17 @@ const Dashboard = () => {
 									</Box>
 								</>
 							)}
-							<button
-								className="absolute bottom-0  right-0 w-[50px] h-[50px] z-20 bg-white font-bold py-2 px-4 rounded"
-								onClick={handleChartClick}
-							>
 								{isFullWidth ? (
-									<img src={Min} className="w-[20px] h-[20px]" />
+									<button
+										className="absolute bottom-0  right-0 w-[50px] h-[50px] z-20 bg-white font-bold py-2 px-4 rounded"
+										onClick={handleChartClick}
+									>
+											<img src={Min} className="w-[20px] h-[20px]" />
+									</button>
 								) : (
-									<img src={Max} className="w-[20px] h-[20px]" />
+									<></>
+									// <img src={Max} className="w-[20px] h-[20px]" />
 								)}
-							</button>
 						</Box>
 						{/* Bottom Parent Container */}
 						<Box className="w-full h-[800px] flex justify-between rounded-md">

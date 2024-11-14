@@ -44,8 +44,9 @@ export const fetchDashboards = async () => {
 
 // Fetch dashboard chart data from the API  
 export const fetchDashboardChart = async (startDate, endDate) => {  
-  const paramString = (startDate !== 'Invalid Date' && endDate !== 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';  
-  const url = constructUrl(`/dashboard/chart${paramString}`);  
+  const basePath = '/dashboard/chart';  
+  const url = constructDashboardUrl(basePath, startDate, endDate);  
+
   
   try {  
     const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);  
@@ -57,8 +58,9 @@ export const fetchDashboardChart = async (startDate, endDate) => {
 
 // Fetch dashboard map data from the API  
 export const fetchDashboardMap = async (startDate, endDate) => {  
-  const paramString = (startDate !== 'Invalid Date' && endDate !== 'Invalid Date') ? `?startDate=${startDate}&endDate=${endDate}` : '';  
-  const url = constructUrl(`/dashboard/map${paramString}`);  
+  const basePath = '/dashboard/map';  
+  const url = constructDashboardUrl(basePath, startDate, endDate);  
+
   
   try {  
     const response = IS_PRODUCTION ? await instance.get(url) : await axios.get(url);  
@@ -66,4 +68,28 @@ export const fetchDashboardMap = async (startDate, endDate) => {
   } catch (error) {  
     console.error(`Error fetching dashboard map:`, error);  
   }  
+};  
+
+// Utility function to check if a date is valid  
+const isValidDate = (date) => {  
+  return date instanceof Date && !isNaN(date);  
+};  
+
+// Function to construct the URL  
+const constructDashboardUrl = (basePath, startDate, endDate) => {  
+  // Create the query string if dates are valid  
+  const params = [];  
+  
+  if (isValidDate(startDate)) {  
+    params.push(`startDate=${startDate.toISOString()}`);  
+  }  
+  
+  if (isValidDate(endDate)) {  
+    params.push(`endDate=${endDate.toISOString()}`);  
+  }  
+  
+  // Join parameters with '&' if any  
+  const paramString = params.length > 0 ? `?${params.join('&')}` : '';  
+  
+  return constructUrl(`${basePath}${paramString}`);  
 };  
