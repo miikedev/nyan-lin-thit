@@ -6,7 +6,11 @@ const IS_PRODUCTION = import.meta.env.VITE_ENV === 'production';
 
 // Create axios instance with the base URL  
 export const instance = axios.create({  
-  baseURL: API_BASE_URL  
+  baseURL: API_BASE_URL,
+  headers: {  
+    'Access-Control-Allow-Origin': '*', // This header won't often be needed here  
+    // You can add other custom headers here if needed  
+}, 
 });  
 
 // Utility function to construct the URL  
