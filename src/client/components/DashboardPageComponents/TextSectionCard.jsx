@@ -23,7 +23,7 @@ const TextSectionCard = ({height, data}) => {
   return (
     <div>
       <div
-        className={`text-black border-[1px] border-[#e6e6e6] hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
+        className={`text-black border-[1px] min-h-[300px] border-[#e6e6e6] hover:bg-[#A2CBFE] transition-all duration-300 ease-in-out hover:text-white w-full h-[${height}] bg-white  shadow-md rounded-lg  flex justify-between items-center cursor-pointer gap-x-[10px] px-[7px] py-[10px]`}
         onClick={handleCardClick}
       >
         <div className="font-poppins flex flex-col justify-between items-center gap-[10px]">

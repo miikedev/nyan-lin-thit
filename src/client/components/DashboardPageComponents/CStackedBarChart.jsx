@@ -1,14 +1,14 @@
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
 import _ from 'lodash';
-import React from 'react';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const options = {
+    indexAxis: 'y',
     scales: {
         x: {
             ticks: {
-            //   color: 'red', // Color for x-axis labels
+              color: '#2f2f2f', // Color for x-axis labels
             },
             grid: {
               color: 'rgba(255, 255, 255, .3)', // Color for x-axis line
@@ -28,6 +28,9 @@ const options = {
     //   display: true,
     //   text: 'Chart.js Bar Chart - Stacked',
     // },
+    label: {
+      width: 50
+    },
     legend: {
         position: 'top',
         labels: {
@@ -51,20 +54,38 @@ const options = {
 
 export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
-
-  const result_death = datasets.map(d => {
-
-    return { ...d, stack: 'death', label: d.label+'.death', backgroundColor: 'rgba(50, 50, 50, 0.6)'  };  
+  const newLabels = [
+    'Military Personnel Casualties',
+    'Armed Revolutionary Casualties',
+    'Military Personnel Casualties',
+  ];
+  
+  // Assuming `dataset` is your original data array
+  const updatedDataset = datasets .slice(0, 3).map((item, index) => {
+    // Clone the original item and replace the label with the new label
+    return {
+      ...item,
+      label: newLabels[index],
+    };
+  });
+  console.log('updated dataset', updatedDataset);
+  
+  const result_death = updatedDataset.map(d => {
+    return { ...d, stack: 'death', label: d.label+': '+'death', backgroundColor: 'rgba(50, 50, 50, 0.6)'};  
   })
   
-  const result_injury = _.sampleSize(datasets,datasets.length).map(d => {
-     return { ...d, stack: 'injury', label: d.label+'.injury' ,backgroundColor: 'rgba(255, 0, 0, 0.6)'};  
-
+  const result_injury = _.sampleSize(updatedDataset,updatedDataset.length).map(d => {
+     return { ...d, stack: 'injury', label: d.label+': '+'injury', backgroundColor: 'rgba(255, 20, 0, 0.7)'};  
   })
   const merge = [...result_death, ...result_injury]
-
+  console.log('merge: ',merge);
+  
   const data = {
-    labels: labels,
+    labels: [
+      ['Military', 'Personnel', 'Casualties'],
+      ['Armed', 'Revolutionary', 'Casualties'],
+      ['Military', 'Personnel', 'Casualties'],
+    ],
     datasets: merge
   };
   return <Bar options={options} data={data} width={width} height={height}/>;

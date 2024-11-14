@@ -21,6 +21,7 @@ const caseColors = {
 };
 export const options = {
   responsive: true,
+
   scales: {
     x: {
         stacked: false,
@@ -47,9 +48,12 @@ export const options = {
       },
       borderRadius: 3,
     },
+    title: {
+      display: true,
+      text: 'Aerial Attacks carried out by the Military Council (2021-2023) '
+    }
   },
   borderWidth: 2,
-  pointStyle: false,
 };
 
 
@@ -59,7 +63,9 @@ export default function CLineChart({ width, height, fontSize, isFullWidth, newDa
 
   if(newDataResult === undefined) return <Error />;
   // const refinedLabel = shortenDateRange(labels);
+  newDataResult?.forEach(n => n.pointRadius = 1.8)
 
+  
   const data = {
     labels: labels,
     datasets:newDataResult

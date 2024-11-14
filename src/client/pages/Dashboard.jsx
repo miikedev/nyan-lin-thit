@@ -90,7 +90,7 @@ const Dashboard = () => {
 	const [ipadChartHeight, setIpadChartHeight] = useState(230);
 	const [ipadChartWidthTwo, setIpadChartWidthTwo] = useState(690);
 	const [ipadChartHeightTwo, setIpadChartHeightTwo] = useState(230);
-	const [smallChartWidth, setSmallChartWidth] = useState(300);
+	const [smallChartWidth, setSmallChartWidth] = useState(450);
 	const [smallChartHeight, setSmallChartHeight] = useState(300);
 	const [smallChartWidthTwo, setSmallChartWidthTwo] = useState(330);
 	const [smallChartHeightTwo, setSmallChartHeightTwo] = useState(220);
@@ -1214,58 +1214,33 @@ const Dashboard = () => {
 									{!isFullWidth && (
 										<>
 											{/*1 container */}
-											<motion.Box
-												initial={{ opacity: 0 }}
-												animate={{ opacity: 1 }}
-												transition={{ ease: "easeOut", duration: 1 }}
-												// className="top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed"
-												className={
-													// hoverClick === 0 ? 
-													// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
-													"w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 transition-all duration-300 ease-in-out rounded cursor-pointer  flex justify-center items-end"
-												}
-												// className="w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center items-center"
-												onClick={() => {
-													handleChartClick(0)
-												}}
-											>
-												<Suspense fallback={<Loading />}>
-													<CLineChart
-														newDataResult={dataResult}
-														labels={labels}
-														dataResult={dataResult}
-														width={smallChartWidth}
-														height={smallChartHeight}
-													/>
-												</Suspense>
-											</motion.Box>
+											
 											{/* <Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box> */}
-											<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
 											{/*2 container */}
-											<motion.Box
+											{/* <motion.Box
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ ease: "easeOut", duration: 1 }}
 												className="w-1/3  h-full p-[5px]  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer transition-all duration-300 ease-in-out flex justify-center items-end"
 												onClick={() => handleChartClick(1)}
-											>
+												>
 												<CLineChartStacked
-													paramResult={resultedParamNames}
-													newDataResult={newData}
-													dataResult={dataResult}
-													width={smallChartWidth}
-													height={smallChartHeight}
+												paramResult={resultedParamNames}
+												newDataResult={newData}
+												dataResult={dataResult}
+												width={smallChartWidth}
+												height={smallChartHeight}
 												/>
-											</motion.Box>
-											<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
+												</motion.Box> */}
+											{/* <Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" /> */}
 											{/* <Box className="w-[1px] h-4/5 bg-[#4d5eb2] border-dashed border-1"></Box> */}
 											{/* 3 container */}
 											<motion.Box
 												initial={{ opacity: 0 }}
 												animate={{ opacity: 1 }}
 												transition={{ ease: "easeOut", duration: 1 }}
-												className="w-1/3 h-full p-[5px] transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-end"
-												onClick={() => handleChartClick(2)}
+												className="w-1/2 h-full p-[5px] transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center items-end"
+												onClick={() => handleChartClick(0)}
 											>
 												{isSuccess &&
 													<Suspense fallback={<Loading />}>
@@ -1277,6 +1252,32 @@ const Dashboard = () => {
 														/>
 													</Suspense>
 												}
+											</motion.Box>
+											<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
+											<motion.Box
+												initial={{ opacity: 0 }}
+												animate={{ opacity: 1 }}
+												transition={{ ease: "easeOut", duration: 1 }}
+												// className="top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed"
+												className={
+													// hoverClick === 0 ? 
+													// "top-0 left-0 z-20 w-screen h-screen p-[5px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+													"w-1/2 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 transition-all duration-300 ease-in-out rounded cursor-pointer  flex justify-center items-end"
+												}
+												// className="w-1/3 h-full p-[5px] hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer  flex justify-center items-center"
+												onClick={() => {
+													handleChartClick(1)
+												}}
+											>
+												<Suspense fallback={<Loading />}>
+													<CLineChart
+														newDataResult={dataResult}
+														labels={labels}
+														dataResult={dataResult}
+														width={smallChartWidth}
+														height={smallChartHeight}
+													/>
+												</Suspense>
 											</motion.Box>
 										</>
 									)}
@@ -1296,28 +1297,29 @@ const Dashboard = () => {
 												<Box className="w-full xl:h-[256px] 2xl:h-[470px]  flex justify-center items-center">
 													<Box>
 														{activeChart === 0 && (
+															
 															<Box
-																className="transition-all duration-300 ease-in-out fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+															// "top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
+															className="transition-all duration-300 ease-in-out fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+														>
+															<Suspense fallback={<Loading />}>
+																<CStackedBarChart
+																	datasets={dataResult}
+																	labels={labels}
+																	width={mediumChartWidth}
+																	height={mediumChartHeight}
+																/>
+															</Suspense>
+															<button
+																className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
+																onClick={handleChartClick}
 															>
-																<Suspense fallback={<Loading />}>
-																	<CLineChart
-																		newDataResult={dataResult}
-																		labels={labels}
-																		dataResult={dataResult}
-																		width={mediumChartWidth}
-																		height={mediumChartHeight}
-																	/>
-																</Suspense>
-																<button
-																	className={`transition-all duration-300 ease-in-out fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
-																	onClick={handleChartClick}
-																>
-																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
-																</button>
-															</Box>
+																<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
+															</button>
+														</Box>
 														)}
 													</Box>
-													<Box>
+													{/* <Box>
 														{activeChart === 1 && (
 															<Box
 																// "top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
@@ -1340,35 +1342,35 @@ const Dashboard = () => {
 																</button>
 															</Box>
 														)}
-													</Box>
+													</Box> */}
 													<Box>
-														{isSuccess && activeChart === 2 && (
+														{isSuccess && activeChart === 1 && (
 															<Box
-																// "top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none fixed":
-																className="transition-all duration-300 ease-in-out fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+															className="transition-all duration-300 ease-in-out fixed top-0 left-0 z-20 w-screen h-screen p-[55px] bg-white rounded cursor-pointer flex justify-center items-center scroll-none"
+														>
+															<Suspense fallback={<Loading />}>
+																<CLineChart
+																	newDataResult={dataResult}
+																	labels={labels}
+																	dataResult={dataResult}
+																	width={mediumChartWidth}
+																	height={mediumChartHeight}
+																/>
+															</Suspense>
+															<button
+																className={`transition-all duration-300 ease-in-out fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
+																onClick={handleChartClick}
 															>
-																<Suspense fallback={<Loading />}>
-																	<CStackedBarChart
-																		datasets={dataResult}
-																		labels={labels}
-																		width={mediumChartWidth}
-																		height={mediumChartHeight}
-																	/>
-																</Suspense>
-																<button
-																	className={`fixed bottom-0 right-[2px] w-[50px] h-[50px] font-bold py-2 px-4 rounded`}
-																	onClick={handleChartClick}
-																>
-																	<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
-																</button>
-															</Box>
+																<img src={Min} className="w-[25px] h-[25px] z-50 text-black" />
+															</button>
+														</Box>
 														)}
 													</Box>
 												</Box>
 												{/* Right Navigate Button */}
 												<button
 													className="fixed right-0 top-1/2 transform -translate-y-1/2 text-[30px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none z-30"
-													onClick={() => setActiveChart((activeChart + 1) % 3)}
+													onClick={() => setActiveChart((activeChart + 1) % 2)}
 												>
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
 														<path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -1439,7 +1441,7 @@ const Dashboard = () => {
 							{!isFullWidth && (
 								<>
 									{/*1 container */}
-									<Box
+									{/* <Box
 										className="w-1/3 h-full hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer transition-all duration-300 ease-in-out flex justify-center"
 										onClick={() => handleChartClick(0)}
 									>
@@ -1452,10 +1454,25 @@ const Dashboard = () => {
 												height={smallChartHeightTwo}
 											/>
 										</Suspense>
-									</Box>
-									<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
-									{/*2 container */}
+									</Box> */}
 									<Box
+										className="w-1/2 h-full z-10 transition-all duration-300 ease-in-out hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
+										onClick={() => handleChartClick(0)}
+									>
+										{isSuccess &&
+											<Suspense fallback={<Loading />}>
+												<CStackedBarChart
+													datasets={dataResult}
+													labels={labels}
+													width={450}
+													height={smallChartHeightTwo}
+												/>
+											</Suspense>
+										}
+									</Box>
+									{/* <Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" /> */}
+									{/*2 container */}
+									{/* <Box
 										className="w-1/3 h-full transition-all duration-300 ease-in-out  hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
 										onClick={() => handleChartClick(1)}
 									>
@@ -1468,10 +1485,10 @@ const Dashboard = () => {
 												height={smallChartHeightTwo}
 											/>
 										</Suspense>
-									</Box>
+									</Box> */}
 									<Divider size="sm" orientation="vertical" color="#4d5eb2" variant="dashed" />
 									{/* 3 container */}
-									<Box
+									{/* <Box
 										className="w-1/3 h-full z-10 transition-all duration-300 ease-in-out hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer flex justify-center"
 										onClick={() => handleChartClick(2)}
 									>
@@ -1485,6 +1502,20 @@ const Dashboard = () => {
 												/>
 											</Suspense>
 										}
+									</Box> */}
+									<Box
+										className="w-1/2 h-full hover:bg-[#dfdfdf] hover:bg-opacity-90 rounded cursor-pointer transition-all duration-300 ease-in-out flex justify-center"
+										onClick={() => handleChartClick(1)}
+									>
+										<Suspense fallback={<Loading />}>
+											<CLineChart
+												newDataResult={dataResult}
+												labels={labels}
+												dataResult={dataResult}
+												width={450}
+												height={smallChartHeightTwo}
+											/>
+										</Suspense>
 									</Box>
 								</>
 							)}
@@ -1495,7 +1526,7 @@ const Dashboard = () => {
 										<button
 											className=" text-[40px] text-blue-500 font-bold hover:text-[#32daff] focus:outline-none"
 											onClick={() =>
-												setActiveChart((activeChart - 1 + 3) % 3)
+												setActiveChart((activeChart - 1 + 2) % 2)
 											}
 										>
 											{/* &#8592; */}
@@ -1505,10 +1536,10 @@ const Dashboard = () => {
 										</button>
 										<Box className="w-full xl:h-[256px] 2xl:h-[380px]  flex justify-center items-center">
 											<Box
-												className={`chart-transition ${activeChart === 0 ? "active" : ""
+												className={`chart-transition ${activeChart === 1 ? "active" : ""
 													}`}
 											>
-												{activeChart === 0 && (
+												{activeChart === 1 && (
 													<Suspense fallback={<Loading />}>
 														<CLineChart
 															newDataResult={dataResult}
@@ -1520,7 +1551,7 @@ const Dashboard = () => {
 													</Suspense>
 												)}
 											</Box>
-											<Box
+											{/* <Box
 												className={`chart-transition ${activeChart === 1 ? "active" : ""
 													}`}
 											>
@@ -1535,12 +1566,12 @@ const Dashboard = () => {
 														/>
 													</Suspense>
 												)}
-											</Box>
+											</Box> */}
 											<Box
-												className={`chart-transition ${activeChart === 2 ? "active" : ""
+												className={`chart-transition ${activeChart === 0 ? "active" : ""
 													}`}
 											>
-												{isSuccess && activeChart === 2 && (
+												{isSuccess && activeChart === 0 && (
 													<Suspense fallback={<Loading />}>
 														<CStackedBarChart
 															datasets={dataResult}
