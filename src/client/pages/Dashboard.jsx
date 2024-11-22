@@ -391,9 +391,9 @@ const Dashboard = () => {
 										className="slide-nav-arrow right"
 									>
 										{/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-</svg>
- */}
+										<path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+										</svg>
+										*/}
 										<img src={R} className="w-[25px] h-[25px]" />
 									</button>
 								</Box>
@@ -753,21 +753,6 @@ const Dashboard = () => {
 									{/* Inner Left Container */}
 									<Box className="w-2/5  flex flex-col gap-[16px]   pl-[20px]">
 										<Box className="flex items-center justify-between mr-1">
-											<Menu trigger="hover" position="bottom-left" width={165} isFullWidth={true}>
-												<Menu.Target trigger="hover">
-													<Button variant="transparent">
-														<h2 className="text-black font-bold 2xl:text-[24px]">Myanmar</h2>
-														<ChevronDown fill="black" strokeWidth="2" />
-													</Button>
-												</Menu.Target>
-												<Menu.Dropdown trigger="hover">
-													{
-														states.map(state => {
-															return <Menu.Item key={state.name}>{capitalizeFirstLetter(state.name)}</Menu.Item>
-														})
-													}
-												</Menu.Dropdown>
-											</Menu>
 											<Box className=" flex justify-end gap-[12px] p-0">
 												<button>
 													<img src={L1} className={`${isDefaultLayout
@@ -1387,9 +1372,8 @@ const Dashboard = () => {
 									<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-start p-[20px]">
 										{/* Inner Left Container */}
 										<Stack className="w-[40%] h-[80%]">
-											<Box className="flex items-start justify-between mr-1">
-												<MapFilterSelect />
-												<Box className=" flex justify-end gap-[12px] p-0 mt-[10px]">
+											<Box className="mr-1">
+												<Box className=" flex justify-end gap-[12px] p-0 my-[10px]">
 													<button onClick={handleFirstLayoutClick}>
 														<FirstLayout color={isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 													</button>
@@ -1397,13 +1381,14 @@ const Dashboard = () => {
 														<SecondLayout color={!isDefaultLayout ? '#1B59F8' : '#1B59F842'} />
 													</button>
 												</Box>
+												<MapFilterSelect />
 											</Box>
 											<DisplayDate1 timeSpan={timeSpan} />
 											<DisplayLatlng lat={data?.myanmar_lat} lng={data?.myanmar_long} />
 											<Box className="2xl:hidden w-full h-[300px]  ">
-												{isSuccess && data && <TextSectionCard2 height={"200px"} />}
+												{isSuccess && data && <TextSectionCard2 height={"100px"} />}
 											</Box>
-											<Box className="max-2xl:hidden 	w-full h-[350px]">
+											<Box className="max-2xl:hidden 	w-full h-[300px]">
 												<TextSectionCard2 height={'384px'} />
 											</Box>
 										</Stack>
@@ -1656,7 +1641,7 @@ const Dashboard = () => {
 								<Box className="w-full h-full bg-[#e6e6e6] rounded flex items-start p-[26px]">
 									{/* Inner Left Container */}
 									<Stack className="w-[50%] h-[80%]">
-										<Box className="flex items-center justify-between mr-1">
+										<Box className="flex items-start justify-between mr-1 mt-1">
 											<MapFilterSelect />
 											<Box className=" flex justify-end gap-[12px] p-0">
 												<button onClick={handleFirstLayoutClick}>
