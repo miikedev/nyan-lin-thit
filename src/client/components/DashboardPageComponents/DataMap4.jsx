@@ -92,7 +92,7 @@ const SetBounds = () => {
     const cityLayerGroup = L.layerGroup();
     const townshipLayerGroup = L.layerGroup(); // Not added to map initially
     // Define state layer with onEachFeature logic
-    const districtLayer = new L.GeoJSON(myanmarGeoJSONNew, {
+    const districtLayer = new L.GeoJSON(townshipGeoJSON, {
       onEachFeature: (feature, layer) => {
         if (feature.properties && feature.properties.DT) {
         layer.addTo(districtLayerGroup);
