@@ -1,10 +1,10 @@
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
-import _ from 'lodash';
+import _, { update } from 'lodash';
 import { Bar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 const options = {
-    indexAxis: 'y',
+  indexAxis: 'x',
     scales: {
         x: {
             ticks: {
@@ -54,31 +54,19 @@ const options = {
 
 export default function CStackedBarChart({width,height,datasets,labels}) {
   if(datasets === undefined) return ;
-  const newLabels = [
-    'Military Personnel Casualties',
-    'Armed Revolutionary Casualties',
-    'Military Personnel Casualties',
-  ];
+  // const newLabels = [
+  //   'injury',
+  //   'death'
+  // ];
   
   // Assuming `dataset` is your original data array
-  const updatedDataset = datasets .slice(0, 3).map((item, index) => {
-    // Clone the original item and replace the label with the new label
-    return {
-      ...item,
-      label: newLabels[index],
-    };
-  });
-  console.log('updated dataset', updatedDataset);
+  // const updatedDataset = datasets.slice(0, 3).map((item, index) => {
+  //   // Clone the original item and replace the label with the new label
+  //   return {
+  //     ...item
+  //   };
+  // });
   
-  const result_death = updatedDataset.map(d => {
-    return { ...d, stack: 'death', label: d.label+': '+'death', backgroundColor: 'rgba(50, 50, 50, 0.6)'};  
-  })
-  
-  const result_injury = _.sampleSize(updatedDataset,updatedDataset.length).map(d => {
-     return { ...d, stack: 'injury', label: d.label+': '+'injury', backgroundColor: 'rgba(255, 20, 0, 0.7)'};  
-  })
-  const merge = [...result_death, ...result_injury]
-  console.log('merge: ',merge);
   
   const data = {
     labels: [
@@ -86,7 +74,20 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
       ['Armed', 'Revolutionary', 'Casualties'],
       ['Military', 'Personnel', 'Casualties'],
     ],
-    datasets: merge
+    datasets: [
+      {
+        label: 'injury',
+        data: [260, 590, 1120],
+        backgroundColor: '#2D9CDB' ,
+        stack: 'injure',
+      },
+      {
+        label: 'death',
+        data: [120, 180, 140] ,
+        backgroundColor: '#F9C74F',
+        stack: 'death',
+      },
+    ],
   };
   return <Bar options={options} data={data} width={width} height={height}/>;
 }

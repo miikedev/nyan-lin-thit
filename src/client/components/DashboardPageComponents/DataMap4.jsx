@@ -11,7 +11,6 @@ import { useDashboardDateContext } from "../../context/DashboardDateContext";
 import { useDashboardFilterContext } from "../../context/DashboardFilterContext";
 import Error from '../../pages/Error'
 import Loading from "../../pages/Loading";
-import myanmarGeoJSONNew from "../DashboardPageComponents/assets2/myanmar_geo.json";
 import townshipGeoJSON from "../DashboardPageComponents/assets2/township2.json";
 import icon1 from './assets2/airStrike.svg';
 import icon2 from './assets2/armed.svg';

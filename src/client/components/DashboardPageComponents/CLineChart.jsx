@@ -12,6 +12,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 const caseColors = {
   'airstrike': { backgroundColor: '#165BAA75', borderColor: 'rgb(255, 99, 132)' },
   'armed_clashes': { backgroundColor: '#FFA4B675', borderColor: 'rgb(54, 162, 235)' },
@@ -55,20 +56,45 @@ export const options = {
   },
   borderWidth: 2,
 };
+const generateRandomArray = (length, min, max) => {
+  return Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+};
+const data_sets = [
+  {
+    label: '2021',
+    data: generateRandomArray(12, 50, 5000),
+    backgroundColor: 'rgb(0,0,200)',
+    borderColor: 'rgb(100,200,100)'
+  },
+  {
+    label: '2022',
+    data: generateRandomArray(12, 50, 5000),
+    backgroundColor: 'rgb(0,0,200)',
+    borderColor: 'rgb(200,200,100)'
 
-
+  },
+  {
+    label: '2023',
+    data: generateRandomArray(12, 50, 5000),
+    backgroundColor: 'rgb(0,0,200)',
+    borderColor: 'rgb(200,100,100)'
+  },
+  {
+    label: '2024',
+    data: generateRandomArray(12, 50, 5000),
+    backgroundColor: 'rgb(0,0,200)',
+    borderColor: 'rgb(100,100,200)'
+  }
+]
 export default function CLineChart({ width, height, fontSize, isFullWidth, newDataResult, labels }) {
-  // Get labels and datasets from dataResult  
-  console.log('clineChart dataResult: ', newDataResult);
 
   if(newDataResult === undefined) return <Error />;
   // const refinedLabel = shortenDateRange(labels);
-  newDataResult?.forEach(n => n.pointRadius = 1.8)
 
-  
+
   const data = {
-    labels: labels,
-    datasets:newDataResult
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov","Dec"],
+    datasets: data_sets
   };
 
   return <Line options={options} data={data} width={width} height={height}/>
