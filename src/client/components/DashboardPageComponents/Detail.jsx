@@ -10,7 +10,7 @@ const Detail = ({name,number,layout,data}) => {
 				}
 			`}>
 				<div className="flex flex-col ">
-					<p className={`text-[${name}] text-[#A6A1C0]`}>Total</p>
+					<p className={`text-[${name}] text-[#A6A1C0]`}>Total incident</p>
 					<p className={`text-[${number}] text-black font-bold`}>{data?.total}</p>
 				</div>
 				<div className="flex flex-col ">
@@ -18,20 +18,21 @@ const Detail = ({name,number,layout,data}) => {
 					<p className={`text-[${number}] text-red-500 font-bold`}>{data?.caseday}</p>
 				</div>
 				<div className="flex flex-col ">
-					<p className={`text-[${name}] text-[#A6A1C0]`}>Death</p>
+					<p className={`text-[${name}] text-[#A6A1C0]`}>Airstrike/day</p>
 					<p className={`text-[${number}] text-black font-bold`}>{data?.death}</p>
 				</div>
-				<div className="flex flex-col ">
+				{/* <div className="flex flex-col ">
 					<p className={`text-[${name}] text-[#A6A1C0]`}>30DAY%change</p>
 					<p className={`text-[${number}] text-green-500 font-bold`}>{data?.monthlypercent}</p>
-				</div>
+				</div> */}
 				<div className="flex flex-col ">
-					<p className={`text-[${name}] text-[#A6A1C0]`}>24hr</p>
+					<p className={`text-[${name}] text-[#A6A1C0]`}>Civilian death/day</p>
 					<p className={`text-[${number}] text-black font-bold`}>{data?.daily}</p>
 				</div>
 				<div className="flex flex-col ">
-					<p className={`text-[${name}] text-[#A6A1C0]`}>Arresting Rate</p>
-					<p className={`text-[${number}] text-green-500 font-bold`}>{data?.arrestingrate}</p>
+					<p className={`text-[${name}] text-[#A6A1C0]`}>Arrest/day</p>
+					<p className={`text-[${number}] text-green-500 font-bold`}>100</p>
+					{/* {data?.arrestingrate} */}
 				</div>
 			</div>
 		</>

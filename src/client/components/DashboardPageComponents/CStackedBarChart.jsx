@@ -70,21 +70,21 @@ export default function CStackedBarChart({width,height,datasets,labels}) {
   
   const data = {
     labels: [
-      ['Military', 'Personnel', 'Casualties'],
-      ['Armed', 'Revolutionary', 'Casualties'],
-      ['Military', 'Personnel', 'Casualties'],
+      ['Military', 'Personnel'],
+      ['Armed', 'Revolutionary'],
+      ['Civilian'],
     ],
     datasets: [
       {
         label: 'injury',
         data: [260, 590, 1120],
-        backgroundColor: '#2D9CDB' ,
+        backgroundColor: '#c7c4c4' ,
         stack: 'injure',
       },
       {
         label: 'death',
         data: [120, 180, 140] ,
-        backgroundColor: '#F9C74F',
+        backgroundColor: '#c00404',
         stack: 'death',
       },
     ],

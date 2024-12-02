@@ -47,14 +47,14 @@ export const options = {
         boxWidth: 3, // Adjust the width as needed
         boxHeight: 3, // Adjust the height as needed
       },
-      borderRadius: 3,
+      borderRadius: 0,
     },
     title: {
       display: true,
       text: 'Aerial Attacks carried out by the Military Council (2021-2023) '
     }
   },
-  borderWidth: 2,
+  borderWidth: 1.5,
 };
 const generateRandomArray = (length, min, max) => {
   return Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
