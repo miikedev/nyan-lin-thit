@@ -1,89 +1,72 @@
 import { Select, SelectItem } from "@nextui-org/react";
-import { useState } from "react";
-import { useSearchParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
-import { states } from '../../../utils/sampleData'
 import { capitalizeFirstLetter } from '../../../utils/utils';
-import { useDashboardGeoJsonFilterContext } from "../../context/DashboardGeoJsonContext";
-import myanmarGeoJson from '../DashboardPageComponents/assets2/myanmar_geo.json'
+// Import the JSON data
+import stateAndTownshipData from '../DashboardPageComponents/assets2/st_and_ts.json';
 
 const MapFilterSelect = () => {
-    const {setFilteredGeoJson} = useDashboardGeoJsonFilterContext();
-    const [searchParams, setSearchparams] = useSearchParams()
-    const [value, setValue] = useState(new Set([]));
-    console.log('select value', value)
-    function handleOnChange(event) {
-      console.log(event.target.value)
-      const filteredData = myanmarGeoJson.features.filter(i => i.properties.ST === event.target.value)
-      // const mergedCoordinates = filteredData.map(item => {
-      //   const result = []
-      //   // Flatten the coordinates array and return the merged lat/lng array
-      //   let flat = item.geometry.coordinates.flat(3); // Flatten nested arrays into a single array
-      //   flat.forEach(i => result.append(i[0]))
-      //   return result
-      // });
-      const mergedCoordinates = filteredData.map(item => {
-        const result = [];
-        // Flatten the coordinates array and return the merged lat/lng array
-        let flat = item.geometry.coordinates.flat(3); // Flatten nested arrays into a single array
-        // Push both lat and lng as a pair
-        console.log('flat',flat)
-        flat.forEach(i => result.push(i.toFixed(4)))
-        console.log(result.sort());
-        return [Number(result[0]),Number(result[result.length - 1])]
-      });
-      console.log('merged coordinates', mergedCoordinates)
-    }
-    return (
-        <div className="">
-        <Select 
-            radius="sm"
-            size="lg"
-            placeholder="Myanmar"
-            defaultSelectedKeys={[""]}
-            withScrollArea={true}
-            selectedKeys={value}
-            bg="white"
-            onSelectionChange={setValue}
-            onChange={(event)=>{
-              handleOnChange(event)
-            }}
-            className="w-[200px] font-poppins_bold font-[700] rounded-sm"
-            classnames={{
-              wrapper: 'font-bold rounded-md bg-white',
-              input: 'rounded-sm',
-              placeholder: 'font-poppins_bold'
-            }}
-            listboxProps={{
-                itemClasses: {
-                  base: [
-                    "rounded-md",
-                    "text-black",
-                    "transition-opacity",
-                    "data-[hover=true]:text-foreground",
-                    "data-[hover=true]:bg-white",
-                    "dark:data-[hover=true]:bg-white",
-                    "data-[selectable=true]:focus:bg-[#A2CBFE]",
-                    "data-[pressed=true]:opacity-40",
-                    "data-[focus-visible=true]:ring-default-500",
-                  ],
-                },
-              }}
-            popoverProps={{
-                classNames: {
-                  base: "before:bg-white rounded-md",
-                  content: "p-0 border-small border-divider rounded-none",
-                },
-              }}
-          >
-            {states.map((state) => (
-              <SelectItem key={state.name} className="font-poppins">
-                {capitalizeFirstLetter(state.name)}
-              </SelectItem>
-            ))}
-          </Select>
-        </div>
-    )
-}
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedTownship, setSelectedTownship] = useState("");
+  const [townshipOptions, setTownshipOptions] = useState([]);
 
-export default MapFilterSelect
+  useEffect(() => {
+    if (selectedState) {
+      const state = stateAndTownshipData.find(s => s.state === selectedState.currentKey);
+      setTownshipOptions(state ? state.townships : []);
+      setSelectedTownship("");
+    } else {
+      setTownshipOptions([]);
+      setSelectedTownship("");
+    }
+  }, [selectedState]);
+
+  const handleStateChange = (value) => {
+    setSelectedState(value);
+  };
+
+  const handleTownshipChange = (value) => {
+    console.log('handleTownshipChange', value);
+    setSelectedTownship(value);
+    // Here you can add logic to filter your GeoJSON data based on the selected township
+    // For example:
+    // const filteredData = myanmarGeoJson.features.filter(i => i.properties.TS === value);
+    // setFilteredGeoJson(filteredData);
+  };
+  console.log('selectedState', selectedState.currentKey);
+  console.log('townshipOption', townshipOptions);
+  return (
+    <div className="flex space-x-4">
+      <Select 
+        label="Select State"
+        placeholder="Select a state"
+        value={selectedState}
+        onSelectionChange={handleStateChange}
+        className="w-[200px]"
+      >
+        {stateAndTownshipData.map((state) => (
+          <SelectItem key={state.state} value={state.state}>
+            {capitalizeFirstLetter(state.state)}
+          </SelectItem>
+        ))}
+      </Select>
+
+      <Select 
+        label="Select Township"
+        placeholder="Select a township"
+        value={selectedTownship}
+        onSelectionChange={handleTownshipChange}
+        className="w-[200px]"
+        isDisabled={!selectedState}
+      >
+        {townshipOptions.map((township) => (
+          <SelectItem key={township} value={township}>
+            {capitalizeFirstLetter(township)}
+          </SelectItem>
+        ))}
+      </Select>
+    </div>
+  );
+};
+
+export default MapFilterSelect;

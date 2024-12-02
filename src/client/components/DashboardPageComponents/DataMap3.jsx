@@ -90,9 +90,9 @@ const SetBounds = () => {
     // Create layer groups for states and townships
     const districtLayerGroup = L.layerGroup().addTo(map); // Initially added to map
     const cityLayerGroup = L.layerGroup();
-    const townshipLayerGroup = L.layerGroup(); // Not added to map initially
+    const townshipLayerGroup = L.layerGroup().addTo(map); // Not added to map initially
     // Define state layer with onEachFeature logic
-    const districtLayer = new L.GeoJSON(myanmarGeoJSONNew, {
+    const districtLayer = new L.GeoJSON(townshipGeoJSON, {
       onEachFeature: (feature, layer) => {
         if (feature.properties && feature.properties.DT) {
         layer.addTo(districtLayerGroup);
